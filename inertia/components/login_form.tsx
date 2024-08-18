@@ -1,53 +1,14 @@
-import { NotificationPlacement } from 'antd/es/notification/interface'
 import { useState } from 'react'
 import { Button, Checkbox, Form, Input } from 'antd'
-import { ValidateErrorEntity } from 'rc-field-form/lib/interface'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import type { LoginFieldType } from '../../@types/form'
+import { router } from '@inertiajs/react'
 
-const onLogin = async (
-  values: LoginFieldType,
-  openNotification: (message: string, placement: NotificationPlacement, details: string) => void
-) => {
+const onLogin = async (values: LoginFieldType) => {
   if (values.email && values.password) {
-    try {
-      const url = `/auth/login`
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: JSON.stringify(values),
-      })
-
-      let data = {
-        error: '',
-      }
-      try {
-        data = await response.json()
-      } catch (err) {}
-
-      if (data.error) {
-        openNotification('Error', 'bottom', data.error)
-      } else {
-        localStorage.setItem('jwtToken', JSON.stringify(data))
-      }
-    } catch (error) {
-      console.error(error)
-    }
+    const url = `/auth/login`
+    router.post(url, values)
   }
-}
-
-const onLoginFailed = (
-  errorInfo: ValidateErrorEntity<LoginFieldType>,
-  openNotification: (message: string, placement: NotificationPlacement, details: string) => void
-) => {
-  openNotification('Error', 'bottom', 'Please fill all input.')
 }
 
 /**
@@ -55,9 +16,7 @@ const onLoginFailed = (
  * @param openNotification
  * @returns
  */
-export function Login(
-  openNotification: (message: string, placement: NotificationPlacement, details: string) => void
-) {
+export default function Login() {
   const [isLoading, setLoading] = useState(false)
 
   return (
@@ -68,11 +27,10 @@ export function Login(
       style={{ maxWidth: 600 }}
       initialValues={{ remember: true }}
       onFinish={async (values) => {
-        await onLogin(values, openNotification)
+        await onLogin(values)
         setLoading(false)
       }}
-      onFinishFailed={(errorInfo) => {
-        onLoginFailed(errorInfo, openNotification)
+      onFinishFailed={() => {
         setLoading(false)
       }}
       onSubmitCapture={() => {
@@ -104,7 +62,7 @@ export function Login(
         //   valuePropName="checked"
         wrapperCol={{ offset: 8, span: 16 }}
       >
-        <Checkbox checked={false}>Remember me</Checkbox>
+        <Checkbox>Remember me</Checkbox>
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

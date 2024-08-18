@@ -1,14 +1,15 @@
-import { HttpContext } from '@adonisjs/core/http'
 import {
-  DesktopOutlined,
+  ToolOutlined,
   SettingOutlined,
   DashboardOutlined,
-  TeamOutlined,
   UserOutlined,
   LogoutOutlined,
+  FieldTimeOutlined,
+  CalendarOutlined,
 } from '@ant-design/icons'
+import { router } from '@inertiajs/react'
 import type { MenuProps } from 'antd'
-import { Avatar, Breadcrumb, Dropdown, Layout, Menu, Space, theme } from 'antd'
+import { Avatar, Dropdown, Layout, Menu, Space, theme, Typography } from 'antd'
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -37,17 +38,19 @@ function getItem(
 
 const asideNavItems: MenuItem[] = [
   getItem('Dashboard', '/dashboard', <DashboardOutlined />),
-  getItem('Clients', '/clients', <DesktopOutlined />),
-  getItem('Users', '/users', <TeamOutlined />),
-  getItem('Settings', 'settings', <SettingOutlined />, [
-    getItem('Admin', '/settings/admin', <UserOutlined />),
-  ]),
+  getItem('Trackdays', '/trackdays', <CalendarOutlined />),
+  getItem('Maintenances ', '/maintenances', <ToolOutlined />),
+  getItem('Chronos', '/chronos', <FieldTimeOutlined />),
 ]
 
 const userDropdownItems: MenuItem[] = [
   getItem('Account settings', '/settings/account', <SettingOutlined />),
   getItem('App settings', '/settings/app', <SettingOutlined />),
-  getItem('Logout', '/logout', <LogoutOutlined />),
+  getItem(
+    <Typography.Link onClick={() => router.post('/auth/logout')}>Logout</Typography.Link>,
+    '/logout',
+    <LogoutOutlined />
+  ),
 ]
 
 export default function Nav(props: any) {
@@ -63,7 +66,7 @@ export default function Nav(props: any) {
           mode="inline"
           items={asideNavItems}
           onSelect={(d) => {
-            console.log(d)
+            router.visit(d.key)
           }}
         />
       </Sider>
@@ -92,32 +95,9 @@ export default function Nav(props: any) {
           </Dropdown>
         </Header>
         <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb
-            style={{ margin: '16px 0' }}
-            items={[
-              {
-                path: '',
-                title: 'Home',
-                onClick: () => console.log('dashboard'),
-              },
-              {
-                path: '',
-                title: 'User',
-                children: [
-                  {
-                    path: '',
-                    title: 'User1',
-                  },
-                  {
-                    path: '',
-                    title: 'User2',
-                  },
-                ],
-              },
-            ]}
-          ></Breadcrumb>
           <div
             style={{
+              margin: '16px 0',
               padding: 24,
               minHeight: 360,
               maxHeight: '100%',

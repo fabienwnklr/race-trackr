@@ -4,45 +4,15 @@ import { Button, Select, Form, Input } from 'antd'
 import { ValidateErrorEntity } from 'rc-field-form/lib/interface'
 import { UserOutlined, LockOutlined, DownOutlined } from '@ant-design/icons'
 import { RegisterFieldType } from '../../@types/form'
+import { router } from '@inertiajs/react'
 
 const { Option } = Select
 
-const onResgister = async (
-  values: RegisterFieldType,
-  openNotification: (message: string, placement: NotificationPlacement, details: string) => void
-) => {
+const onRegister = async (values: RegisterFieldType) => {
   if (values.fullName && values.email && values.password && values.country) {
-    try {
-      const url = `/auth/register`
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: JSON.stringify(values),
-      })
-
-      const data = await response.json()
-
-      if (data.error) {
-        openNotification('Error', 'bottom', data.error.message)
-      }
-    } catch (error) {
-      console.error(error)
-    }
+    const url = `/auth/register`
+    router.post(url, values)
   }
-}
-
-const onResgisterFailed = (
-  errorInfo: ValidateErrorEntity<RegisterFieldType>,
-  openNotification: (message: string, placement: NotificationPlacement, details: string) => void
-) => {
-  openNotification('Error', 'bottom', 'Please fill all input.')
 }
 
 /**
@@ -50,9 +20,7 @@ const onResgisterFailed = (
  * @param openNotification
  * @returns
  */
-export function Register(
-  openNotification: (message: string, placement: NotificationPlacement, details: string) => void
-) {
+export default function Register() {
   const [isLoading, setLoading] = useState(false)
 
   return (
@@ -63,11 +31,10 @@ export function Register(
       style={{ maxWidth: 600 }}
       initialValues={{ remember: true }}
       onFinish={async (values) => {
-        await onResgister(values, openNotification)
+        await onRegister(values)
         setLoading(false)
       }}
-      onFinishFailed={(errorInfo) => {
-        onResgisterFailed(errorInfo, openNotification)
+      onFinishFailed={() => {
         setLoading(false)
       }}
       onSubmitCapture={() => {

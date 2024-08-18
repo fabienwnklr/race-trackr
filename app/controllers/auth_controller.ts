@@ -4,8 +4,10 @@ import User from '#models/user'
 import { errors } from '@vinejs/vine'
 
 export default class AuthController {
-  async index({ inertia }: HttpContext) {
-    return inertia.render('home')
+  async index({ inertia, session }: HttpContext) {
+    return inertia.render('home', {
+      error: session.flashMessages.get('error'),
+    })
   }
 
   async register({ request, response, auth }: HttpContext) {
@@ -39,15 +41,17 @@ export default class AuthController {
 
       await auth.use('web').login(user)
 
-      session.flash('success', `Welcome back ${user.fullName}`)
-      return response.redirect().toPath('/dashboard')
+      session.flash('success', `Welcome ${user.fullName}`)
+
+      return response.redirect('/dashboard')
     } catch (error) {
-      return response.status(500).json({ error: 'Invalid credentials' })
+      session.flash('error', `Invalid credentials`)
+      return response.redirect('/')
     }
   }
 
   async logout({ response, auth }: HttpContext) {
     await auth.use('web').logout()
-    return response.redirect('/login')
+    return response.redirect('/')
   }
 }

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Col, notification, Row, Tabs } from 'antd'
 import { NotificationPlacement } from 'antd/es/notification/interface'
-import { Login } from '#components/login_form'
-import { Register } from '#components/register_form'
+import Login from '#components/login_form'
+import Register from '#components/register_form'
 
 const Context = React.createContext(null)
 
@@ -16,6 +16,10 @@ export default function Home(props: any) {
       placement,
       duration: 5,
     })
+  }
+
+  if (props.error) {
+    openNotification('error', 'bottom', props.error)
   }
 
   return (
@@ -34,12 +38,12 @@ export default function Home(props: any) {
               {
                 label: `Login`,
                 key: '1',
-                children: Login(openNotification),
+                children: Login(),
               },
               {
                 label: `Register`,
                 key: '2',
-                children: Register(openNotification),
+                children: Register(),
               },
             ]}
           />
