@@ -5,6 +5,9 @@ export default class Maintenance extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
+  @column.dateTime({ autoCreate: false })
+  declare date: DateTime
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

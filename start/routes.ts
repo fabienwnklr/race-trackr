@@ -12,6 +12,7 @@ import { middleware } from './kernel.js'
 const AuthController = () => import('#controllers/auth_controller')
 const DashboardController = () => import('#controllers/dashboard_controller')
 const TrackDaysController = () => import('#controllers/trackdays_controller')
+// const TrackController = () => import('#controllers/track_controller')
 const MaintenancesController = () => import('#controllers/maintenances_controller')
 const ChronosController = () => import('#controllers/chronos_controller')
 
@@ -23,8 +24,16 @@ router.group(() => {
 router
   .group(() => {
     router.get('/dashboard', [DashboardController, 'index']).as('dashboard')
+    // Trackdays
     router.get('/trackdays', [TrackDaysController, 'index']).as('trackdays')
+    router.get('/trackdays/:slug', [TrackDaysController, 'showTrackdaysForTrack']).as('track')
+    router.get('/trackdays/:slug/:id', [TrackDaysController, 'showTrackday']).as('trackday')
+    // Vehicle maintenance
     router.get('/maintenances', [MaintenancesController, 'index']).as('maintenances')
+    router
+      .get('/maintenances/:slug', [MaintenancesController, 'showMaintenanceForVehicle'])
+      .as('maintenance')
+    // Chronos
     router.get('/chronos', [ChronosController, 'index']).as('chronos')
   })
   .use(middleware.auth())

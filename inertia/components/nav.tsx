@@ -44,7 +44,7 @@ const asideNavItems: MenuItem[] = [
 ]
 
 const userDropdownItems: MenuItem[] = [
-  getItem('Account settings', '/settings/account', <SettingOutlined />),
+  getItem('Account settings', '/settings/account', <UserOutlined />),
   getItem('App settings', '/settings/app', <SettingOutlined />),
   getItem(
     <Typography.Link onClick={() => router.post('/auth/logout')}>Logout</Typography.Link>,
@@ -53,7 +53,13 @@ const userDropdownItems: MenuItem[] = [
   ),
 ]
 
-export default function Nav(props: any) {
+export default function Nav({
+  route,
+  children,
+}: {
+  route: string
+  children: React.ReactNode | React.ReactNode[]
+}) {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
@@ -62,7 +68,7 @@ export default function Nav(props: any) {
       <Sider theme="light" style={siderStyle}>
         <div className="demo-logo-vertical" />
         <Menu
-          selectedKeys={[props]}
+          selectedKeys={[route]}
           mode="inline"
           items={asideNavItems}
           onSelect={(d) => {
@@ -76,12 +82,13 @@ export default function Nav(props: any) {
             padding: 0,
             background: colorBgContainer,
             display: 'flex',
-            justifyContent: 'end',
+            justifyContent: 'space-between',
             alignItems: 'center',
             paddingLeft: '20px',
             paddingRight: '20px',
           }}
         >
+          <Typography.Title level={3}>Trackday Data Management</Typography.Title>
           <Dropdown menu={{ items: userDropdownItems }} trigger={['click']}>
             <Avatar
               style={{
@@ -106,7 +113,7 @@ export default function Nav(props: any) {
               borderRadius: borderRadiusLG,
             }}
           >
-            {props.children}
+            {children}
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>

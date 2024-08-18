@@ -14,7 +14,6 @@ const inertiaConfig = defineConfig({
     appName: '',
     errors: (ctx) => ctx.session?.flashMessages.get('errors'),
     user: (ctx) => ctx.auth?.user,
-    pathname: (ctx) => ctx.route,
   },
 
   /**

@@ -8,6 +8,9 @@ export default class Trackday extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
+  @column()
+  declare slug: string // slug = name of track
+
   @column.dateTime({ autoCreate: false })
   declare date: DateTime
 
