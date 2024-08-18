@@ -19,7 +19,7 @@ export default function Maintenance(props: any) {
       >
         <Typography.Link
           onClick={() => {
-            router.get('/maintenances')
+            router.visit('/maintenances')
           }}
         >
           <LeftOutlined style={{ marginRight: 5 }} />

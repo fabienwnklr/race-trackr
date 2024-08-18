@@ -6,58 +6,12 @@ import LogoNogaro from '../../images/logo_nogaro.png'
 
 import type { Trackday } from '../../../@types/trackday'
 import { router } from '@inertiajs/react'
+import NoDataFound from '#components/no_data_found'
 
 const { Meta } = Card
 const { Title } = Typography
 
-export default function Trackdays(props: { trackdays: Trackday[] }) {
-  const trackdays = [
-    {
-      track: 'test',
-    },
-    {
-      track: 'test',
-    },
-    {
-      track: 'test',
-    },
-    {
-      track: 'test',
-    },
-    {
-      track: 'test',
-    },
-    {
-      track: 'test',
-    },
-    {
-      track: 'test',
-    },
-    {
-      track: 'test',
-    },
-    {
-      track: 'test',
-    },
-    {
-      track: 'test',
-    },
-    {
-      track: 'test',
-    },
-    {
-      track: 'test',
-    },
-    {
-      track: 'test',
-    },
-    {
-      track: 'test',
-    },
-    {
-      track: 'test',
-    },
-  ]
+export default function Trackdays({ trackdays = [] }: { trackdays: Trackday[] }) {
   return (
     <>
       <Nav route="/trackdays">
@@ -69,32 +23,41 @@ export default function Trackdays(props: { trackdays: Trackday[] }) {
           }}
         >
           Trackdays
-          <Button type="primary">
+          <Button
+            type="primary"
+            onClick={() => {
+              router.visit('/trackdays/create')
+            }}
+          >
             Create new trackday <PlusOutlined />
           </Button>
         </Title>
 
-        <Row gutter={30}>
-          {trackdays.map((td, i) => (
-            <Col
-              span={6}
-              style={{
-                marginBottom: 20,
-              }}
-            >
-              <Card
-                onClick={() => {
-                  router.get('/trackdays/nogaro')
+        {trackdays.length ? (
+          <Row gutter={30}>
+            {trackdays.map((td, i) => (
+              <Col
+                span={6}
+                style={{
+                  marginBottom: 20,
                 }}
-                hoverable
-                style={{ width: 240, padding: 10 }}
-                cover={<img alt="nogaro" src={LogoNogaro} />}
               >
-                <Meta title="Nogaro" />
-              </Card>
-            </Col>
-          ))}
-        </Row>
+                <Card
+                  onClick={() => {
+                    router.get('/trackdays/nogaro')
+                  }}
+                  hoverable
+                  style={{ width: 240, padding: 10 }}
+                  cover={<img alt="nogaro" src={LogoNogaro} />}
+                >
+                  <Meta title="Nogaro" />
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        ) : (
+          <NoDataFound />
+        )}
       </Nav>
     </>
   )

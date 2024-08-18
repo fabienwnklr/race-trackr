@@ -9,9 +9,10 @@ import {
 } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import type { MenuProps } from 'antd'
-import { Avatar, Dropdown, Layout, Menu, Space, theme, Typography } from 'antd'
+import { Avatar, Dropdown, Grid, Layout, Menu, Space, theme, Typography } from 'antd'
 
 const { Header, Content, Footer, Sider } = Layout
+const { useBreakpoint } = Grid
 
 const siderStyle: React.CSSProperties = {
   overflow: 'auto',
@@ -63,6 +64,8 @@ export default function Nav({
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
+  const screens = useBreakpoint()
+  console.log(screens)
   return (
     <Layout style={{ height: '100vh' }}>
       <Sider theme="light" style={siderStyle}>
@@ -111,6 +114,8 @@ export default function Nav({
               overflow: 'auto',
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
+              display: 'flex',
+              flexDirection: 'column',
             }}
           >
             {children}

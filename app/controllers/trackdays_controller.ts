@@ -9,6 +9,14 @@ export default class TrackDaysController {
   /**
    * Show trackday filtering on track
    */
+  async showCreateForm({ inertia, params }: HttpContext) {
+    console.log(params)
+    // Trackday.findBy('slug', params.slug)
+    return inertia.render('trackdays/create')
+  }
+  /**
+   * Show trackday filtering on track
+   */
   async showTrackdaysForTrack({ inertia, params }: HttpContext) {
     console.log(params)
     // Trackday.findBy('slug', params.slug)

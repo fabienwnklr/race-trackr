@@ -26,6 +26,7 @@ router
     router.get('/dashboard', [DashboardController, 'index']).as('dashboard')
     // Trackdays
     router.get('/trackdays', [TrackDaysController, 'index']).as('trackdays')
+    router.get('/trackdays/create', [TrackDaysController, 'showCreateForm']).as('create-trackday')
     router.get('/trackdays/:slug', [TrackDaysController, 'showTrackdaysForTrack']).as('track')
     router.get('/trackdays/:slug/:id', [TrackDaysController, 'showTrackday']).as('trackday')
     // Vehicle maintenance
