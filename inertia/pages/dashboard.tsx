@@ -13,7 +13,7 @@ import {
   ArcElement,
 } from 'chart.js'
 import { Line, Bar, Doughnut } from 'react-chartjs-2'
-import { red, orange } from '@ant-design/colors'
+import { green, orange, red } from '@ant-design/colors'
 import { WarningOutlined } from '@ant-design/icons'
 
 const { Meta } = Card
@@ -36,16 +36,25 @@ export default function Dashboard(props: any) {
       <Nav route="/dashboard" {...props}>
         <h1>Dashboard</h1>
         <Row gutter={20} style={{ marginTop: 20, marginBottom: 20 }}>
+          <Col span={12} sm={8} md={8}>
+            <Card
+              style={{
+                backgroundColor: green.at(1),
+              }}
+            >
+              <Avatar src="https://api.dicebear.com/9.x/adventurer/svg?seed=Midnight" />
+              {'Next trackday on 14 days'}
+              <Avatar src="https://api.dicebear.com/9.x/adventurer/svg?seed=Midnight" />
+            </Card>
+          </Col>
           <Col span={8}>
             <Card
               style={{
-                backgroundColor: red.at(1),
+                backgroundColor: orange.at(1),
               }}
             >
-              <Meta
-                avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />}
-                description={'Next trackday on 14 days'}
-              />
+              <WarningOutlined style={{ marginRight: 10, fontSize: 20 }} />
+              {'Last maintenance 14 days'}
             </Card>
           </Col>
           <Col span={8}>
@@ -131,7 +140,7 @@ function TrackdaysChart() {
       },
       title: {
         display: true,
-        text: 'Chart.js Bar Chart',
+        text: 'Trackdays count',
       },
     },
   }
@@ -142,12 +151,17 @@ function TrackdaysChart() {
     labels,
     datasets: [
       {
-        label: 'Dataset 1',
+        label: '2022',
+        data: [0, 10, 12, 4, 42, 30],
+        backgroundColor: 'rgba(142, 55, 42, 0.5)',
+      },
+      {
+        label: '2023',
         data: [0, 5, 40, 12, 75, 66],
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
-        label: 'Dataset 2',
+        label: '2024',
         data: [0, 15, 60, 80, 155, 1],
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
@@ -158,7 +172,7 @@ function TrackdaysChart() {
 
 function TrackChart() {
   const data = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    labels: ['Nogaro', 'Aragon', 'Pau Arnos', 'Le Mans', 'Navarra', 'Barcelone'],
     datasets: [
       {
         label: '# of Votes',
@@ -184,5 +198,18 @@ function TrackChart() {
     ],
   }
 
-  return <Doughnut data={data} />
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+      title: {
+        display: true,
+        text: 'Tracks',
+      },
+    },
+  }
+
+  return <Doughnut options={options} data={data} />
 }

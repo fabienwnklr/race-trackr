@@ -40,6 +40,9 @@ function getItem(
   } as MenuItem
 }
 
+/**
+ * Nav is main component, including container layout
+ */
 export default function Nav(props: {
   route: string
   children: React.ReactNode | React.ReactNode[]
