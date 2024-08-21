@@ -11,9 +11,9 @@ const inertiaConfig = defineConfig({
    * Data that should be shared with all rendered pages
    */
   sharedData: {
-    appName: '',
-    errors: (ctx) => ctx.session?.flashMessages.get('errors'),
-    user: (ctx) => ctx.auth?.user,
+    appName: 'Trackday Data Management',
+    errors: (ctx) => ctx.session.flashMessages.get('errors'),
+    user: (ctx) => ctx.auth.user,
   },
 
   /**

@@ -39,7 +39,6 @@ export default function Login() {
       onError={() => {
         setLoading(false)
       }}
-      autoComplete="off"
     >
       <Form.Item<LoginFieldType>
         label="Email"
@@ -59,7 +58,7 @@ export default function Login() {
 
       <Form.Item<LoginFieldType>
         name="remember"
-        //   valuePropName="checked"
+        valuePropName="checked"
         wrapperCol={{ offset: 8, span: 16 }}
       >
         <Checkbox>Remember me</Checkbox>

@@ -9,6 +9,9 @@
 
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+
+const VehiclesController = () => import('#controllers/vehicles_controller')
+const TrackController = () => import('#controllers/track_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const DashboardController = () => import('#controllers/dashboard_controller')
 const TrackDaysController = () => import('#controllers/trackdays_controller')
@@ -23,19 +26,23 @@ router.group(() => {
 // Logged access view
 router
   .group(() => {
-    router.get('/dashboard', [DashboardController, 'index']).as('dashboard')
+    router.get('/dashboard', [DashboardController, 'index'])
     // Trackdays
-    router.get('/trackdays', [TrackDaysController, 'index']).as('trackdays')
-    router.get('/trackdays/create', [TrackDaysController, 'showCreateForm']).as('create-trackday')
-    router.get('/trackdays/:slug', [TrackDaysController, 'showTrackdaysForTrack']).as('track')
-    router.get('/trackdays/:slug/:id', [TrackDaysController, 'showTrackday']).as('trackday')
+    router.get('/trackdays', [TrackDaysController, 'index'])
+    router.get('/trackdays/create', [TrackDaysController, 'showCreateForm'])
+    router.get('/trackdays/:slug', [TrackDaysController, 'showTrackdaysForTrack'])
+    router.get('/trackdays/:slug/:id', [TrackDaysController, 'showTrackday'])
     // Vehicle maintenance
-    router.get('/maintenances', [MaintenancesController, 'index']).as('maintenances')
-    router
-      .get('/maintenances/:slug', [MaintenancesController, 'showMaintenanceForVehicle'])
-      .as('maintenance')
+    router.get('/maintenances', [MaintenancesController, 'index'])
+    router.get('/maintenances/:slug', [MaintenancesController, 'showMaintenanceForVehicle'])
     // Chronos
-    router.get('/chronos', [ChronosController, 'index']).as('chronos')
+    router.get('/chronos', [ChronosController, 'index'])
+
+    // Admin pages
+    router.group(() => {
+      router.get('/admin/tracks', [TrackController, 'indexAdmin'])
+      router.get('/admin/vehicles', [VehiclesController, 'indexAdmin'])
+    })
   })
   .use(middleware.auth())
 // Auth group

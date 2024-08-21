@@ -6,6 +6,8 @@ import {
   LogoutOutlined,
   FieldTimeOutlined,
   CalendarOutlined,
+  PropertySafetyOutlined,
+  CarOutlined,
 } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import type { MenuProps } from 'antd'
@@ -44,6 +46,13 @@ const asideNavItems: MenuItem[] = [
   getItem('Chronos', '/chronos', <FieldTimeOutlined />),
 ]
 
+const adminNavItems: MenuItem[] = Array.prototype.concat(asideNavItems, [
+  getItem('Admin', '', <PropertySafetyOutlined />, [
+    getItem('Tracks', '/admin/tracks', ''),
+    getItem('Vehicles', '/admin/vehicles', <CarOutlined />),
+  ]),
+])
+
 const userDropdownItems: MenuItem[] = [
   getItem('Account settings', '/settings/account', <UserOutlined />),
   getItem('App settings', '/settings/app', <SettingOutlined />),
@@ -54,18 +63,18 @@ const userDropdownItems: MenuItem[] = [
   ),
 ]
 
-export default function Nav({
-  route,
-  children,
-}: {
+export default function Nav(props: {
   route: string
   children: React.ReactNode | React.ReactNode[]
+  user: any
 }) {
+  const { route, children, user } = props
+  const isAdmin = user.role === 'admin'
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
   const screens = useBreakpoint()
-  console.log(screens)
+  console.log(route)
   return (
     <Layout style={{ height: '100vh' }}>
       <Sider theme="light" style={siderStyle}>
@@ -73,7 +82,7 @@ export default function Nav({
         <Menu
           selectedKeys={[route]}
           mode="inline"
-          items={asideNavItems}
+          items={isAdmin ? adminNavItems : asideNavItems}
           onSelect={(d) => {
             router.visit(d.key)
           }}

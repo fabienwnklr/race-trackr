@@ -32,7 +32,7 @@ ChartJS.register(
 export default function Dashboard(props: any) {
   return (
     <>
-      <Nav route="/dashboard">
+      <Nav route="/dashboard" {...props}>
         <h1>Dashboard</h1>
         <Row gutter={20} style={{ marginTop: 20, marginBottom: 20 }}>
           <Col span={8}>

@@ -45,8 +45,11 @@ export default class AuthController {
 
       return response.redirect('/dashboard')
     } catch (error) {
+      // if (error instanceof E_INVALID_CREDENTIALS) {
+
+      // }
       session.flash('error', `Invalid credentials`)
-      return response.redirect('/')
+      return response.header('x-inertia', 'true').status(403)
     }
   }
 

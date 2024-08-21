@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Col, notification, Row, Tabs } from 'antd'
 import { NotificationPlacement } from 'antd/es/notification/interface'
 import Login from '#components/login_form'
@@ -9,18 +9,24 @@ const Context = React.createContext(null)
 export default function Home(props: any) {
   const [api, contextHolder] = notification.useNotification()
 
-  const openNotification = (message: string, placement: NotificationPlacement, details: string) => {
-    api.error({
-      message,
-      description: <Context.Consumer>{() => details}</Context.Consumer>,
-      placement,
-      duration: 5,
-    })
-  }
+  useEffect(() => {
+    const openNotification = (
+      message: string,
+      placement: NotificationPlacement,
+      details: string
+    ) => {
+      api.error({
+        message,
+        description: <Context.Consumer>{() => details}</Context.Consumer>,
+        placement,
+        duration: 5,
+      })
+    }
 
-  if (props.error) {
-    openNotification('error', 'bottom', props.error)
-  }
+    if (props.error) {
+      openNotification('error', 'bottom', props.error)
+    }
+  })
 
   return (
     <Context.Provider value={null}>

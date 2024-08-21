@@ -11,10 +11,11 @@ import NoDataFound from '#components/no_data_found'
 const { Meta } = Card
 const { Title } = Typography
 
-export default function Trackdays({ trackdays = [] }: { trackdays: Trackday[] }) {
+export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
+  const { trackdays = [] } = props
   return (
     <>
-      <Nav route="/trackdays">
+      <Nav route="/trackdays" {...props}>
         <Title
           style={{
             display: 'flex',

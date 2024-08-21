@@ -9,7 +9,7 @@ const { Title } = Typography
  */
 export default function Maintenance(props: any) {
   return (
-    <Nav route="/maintenances">
+    <Nav route="/maintenances" {...props}>
       <Title
         style={{
           display: 'flex',

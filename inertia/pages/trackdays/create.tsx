@@ -16,7 +16,7 @@ type FieldType = {
 export default function Track(props: any) {
   const [form] = Form.useForm()
   return (
-    <Nav route="/trackdays">
+    <Nav route="/trackdays" {...props}>
       <Title
         style={{
           display: 'flex',

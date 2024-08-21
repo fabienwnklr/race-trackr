@@ -102,9 +102,9 @@ const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter,
   console.log('params', pagination, filters, sorter, extra)
 }
 
-export default function Chronos() {
+export default function Chronos(props: any) {
   return (
-    <Nav route="/chronos">
+    <Nav route="/chronos" {...props}>
       <Title
         style={{
           display: 'flex',

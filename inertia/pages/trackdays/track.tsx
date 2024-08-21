@@ -10,7 +10,7 @@ const { Title } = Typography
 export default function Track(props: any) {
   console.log(props)
   return (
-    <Nav route="/trackdays">
+    <Nav route="/trackdays" {...props}>
       <Title
         style={{
           display: 'flex',
