@@ -11,7 +11,8 @@ import {
 } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import type { MenuProps } from 'antd'
-import { Avatar, Dropdown, Grid, Layout, Menu, Space, theme, Typography } from 'antd'
+import { Avatar, Dropdown, Grid, Layout, Menu, Modal, Space, theme, Typography } from 'antd'
+import { useState } from 'react'
 
 const { Header, Content, Footer, Sider } = Layout
 const { useBreakpoint } = Grid
@@ -39,41 +40,61 @@ function getItem(
   } as MenuItem
 }
 
-const asideNavItems: MenuItem[] = [
-  getItem('Dashboard', '/dashboard', <DashboardOutlined />),
-  getItem('Trackdays', '/trackdays', <CalendarOutlined />),
-  getItem('Maintenances ', '/maintenances', <ToolOutlined />),
-  getItem('Chronos', '/chronos', <FieldTimeOutlined />),
-]
-
-const adminNavItems: MenuItem[] = Array.prototype.concat(asideNavItems, [
-  getItem('Admin', '', <PropertySafetyOutlined />, [
-    getItem('Tracks', '/admin/tracks', ''),
-    getItem('Vehicles', '/admin/vehicles', <CarOutlined />),
-  ]),
-])
-
-const userDropdownItems: MenuItem[] = [
-  getItem('Account settings', '/settings/account', <UserOutlined />),
-  getItem('App settings', '/settings/app', <SettingOutlined />),
-  getItem(
-    <Typography.Link onClick={() => router.post('/auth/logout')}>Logout</Typography.Link>,
-    '/logout',
-    <LogoutOutlined />
-  ),
-]
-
 export default function Nav(props: {
   route: string
   children: React.ReactNode | React.ReactNode[]
   user: any
 }) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const { route, children, user } = props
   const isAdmin = user.role === 'admin'
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
   const screens = useBreakpoint()
+
+  const showModal = () => {
+    setIsModalOpen(true)
+  }
+
+  const hideModal = () => {
+    setIsModalOpen(false)
+  }
+
+  const asideNavItems: MenuItem[] = [
+    getItem('Dashboard', '/dashboard', <DashboardOutlined />),
+    getItem('Trackdays', '/trackdays', <CalendarOutlined />),
+    getItem('Maintenances ', '/maintenances', <ToolOutlined />),
+    getItem('Chronos', '/chronos', <FieldTimeOutlined />),
+  ]
+
+  const adminNavItems: MenuItem[] = Array.prototype.concat(asideNavItems, [
+    getItem('Admin', '', <PropertySafetyOutlined />, [
+      getItem('Tracks', '/admin/tracks', ''),
+      getItem('Vehicles', '/admin/vehicles', <CarOutlined />),
+    ]),
+  ])
+
+  const userDropdownItems: MenuItem[] = [
+    getItem('Account settings', '/settings/account', <UserOutlined />),
+    getItem(
+      <Typography.Link
+        onClick={() => {
+          showModal()
+        }}
+      >
+        App settings
+      </Typography.Link>,
+      '',
+      <SettingOutlined />
+    ),
+    getItem(
+      <Typography.Link onClick={() => router.post('/auth/logout')}>Logout</Typography.Link>,
+      '/logout',
+      <LogoutOutlined />
+    ),
+  ]
+
   console.log(route)
   return (
     <Layout style={{ height: '100vh' }}>
@@ -114,6 +135,20 @@ export default function Nav(props: {
           </Dropdown>
         </Header>
         <Content style={{ margin: '0 16px' }}>
+          <Modal
+            title="App settings"
+            open={isModalOpen}
+            onOk={() => {
+              hideModal()
+            }}
+            onCancel={() => {
+              hideModal()
+            }}
+          >
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+          </Modal>
           <div
             style={{
               margin: '16px 0',

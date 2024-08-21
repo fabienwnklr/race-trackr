@@ -14,6 +14,7 @@ import {
 } from 'chart.js'
 import { Line, Bar, Doughnut } from 'react-chartjs-2'
 import { red, orange } from '@ant-design/colors'
+import { WarningOutlined } from '@ant-design/icons'
 
 const { Meta } = Card
 
@@ -53,6 +54,7 @@ export default function Dashboard(props: any) {
                 backgroundColor: orange.at(1),
               }}
             >
+              <WarningOutlined style={{ marginRight: 10, fontSize: 20 }} />
               {'Last maintenance 14 days'}
             </Card>
           </Col>
