@@ -10,10 +10,8 @@ type FieldType = {
   password?: string
   remember?: string
 }
-/**
- * Show trackdays filtering on specific track
- */
-export default function Track(props: any) {
+
+export default function CreateTrackDay(props: any) {
   const [form] = Form.useForm()
   return (
     <Nav route="/trackdays" {...props}>

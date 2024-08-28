@@ -8,4 +8,8 @@ export default class TrackController {
   async indexAdmin({ inertia }: HttpContext) {
     return inertia.render('admin/tracks/index')
   }
+
+  async createTrack({ inertia }: HttpContext) {
+    return inertia.render('admin/tracks/create')
+  }
 }

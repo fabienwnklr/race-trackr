@@ -8,10 +8,11 @@ import {
   CalendarOutlined,
   PropertySafetyOutlined,
   CarOutlined,
+  PlusCircleOutlined,
 } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import type { MenuProps } from 'antd'
-import { Avatar, Dropdown, Grid, Layout, Menu, Modal, Space, theme, Typography } from 'antd'
+import { Avatar, Button, Dropdown, Grid, Layout, Menu, Modal, Space, theme, Typography } from 'antd'
 import { useState } from 'react'
 
 interface LevelKeysProps {
@@ -99,7 +100,13 @@ export default function Nav(props: {
 
   const adminNavItems: MenuItem[] = Array.prototype.concat(asideNavItems, [
     getItem('Admin', 'admin-submenu', <PropertySafetyOutlined />, [
-      getItem('Tracks', '/admin/tracks', ''),
+      getItem(
+        'Tracks',
+        '/admin/tracks',
+        <Button size="small">
+          <PlusCircleOutlined />
+        </Button>
+      ),
       getItem('Vehicles', '/admin/vehicles', <CarOutlined />),
     ]),
   ])

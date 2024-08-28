@@ -41,6 +41,7 @@ router
     // Admin pages
     router.group(() => {
       router.get('/admin/tracks', [TrackController, 'indexAdmin'])
+      router.get('/admin/tracks/create', [TrackController, 'createTrack'])
       router.get('/admin/vehicles', [VehiclesController, 'indexAdmin'])
     })
   })
