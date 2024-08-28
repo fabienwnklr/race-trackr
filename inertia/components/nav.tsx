@@ -14,6 +14,11 @@ import type { MenuProps } from 'antd'
 import { Avatar, Dropdown, Grid, Layout, Menu, Modal, Space, theme, Typography } from 'antd'
 import { useState } from 'react'
 
+interface LevelKeysProps {
+  key?: string
+  children?: LevelKeysProps[]
+}
+
 const { Header, Content, Footer, Sider } = Layout
 const { useBreakpoint } = Grid
 
@@ -48,8 +53,13 @@ export default function Nav(props: {
   children: React.ReactNode | React.ReactNode[]
   user: any
 }) {
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const { route, children, user } = props
+  const isAdminSubmenu = route.match('/admin') !== null
+  let stateSubMenu = ['']
+  if (isAdminSubmenu) stateSubMenu = ['admin-submenu']
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [stateOpenKeys, setStateOpenKeys] = useState(stateSubMenu)
   const isAdmin = user.role === 'admin'
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -64,6 +74,22 @@ export default function Nav(props: {
     setIsModalOpen(false)
   }
 
+  const getLevelKeys = (items1: LevelKeysProps[]) => {
+    const key: Record<string, number> = {}
+    const func = (items2: LevelKeysProps[], level = 1) => {
+      items2.forEach((item) => {
+        if (item.key) {
+          key[item.key] = level
+        }
+        if (item.children) {
+          func(item.children, level + 1)
+        }
+      })
+    }
+    func(items1)
+    return key
+  }
+
   const asideNavItems: MenuItem[] = [
     getItem('Dashboard', '/dashboard', <DashboardOutlined />),
     getItem('Trackdays', '/trackdays', <CalendarOutlined />),
@@ -72,7 +98,7 @@ export default function Nav(props: {
   ]
 
   const adminNavItems: MenuItem[] = Array.prototype.concat(asideNavItems, [
-    getItem('Admin', '', <PropertySafetyOutlined />, [
+    getItem('Admin', 'admin-submenu', <PropertySafetyOutlined />, [
       getItem('Tracks', '/admin/tracks', ''),
       getItem('Vehicles', '/admin/vehicles', <CarOutlined />),
     ]),
@@ -98,13 +124,37 @@ export default function Nav(props: {
     ),
   ]
 
-  console.log(route)
+  const levelKeys = getLevelKeys(adminNavItems as LevelKeysProps[])
+
+  const onOpenChange: MenuProps['onOpenChange'] = (openKeys) => {
+    const currentOpenKey = openKeys.find((key) => stateOpenKeys.indexOf(key) === -1)
+    // open
+    if (currentOpenKey !== undefined) {
+      const repeatIndex = openKeys
+        .filter((key) => key !== currentOpenKey)
+        .findIndex((key) => levelKeys[key] === levelKeys[currentOpenKey])
+
+      setStateOpenKeys(
+        openKeys
+          // remove repeat key
+          .filter((_, index) => index !== repeatIndex)
+          // remove current level all child
+          .filter((key) => levelKeys[key] <= levelKeys[currentOpenKey])
+      )
+    } else {
+      // close
+      setStateOpenKeys(openKeys)
+    }
+  }
+
   return (
     <Layout style={{ height: '100vh' }}>
       <Sider theme="light" style={siderStyle}>
         <div className="demo-logo-vertical" />
         <Menu
           selectedKeys={[route]}
+          openKeys={stateOpenKeys}
+          onOpenChange={onOpenChange}
           mode="inline"
           items={isAdmin ? adminNavItems : asideNavItems}
           onSelect={(d) => {
