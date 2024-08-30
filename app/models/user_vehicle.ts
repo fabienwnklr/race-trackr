@@ -1,9 +1,12 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, hasOne } from '@adonisjs/lucid/orm'
 import type { HasOne } from '@adonisjs/lucid/types/relations'
-import VehicleModel from './vehicle_model.js'
+import VehicleBrand from './vehicle_brand.js'
 
-export default class VehicleBrand extends BaseModel {
+/**
+ * Vehicle model used into maintenances (My bike 1, etc)
+ */
+export default class UserVehicle extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
@@ -13,8 +16,11 @@ export default class VehicleBrand extends BaseModel {
   @column()
   declare slug: string
 
-  @hasOne(() => VehicleModel)
-  declare brand: HasOne<typeof VehicleModel>
+  @column()
+  declare creation_date: DateTime
+
+  @hasOne(() => VehicleBrand)
+  declare brand: HasOne<typeof VehicleBrand>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
