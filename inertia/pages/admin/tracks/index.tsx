@@ -139,7 +139,7 @@ export default function AdminTracks(props: any) {
       >
         Admin - Tracks
         <Button type="primary" onClick={() => router.visit('/admin/tracks/create')}>
-          Add new track <PlusOutlined />
+          Create new track <PlusOutlined />
         </Button>
       </Title>
       <Table columns={columns} dataSource={data} onChange={onChange} />

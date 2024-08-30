@@ -5,6 +5,7 @@ import { Typography } from 'antd'
 
 import type { Track } from '#types/track'
 import { PropsWithChildren } from 'react'
+import { slugify } from '../../../../utils/index'
 
 const { Option } = Select
 const { Title } = Typography
@@ -20,14 +21,18 @@ const buttonsStyle = { display: 'flex', width: '100%', justifyContent: 'flex-end
 const onCancel = () => {
   router.visit('/admin/tracks')
 }
-const onFinish = (values: Track) => {
-  console.log(values)
-}
 
-export default function CreateAdminTrack(props: PropsWithChildren & { user: any }) {
+export default function CreateAdminTrack(
+  props: PropsWithChildren & { user: any; track: Track | null }
+) {
   const [form] = Form.useForm()
   const { token } = theme.useToken()
   const colSpan = 12
+  const { track } = props
+
+  if (track) {
+    form.setFieldsValue(track)
+  }
 
   const formStyle: React.CSSProperties = {
     maxWidth: 'none',
@@ -45,9 +50,23 @@ export default function CreateAdminTrack(props: PropsWithChildren & { user: any 
           alignItems: 'center',
         }}
       >
-        Admin - New Track
+        Admin - {track ? 'Edit Track' : 'Create Track'}
       </Title>
-      <Form layout="inline" {...layout} style={formStyle} name="control-hooks" onFinish={onFinish}>
+      <Form
+        form={form}
+        layout="inline"
+        {...layout}
+        style={formStyle}
+        name="control-hooks"
+        onFinish={(values: Track) => {
+          if (track) {
+            track.slug = slugify(values.name)
+            router.post(`/api/tracks/update`, values)
+          } else {
+            router.visit('/admin/tracks')
+          }
+        }}
+      >
         <Row gutter={[24, 24]}>
           <Col span={colSpan}>
             <Form.Item<Track> name="name" label="Name" rules={[{ required: true }]}>
@@ -103,10 +122,7 @@ export default function CreateAdminTrack(props: PropsWithChildren & { user: any 
             <Button
               type="primary"
               htmlType="submit"
-              disabled={
-                !form.isFieldsTouched(true) ||
-                !!form.getFieldsError().filter(({ errors }) => errors.length).length
-              }
+              disabled={!!form.getFieldsError().filter(({ errors }) => errors.length).length}
             >
               Submit
             </Button>

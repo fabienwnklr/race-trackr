@@ -42,7 +42,8 @@ router
     router
       .group(() => {
         router.get('/tracks', [TrackController, 'indexAdmin'])
-        router.get('/tracks/create', [TrackController, 'createTrack'])
+        router.get('/tracks/create', [TrackController, 'createOrEditTrack'])
+        router.get('/tracks/:slug/edit', [TrackController, 'createOrEditTrack'])
         router.get('/vehicles', [VehiclesController, 'indexAdmin'])
       })
       .prefix('admin')
@@ -51,6 +52,7 @@ router
     router
       .group(() => {
         router.get('/tracks', [TrackController, 'all'])
+        router.post('/tracks/update', [TrackController, 'update'])
       })
       .prefix('api')
   })
