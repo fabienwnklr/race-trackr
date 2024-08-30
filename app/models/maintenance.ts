@@ -5,6 +5,12 @@ export default class Maintenance extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
+  @column()
+  declare name: string
+
+  @column()
+  declare slug: string
+
   @column.dateTime({ autoCreate: false })
   declare date: DateTime
 

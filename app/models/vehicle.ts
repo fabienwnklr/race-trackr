@@ -11,6 +11,9 @@ export default class Vehicle extends BaseModel {
   declare name: string
 
   @column()
+  declare slug: string
+
+  @column()
   declare creation_date: DateTime
 
   @hasOne(() => VehicleBrand)
