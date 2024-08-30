@@ -9,6 +9,8 @@ import {
   PropertySafetyOutlined,
   CarOutlined,
   PlusCircleOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
 } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import type { MenuProps } from 'antd'
@@ -54,10 +56,11 @@ export default function Nav(props: {
   children: React.ReactNode | React.ReactNode[]
   user: any
 }) {
+  const [collapsed, setCollapsed] = useState(false)
   const { route, children, user } = props
   const isAdminSubmenu = route.match('/admin') !== null
   let stateSubMenu = ['']
-  if (isAdminSubmenu) stateSubMenu = ['admin-submenu']
+  if (isAdminSubmenu && !collapsed) stateSubMenu = ['admin-submenu']
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [stateOpenKeys, setStateOpenKeys] = useState(stateSubMenu)
@@ -156,8 +159,7 @@ export default function Nav(props: {
 
   return (
     <Layout style={{ height: '100vh' }}>
-      <Sider theme="light" style={siderStyle}>
-        <div className="demo-logo-vertical" />
+      <Sider theme="light" style={siderStyle} collapsible collapsed={collapsed}>
         <Menu
           selectedKeys={[route]}
           openKeys={stateOpenKeys}
@@ -177,10 +179,20 @@ export default function Nav(props: {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            paddingLeft: '20px',
+            paddingLeft: '0',
             paddingRight: '20px',
           }}
         >
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: '16px',
+              width: 64,
+              height: 64,
+            }}
+          />
           <Typography.Title level={3}>Trackday Data Management</Typography.Title>
           <Dropdown menu={{ items: userDropdownItems }} trigger={['click']}>
             <Avatar
