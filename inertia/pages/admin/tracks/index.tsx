@@ -1,109 +1,133 @@
 import { Button, Space, Table, Typography } from 'antd'
-import type { TableColumnsType, TableProps } from 'antd'
+import type { TableProps } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import Nav from '#components/nav'
 import { router } from '@inertiajs/react'
+import { useEffect, useState } from 'react'
+import type { Track } from '#types/track'
+import { ColumnsType, ColumnType } from 'antd/es/table'
 
 const { Title } = Typography
 
-interface DataType {
-  key: React.Key
-  track: string
-  chrono: string
-  date: string
-}
-
-const columns: TableColumnsType<DataType> = [
-  {
-    title: 'Track name',
-    dataIndex: 'track',
-    filters: [
-      {
-        text: 'Nogaro',
-        value: 'Nogaro',
-      },
-      {
-        text: 'Pau Arnos',
-        value: 'Pau Arnos',
-      },
-      {
-        text: 'Motorland Aragon',
-        value: 'Motorland Aragon',
-      },
-    ],
-    filterMode: 'menu',
-    filterSearch: true,
-    onFilter: (value, record) => record.track.startsWith(value as string),
-    width: '20%',
-  },
-  {
-    title: 'Country',
-    dataIndex: 'country',
-    sorter: (a, b) => Number(a.chrono) - Number(b.chrono),
-  },
-  {
-    title: 'City',
-    dataIndex: 'city',
-    // filters: [
-    //   {
-    //     text: 'London',
-    //     value: 'London',
-    //   },
-    //   {
-    //     text: 'New York',
-    //     value: 'New York',
-    //   },
-    // ],
-    onFilter: (value, record) => record.date.startsWith(value as string),
-    filterSearch: true,
-    width: '20%',
-    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    width: '15%',
-    render: (_) => (
-      <Space size="middle">
-        <Button>Edit</Button>
-        <Button danger>Delete</Button>
-      </Space>
-    ),
-  },
-]
-
-const data: DataType[] = [
+const dataSource = [
   {
     key: '1',
-    track: 'Nogaro',
-    chrono: '1.50.21',
-    date: '04/09/2024',
+    name: 'Mike',
+    age: 32,
+    address: '10 Downing Street',
   },
   {
     key: '2',
-    track: 'Pau Arnos',
-    chrono: '1.42.21',
-    date: '03/09/2024',
-  },
-  {
-    key: '3',
-    track: 'Nogaro',
-    chrono: '1.50.21',
-    date: '01/09/2024',
-  },
-  {
-    key: '4',
-    track: 'Motorland Aragon',
-    chrono: '1.35.21',
-    date: '04/09/2024',
+    name: 'John',
+    age: 42,
+    address: '10 Downing Street',
   },
 ]
 
-const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
+// const columns = [
+//   {
+//     title: 'Name',
+//     dataIndex: 'name',
+//     key: 'name',
+//   },
+//   {
+//     title: 'Age',
+//     dataIndex: 'age',
+//     key: 'age',
+//   },
+//   {
+//     title: 'Address',
+//     dataIndex: 'address',
+//     key: 'address',
+//   },
+// ];
+
+const onChange: TableProps<Track>['onChange'] = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra)
 }
 
 export default function AdminTracks(props: any) {
+  const [tracks, setTracks] = useState<Track[]>([])
+  const [columns, setColumns] = useState<ColumnType<Track>[]>([])
+  const [data, setData] = useState<Track[]>([])
+  const colsToIgnore = ['id', 'createdAt', 'updatedAt']
+
+  useEffect(() => {
+    // fetch data
+    const dataFetch = async () => {
+      const response = await fetch('/api/tracks')
+      const dataResponse: Track[] = await response.json()
+      // set state when the data received
+      setTracks(dataResponse)
+
+      if (dataResponse.length === 0) return
+
+      const cols: ColumnsType<Track> = Object.keys(dataResponse[0])
+        .filter((key) => !colsToIgnore.includes(key))
+        .map((key) => {
+          return {
+            title: key,
+            dataIndex: key,
+            key: key,
+          }
+        })
+
+      cols.push({
+        title: 'Actions',
+        dataIndex: 'actions',
+        key: 'actions',
+        render: (_, track) => (
+          <Space size="middle">
+            <Button
+              size="small"
+              onClick={() => {
+                router.visit(`/admin/tracks/${track.slug}`)
+              }}
+            >
+              View
+            </Button>
+            <Button
+              size="small"
+              onClick={() => {
+                router.visit(`/admin/tracks/${track.slug}/edit`)
+              }}
+            >
+              Edit
+            </Button>
+            <Button
+              size="small"
+              onClick={() => {
+                router.visit(`/admin/tracks/${track.slug}/delete`)
+              }}
+            >
+              Delete
+            </Button>
+          </Space>
+        ),
+      })
+
+      const datas = []
+      for (const track of dataResponse) {
+        datas.push({
+          key: track.name ?? 'NA',
+          name: track.name ?? 'NA',
+          slug: track.slug ?? 'NA',
+          country: track.country ?? 'NA',
+          city: track.city ?? 'NA',
+          adress: track.adress ?? 'NA',
+          distance: track.distance ?? 'NA',
+          bestLapTime: track.best_lap_time ?? 'NA',
+          bestLapTimePilote: track.best_lap_time ?? 'NA',
+          infos: track.infos ?? 'NA',
+        })
+      }
+
+      setColumns(cols as unknown as ColumnType<Track>[])
+      setData(Object.values(datas) as unknown as Track[])
+    }
+
+    dataFetch()
+  }, [])
   return (
     <Nav route="/admin/tracks" {...props}>
       <Title

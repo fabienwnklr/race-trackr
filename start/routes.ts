@@ -22,9 +22,10 @@ router.group(() => {
   router.get('/', [AuthController, 'index']).use(middleware.guest())
 })
 
-// Logged access view
+// Logged access
 router
   .group(() => {
+    // Views
     router.get('/dashboard', [DashboardController, 'index'])
     // Trackdays
     router.get('/trackdays', [TrackDaysController, 'index'])
@@ -38,13 +39,23 @@ router
     router.get('/chronos', [ChronosController, 'index'])
 
     // Admin pages
-    router.group(() => {
-      router.get('/admin/tracks', [TrackController, 'indexAdmin'])
-      router.get('/admin/tracks/create', [TrackController, 'createTrack'])
-      router.get('/admin/vehicles', [VehiclesController, 'indexAdmin'])
-    })
+    router
+      .group(() => {
+        router.get('/tracks', [TrackController, 'indexAdmin'])
+        router.get('/tracks/create', [TrackController, 'createTrack'])
+        router.get('/vehicles', [VehiclesController, 'indexAdmin'])
+      })
+      .prefix('admin')
+
+    // Api endpoint
+    router
+      .group(() => {
+        router.get('/tracks', [TrackController, 'all'])
+      })
+      .prefix('api')
   })
   .use(middleware.auth())
+
 // Auth group
 router
   .group(() => {
