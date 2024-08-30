@@ -15,7 +15,6 @@ const TrackController = () => import('#controllers/track_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const DashboardController = () => import('#controllers/dashboard_controller')
 const TrackDaysController = () => import('#controllers/trackdays_controller')
-// const TrackController = () => import('#controllers/track_controller')
 const MaintenancesController = () => import('#controllers/maintenances_controller')
 const ChronosController = () => import('#controllers/chronos_controller')
 
