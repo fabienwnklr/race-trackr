@@ -1,18 +1,19 @@
-import { Col, Row, Typography } from 'antd'
+import { Col, Row, Typography, theme } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
-import { gray } from '@ant-design/colors'
 
 export default function NoDataFound() {
+  const { token } = theme.useToken()
+  const style: React.CSSProperties = {
+    maxWidth: 'none',
+    backgroundColor: token.colorFillAlter,
+    borderRadius: token.borderRadiusLG,
+    padding: 24,
+    flex: '1',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
   return (
-    <Row
-      style={{
-        flex: '1',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#f5f5f5',
-        borderRadius: '0.4rem',
-      }}
-    >
+    <Row style={style}>
       <Col>
         <Typography.Title
           level={3}
