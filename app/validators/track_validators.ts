@@ -6,6 +6,5 @@ import vine from '@vinejs/vine'
 export const createTrackValidator = vine.compile(
   vine.object({
     name: vine.string().trim(),
-    slug: vine.string().trim(),
   })
 )

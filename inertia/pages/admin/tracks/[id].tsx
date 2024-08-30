@@ -5,7 +5,6 @@ import { Typography } from 'antd'
 
 import type { Track } from '#types/track'
 import { PropsWithChildren } from 'react'
-import { slugify } from '../../../../utils/index'
 
 const { Option } = Select
 const { Title } = Typography
@@ -23,13 +22,13 @@ const onCancel = () => {
 }
 
 export default function CreateAdminTrack(
-  props: PropsWithChildren & { user: any; track: Track | null }
+  props: PropsWithChildren & { user: any; track: Track | null; errors: any }
 ) {
   const [form] = Form.useForm()
   const { token } = theme.useToken()
   const colSpan = 12
   const { track } = props
-
+  console.log(props)
   if (track) {
     form.setFieldsValue(track)
   }
@@ -60,7 +59,7 @@ export default function CreateAdminTrack(
         name="control-hooks"
         onFinish={(values: Track) => {
           if (track) {
-            track.slug = slugify(values.name)
+            values.slug = track.slug
             router.post(`/api/tracks/update`, values)
           } else {
             router.visit('/admin/tracks')
@@ -69,7 +68,12 @@ export default function CreateAdminTrack(
       >
         <Row gutter={[24, 24]}>
           <Col span={colSpan}>
-            <Form.Item<Track> name="name" label="Name" rules={[{ required: true }]}>
+            <Form.Item<Track>
+              name="name"
+              label="Name"
+              rules={[{ required: true }]}
+              tooltip="Change this name perform to change URL !"
+            >
               <Input />
             </Form.Item>
           </Col>

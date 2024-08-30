@@ -12,7 +12,8 @@ const inertiaConfig = defineConfig({
    */
   sharedData: {
     appName: 'Trackday Data Management',
-    errors: (ctx) => ctx.session.flashMessages.get('errors'),
+    errors: (ctx) => ctx.session.flashMessages.get('error'),
+    success: (ctx) => ctx.session.flashMessages.get('success'),
     user: (ctx) => ctx.auth.user,
   },
 

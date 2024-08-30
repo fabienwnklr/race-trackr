@@ -2,6 +2,7 @@ import Track from '#models/track'
 import { createTrackValidator } from '#validators/track_validators'
 import { errors } from '@vinejs/vine'
 import type { HttpContext } from '@adonisjs/core/http'
+import { slugify } from '../../utils/index.js'
 
 export default class TrackController {
   async index({ inertia }: HttpContext) {
@@ -13,7 +14,6 @@ export default class TrackController {
   }
 
   async createOrEditTrack({ inertia, params }: HttpContext) {
-    console.log(params)
     if (params.slug) {
       return inertia.render('admin/tracks/[id]', {
         track: await Track.findByOrFail('slug', params.slug),
@@ -34,6 +34,8 @@ export default class TrackController {
 
       await createTrackValidator.validate(data)
 
+      data.slug = slugify(data.name)
+
       const track = await Track.create(data)
       session.flash('success', 'Track created')
       return response.json(track)
@@ -47,17 +49,21 @@ export default class TrackController {
     }
   }
 
-  async update({ request, response }: HttpContext) {
+  async update({ request, response, session }: HttpContext) {
     try {
       const data = request.all() as Track
-
+      console.log(data)
       await createTrackValidator.validate(data)
       const track = await Track.findByOrFail('slug', data.slug)
 
+      data.slug = slugify(data.name)
+
       await track.merge(data).save()
 
-      return response.json(track)
+      session.flash('success', 'Track updated')
+      return response.redirect(`/admin/tracks/${track.slug}/edit`)
     } catch (error) {
+      session.flash('error', 'Something went wrong while updating track')
       if (error instanceof errors.E_VALIDATION_ERROR) {
         return response.json({ error: error.messages[0] })
       } else {
