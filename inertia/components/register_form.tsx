@@ -1,10 +1,9 @@
-import { NotificationPlacement } from 'antd/es/notification/interface'
 import { useState } from 'react'
 import { Button, Select, Form, Input } from 'antd'
-import { ValidateErrorEntity } from 'rc-field-form/lib/interface'
 import { UserOutlined, LockOutlined, DownOutlined } from '@ant-design/icons'
-import { RegisterFieldType } from '../../@types/form'
 import { router } from '@inertiajs/react'
+
+import type { RegisterFieldType } from '#types/auth'
 
 const { Option } = Select
 

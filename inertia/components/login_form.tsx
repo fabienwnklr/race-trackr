@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { Button, Checkbox, Form, Input } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import type { LoginFieldType } from '../../@types/form'
 import { router } from '@inertiajs/react'
+
+import type { LoginFieldType } from '#types/auth'
 
 const onLogin = async (values: LoginFieldType) => {
   if (values.email && values.password) {

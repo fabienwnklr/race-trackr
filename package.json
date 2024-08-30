@@ -31,7 +31,8 @@
     "#start/*": "./start/*.js",
     "#config/*": "./config/*.js",
     "#components/*": "./inertia/components/*.js",
-    "#pages/*": "./inertia/pages/*.js"
+    "#pages/*": "./inertia/pages/*.js",
+    "#types/*": "./@types/*.d.js"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^7.7.0",
