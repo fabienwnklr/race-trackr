@@ -1,13 +1,13 @@
 import { DateTime } from 'luxon'
 
 export type Trackday = {
-    declare id: number
-    declare date: DateTime
-    declare track_map: string
-    declare weather: string
-    declare tire_pressure: string
-    declare track: HasOne<typeof Track>
-    declare chronos: HasMany<typeof Chrono>
-    declare createdAt: DateTime
-    declare updatedAt: DateTime
+  id: number
+  date: DateTime
+  track_map: string
+  weather: string
+  tire_pressure: string
+  track: HasOne<typeof Track>
+  chronos: HasMany<typeof Chrono>
+  createdAt: DateTime
+  updatedAt: DateTime
 }
