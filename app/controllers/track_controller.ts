@@ -1,8 +1,10 @@
 import Track from '#models/track'
 import { createTrackValidator } from '#validators/track_validators'
 import { errors } from '@vinejs/vine'
-import type { HttpContext } from '@adonisjs/core/http'
 import { slugify } from '../../utils/index.js'
+
+import type { ColumnType } from 'antd/es/table'
+import type { HttpContext } from '@adonisjs/core/http'
 
 export default class TrackController {
   async index({ inertia }: HttpContext) {
@@ -10,16 +12,61 @@ export default class TrackController {
   }
 
   async indexAdmin({ inertia }: HttpContext) {
-    return inertia.render('admin/tracks/index')
+    const tracks = await Track.query().orderBy('name', 'asc').paginate(1, 10)
+
+    if (!tracks) {
+      return inertia.render('admin/tracks/index')
+    }
+
+    const paginationJSON = tracks.serialize({
+      fields: [
+        'name',
+        'slug',
+        'country',
+        'city',
+        'adress',
+        'distance',
+        'best_lap_time',
+        'best_lap_time_pilote',
+        'infos',
+      ],
+    })
+    const columns: ColumnType<Track>[] = Object.keys(paginationJSON.data[0]).map((key) => {
+      return {
+        title: key,
+        dataIndex: key,
+        key: key,
+      }
+    })
+
+    const data = []
+    for (const track of paginationJSON.data as Track[]) {
+      data.push({
+        key: track.name ?? 'NA',
+        name: track.name ?? 'NA',
+        slug: track.slug ?? 'NA',
+        country: track.country ?? 'NA',
+        city: track.city ?? 'NA',
+        adress: track.adress ?? 'NA',
+        distance: track.distance ?? 'NA',
+        bestLapTime: track.best_lap_time ?? 'NA',
+        bestLapTimePilote: track.best_lap_time_pilote ?? 'NA',
+        infos: track.infos ?? 'NA',
+      })
+    }
+    return inertia.render('admin/tracks/index', {
+      columns,
+      data,
+    })
   }
 
   async createOrEditTrack({ inertia, params }: HttpContext) {
     if (params.slug) {
-      return inertia.render('admin/tracks/[id]', {
+      return inertia.render('admin/tracks/[slug]', {
         track: await Track.findByOrFail('slug', params.slug),
       })
     }
-    return inertia.render('admin/tracks/[id]')
+    return inertia.render('admin/tracks/[slug]')
   }
 
   async all({ response }: HttpContext) {

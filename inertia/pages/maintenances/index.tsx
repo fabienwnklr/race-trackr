@@ -4,14 +4,16 @@ import { PlusOutlined } from '@ant-design/icons'
 import { Card, theme } from 'antd'
 import LogoMoto from '../../images/logo_moto.jpg'
 
-import type { Trackday } from '../../../@types/trackday'
+import type { Trackday } from '#types/trackday'
+import type { Vehicle } from '#types/vehicle'
 import { router } from '@inertiajs/react'
+import { useState } from 'react'
 
 const { Meta } = Card
 const { Title } = Typography
 
 export default function Maintenances(props: { vehicles: Trackday[]; user: any }) {
-  const vehicles = [{}, {}]
+  const vehicles = useState(props.vehicles)
   return (
     <>
       <Nav route="/maintenances" {...props}>

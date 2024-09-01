@@ -102,12 +102,12 @@ export default function CreateAdminTrack(
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item<Track> name="best_lap_time" label="Best lap time">
+            <Form.Item<Track> name="bestLapTime" label="Best lap time">
               <Input />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item<Track> name="best_lap_time_pilote" label="Best lap time pilote">
+            <Form.Item<Track> name="bestLapTimePilote" label="Best lap time pilote">
               <Input />
             </Form.Item>
           </Col>
