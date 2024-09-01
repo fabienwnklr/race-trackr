@@ -7,7 +7,10 @@ import { router } from '@inertiajs/react'
 import type { Track } from '#types/track'
 import type { ColumnType } from 'antd/es/table'
 import type { PropsWithChildren } from 'react'
+
 import type { User } from '#types/user'
+
+import { useTranslation } from 'react-i18next'
 
 const { Title } = Typography
 
@@ -22,10 +25,11 @@ export default function AdminTracks(
     user: User
   }
 ) {
+  const { i18n } = useTranslation()
   const { columns, data } = props
   const aditionnalCols: ColumnType<Track>[] = [
     {
-      title: 'Actions',
+      title: i18n.t('actions'),
       dataIndex: 'actions',
       key: 'actions',
       render: (_, track) => {
@@ -70,9 +74,9 @@ export default function AdminTracks(
           alignItems: 'center',
         }}
       >
-        Admin - Tracks
+        Admin - {i18n.t('tracks')}
         <Button type="primary" onClick={() => router.visit('/admin/tracks/create')}>
-          Create new track <PlusOutlined />
+          {i18n.t('create_track')} <PlusOutlined />
         </Button>
       </Title>
       <Table columns={[...columns, ...aditionnalCols]} dataSource={data} onChange={onChange} />

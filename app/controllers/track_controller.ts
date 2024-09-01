@@ -11,7 +11,7 @@ export default class TrackController {
     return inertia.render('tracks')
   }
 
-  async indexAdmin({ inertia }: HttpContext) {
+  async indexAdmin({ inertia, i18n }: HttpContext) {
     const tracks = await Track.query().orderBy('name', 'asc').paginate(1, 10)
 
     if (!tracks) {
@@ -33,7 +33,7 @@ export default class TrackController {
     })
     const columns: ColumnType<Track>[] = Object.keys(paginationJSON.data[0]).map((key) => {
       return {
-        title: key,
+        title: i18n.t(`translation.${key}`),
         dataIndex: key,
         key: key,
       }

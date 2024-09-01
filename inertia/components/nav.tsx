@@ -16,6 +16,7 @@ import { router } from '@inertiajs/react'
 import type { MenuProps } from 'antd'
 import { Avatar, Button, Dropdown, Grid, Layout, Menu, Modal, Space, theme, Typography } from 'antd'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface LevelKeysProps {
   key?: string
@@ -69,6 +70,7 @@ export default function Nav(props: {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
   const screens = useBreakpoint()
+  const { i18n } = useTranslation()
 
   const showModal = () => {
     setIsModalOpen(true)
@@ -95,22 +97,22 @@ export default function Nav(props: {
   }
 
   const asideNavItems: MenuItem[] = [
-    getItem('Dashboard', '/dashboard', <DashboardOutlined />),
-    getItem('Trackdays', '/trackdays', <CalendarOutlined />),
-    getItem('Maintenances ', '/maintenances', <ToolOutlined />),
-    getItem('Chronos', '/chronos', <FieldTimeOutlined />),
+    getItem(i18n.t('dashboard'), '/dashboard', <DashboardOutlined />),
+    getItem(i18n.t('trackdays'), '/trackdays', <CalendarOutlined />),
+    getItem(i18n.t('maintenances'), '/maintenances', <ToolOutlined />),
+    getItem(i18n.t('chronos'), '/chronos', <FieldTimeOutlined />),
   ]
 
   const adminNavItems: MenuItem[] = Array.prototype.concat(asideNavItems, [
-    getItem('Admin', 'admin-submenu', <PropertySafetyOutlined />, [
+    getItem(i18n.t('admin'), 'admin-submenu', <PropertySafetyOutlined />, [
       getItem(
-        'Tracks',
+        i18n.t('tracks'),
         '/admin/tracks',
         <Button size="small">
           <PlusCircleOutlined />
         </Button>
       ),
-      getItem('Vehicles', '/admin/vehicles', <CarOutlined />),
+      getItem(i18n.t('vehicles'), '/admin/vehicles', <CarOutlined />),
     ]),
   ])
 
