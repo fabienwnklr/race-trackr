@@ -24,10 +24,10 @@ export default class Track extends BaseModel {
   declare distance: string | null
 
   @column()
-  declare best_lap_time: string | null
+  declare bestLapTime: string | null
 
   @column()
-  declare best_lap_time_pilote: string | null
+  declare bestLapTimePilote: string | null
 
   @column()
   declare infos: string | null

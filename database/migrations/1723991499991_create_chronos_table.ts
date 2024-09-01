@@ -7,8 +7,8 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.integer('track_id').unsigned().references('tracks.id').onDelete('CASCADE') // delete post when user is deleted
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.timestamp('createdAt')
+      table.timestamp('updatedAt')
     })
   }
 
