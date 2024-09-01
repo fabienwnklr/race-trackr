@@ -1,3 +1,4 @@
+import i18n from '#config/i18n_react'
 import {
   ToolOutlined,
   SettingOutlined,
@@ -16,7 +17,6 @@ import { router } from '@inertiajs/react'
 import type { MenuProps } from 'antd'
 import { Avatar, Button, Dropdown, Grid, Layout, Menu, Modal, Space, theme, Typography } from 'antd'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 interface LevelKeysProps {
   key?: string
@@ -70,7 +70,6 @@ export default function Nav(props: {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
   const screens = useBreakpoint()
-  const { i18n } = useTranslation()
 
   const showModal = () => {
     setIsModalOpen(true)

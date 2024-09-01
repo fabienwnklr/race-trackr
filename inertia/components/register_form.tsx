@@ -4,6 +4,7 @@ import { UserOutlined, LockOutlined, DownOutlined } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 
 import type { RegisterFieldType } from '#types/auth'
+import i18n from '#config/i18n_react'
 
 const { Option } = Select
 
@@ -21,7 +22,6 @@ const onRegister = async (values: RegisterFieldType) => {
  */
 export default function Register() {
   const [isLoading, setLoading] = useState(false)
-
   return (
     <Form
       name="register"
@@ -45,33 +45,33 @@ export default function Register() {
       autoComplete="off"
     >
       <Form.Item<RegisterFieldType>
-        label="Full name"
+        label={i18n.t('full_name')}
         name="fullName"
-        rules={[{ required: true, message: 'Please input your name!' }]}
+        rules={[{ required: true, message: i18n.t('full_name_required') }]}
       >
         <Input prefix={<UserOutlined />} />
       </Form.Item>
 
       <Form.Item<RegisterFieldType>
-        label="Email"
+        label={i18n.t('email')}
         name="email"
-        rules={[{ required: true, message: 'Please input a valid email!', type: 'email' }]}
+        rules={[{ required: true, message: i18n.t('email_required'), type: 'email' }]}
       >
         <Input prefix={<UserOutlined />} autoComplete="email" />
       </Form.Item>
 
       <Form.Item<RegisterFieldType>
-        label="Password"
+        label={i18n.t('password')}
         name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
+        rules={[{ required: true, message: i18n.t('password_required') }]}
       >
         <Input.Password prefix={<LockOutlined />} autoComplete="current-password" />
       </Form.Item>
 
       <Form.Item<RegisterFieldType>
+        label={i18n.t('country')}
         name="country"
-        label="Country"
-        rules={[{ required: true, message: 'Please select your country!' }]}
+        rules={[{ required: true, message: i18n.t('country_required') }]}
       >
         <Select showSearch suffixIcon={<DownOutlined />}>
           <Option value="fr">FR - France</Option>
@@ -81,7 +81,7 @@ export default function Register() {
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit" loading={isLoading}>
-          Submit
+          {i18n.t('register')}
         </Button>
       </Form.Item>
     </Form>

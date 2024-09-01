@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Button, Checkbox, Form, Input } from 'antd'
+import { Button, Checkbox, Flex, Form, Input } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 
 import type { LoginFieldType } from '#types/auth'
+import i18n from '#config/i18n_react'
 
 const onLogin = async (values: LoginFieldType) => {
   if (values.email && values.password) {
@@ -42,34 +43,55 @@ export default function Login() {
       }}
     >
       <Form.Item<LoginFieldType>
-        label="Email"
+        label={i18n.t('email')}
         name="email"
-        rules={[{ required: true, message: 'Please input your email!' }]}
+        rules={[{ required: true, message: i18n.t('email_required') }]}
       >
         <Input prefix={<UserOutlined />} autoComplete="email" />
       </Form.Item>
 
       <Form.Item<LoginFieldType>
-        label="Password"
+        label={i18n.t('password')}
         name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
+        rules={[{ required: true, message: i18n.t('password_required') }]}
       >
         <Input.Password autoComplete="current-password" prefix={<LockOutlined />} />
       </Form.Item>
 
-      <Form.Item<LoginFieldType>
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{ offset: 8, span: 16 }}
+      <Flex
+        justify="space-evenly"
+        align="center"
+        style={{
+          marginBottom: 20,
+        }}
       >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit" loading={isLoading}>
-          Submit
+        <Form.Item<LoginFieldType>
+          name="remember"
+          valuePropName="checked"
+          // wrapperCol={{ offset: 8, span: 16 }}
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          noStyle
+        >
+          <Checkbox>{i18n.t('remember_me')}</Checkbox>
+        </Form.Item>
+        <Button type="link" href="">
+          {i18n.t('forgot_password')}
         </Button>
-      </Form.Item>
+      </Flex>
+
+      <Flex justify="space-around" align="center">
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit" loading={isLoading}>
+            {i18n.t('login')}
+          </Button>
+          <Button>{i18n.t('register')}</Button>
+          <Button>{i18n.t('register_with_facebook')}</Button>
+          <Button>{i18n.t('register_with_google')}</Button>
+          <Button>{i18n.t('register_with_twitter')}</Button>
+          <Button>{i18n.t('register_with_apple')}</Button>
+        </Form.Item>
+      </Flex>
     </Form>
   )
 }

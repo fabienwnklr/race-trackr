@@ -5,6 +5,7 @@ import { slugify } from '../../utils/index.js'
 
 import type { ColumnType } from 'antd/es/table'
 import type { HttpContext } from '@adonisjs/core/http'
+import { defaultData } from '../../constants/index.js'
 
 export default class TrackController {
   async index({ inertia }: HttpContext) {
@@ -42,16 +43,16 @@ export default class TrackController {
     const data = []
     for (const track of paginationJSON.data as Track[]) {
       data.push({
-        key: track.name ?? 'NA',
-        name: track.name ?? 'NA',
-        slug: track.slug ?? 'NA',
-        country: track.country ?? 'NA',
-        city: track.city ?? 'NA',
-        adress: track.adress ?? 'NA',
-        distance: track.distance ?? 'NA',
-        bestLapTime: track.best_lap_time ?? 'NA',
-        bestLapTimePilote: track.best_lap_time_pilote ?? 'NA',
-        infos: track.infos ?? 'NA',
+        key: track.slug ?? defaultData,
+        name: track.name ?? defaultData,
+        slug: track.slug ?? defaultData,
+        country: track.country ?? defaultData,
+        city: track.city ?? defaultData,
+        adress: track.adress ?? defaultData,
+        distance: track.distance ?? defaultData,
+        bestLapTime: track.bestLapTime ?? defaultData,
+        bestLapTimePilote: track.bestLapTimePilote ?? defaultData,
+        infos: track.infos ?? defaultData,
       })
     }
     return inertia.render('admin/tracks/index', {

@@ -1,16 +1,15 @@
-import { Button, Space, Table, Typography } from 'antd'
+import { Button, Descriptions, Modal, Space, Table, Typography } from 'antd'
 import type { TableProps } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined, EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import Nav from '#components/nav'
 import { router } from '@inertiajs/react'
 
 import type { Track } from '#types/track'
 import type { ColumnType } from 'antd/es/table'
-import type { PropsWithChildren } from 'react'
+import { useState, type PropsWithChildren } from 'react'
 
 import type { User } from '#types/user'
-
-import { useTranslation } from 'react-i18next'
+import i18n from '#config/i18n_react'
 
 const { Title } = Typography
 
@@ -25,7 +24,19 @@ export default function AdminTracks(
     user: User
   }
 ) {
-  const { i18n } = useTranslation()
+  // Modal for view track
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [modalData, setModalData] = useState<Track | null>(null)
+
+  const showModal = (track: Track) => {
+    setModalData(track)
+    setIsModalOpen(true)
+  }
+
+  const hideModal = () => {
+    setIsModalOpen(false)
+  }
+
   const { columns, data } = props
   const aditionnalCols: ColumnType<Track>[] = [
     {
@@ -38,26 +49,29 @@ export default function AdminTracks(
             <Button
               size="small"
               onClick={() => {
-                router.visit(`/admin/tracks/${track.slug}`)
+                showModal(track)
               }}
             >
-              View
+              <EyeOutlined />
             </Button>
             <Button
               size="small"
+              type="primary"
               onClick={() => {
                 router.visit(`/admin/tracks/${track.slug}/edit`)
               }}
             >
-              Edit
+              <EditOutlined />
             </Button>
             <Button
+              danger
               size="small"
+              type="primary"
               onClick={() => {
                 //
               }}
             >
-              Delete
+              <DeleteOutlined />
             </Button>
           </Space>
         )
@@ -79,6 +93,29 @@ export default function AdminTracks(
           {i18n.t('create_track')} <PlusOutlined />
         </Button>
       </Title>
+
+      <Modal
+        width="max-content"
+        centered
+        title={`${i18n.t('track')}: ${modalData?.name}`}
+        open={isModalOpen}
+        footer={null}
+        onOk={() => {
+          hideModal()
+        }}
+        onCancel={() => {
+          hideModal()
+        }}
+      >
+        <Descriptions bordered size="middle" layout="vertical">
+          <Descriptions.Item label={i18n.t('name')}>{modalData?.name}</Descriptions.Item>
+          <Descriptions.Item label={i18n.t('slug')}>{modalData?.slug}</Descriptions.Item>
+          <Descriptions.Item label={i18n.t('country')}>{modalData?.country}</Descriptions.Item>
+          <Descriptions.Item label={i18n.t('city')}>{modalData?.city}</Descriptions.Item>
+          <Descriptions.Item label={i18n.t('adress')}>{modalData?.adress}</Descriptions.Item>
+          <Descriptions.Item label={i18n.t('infos')}>{modalData?.infos}</Descriptions.Item>
+        </Descriptions>
+      </Modal>
       <Table columns={[...columns, ...aditionnalCols]} dataSource={data} onChange={onChange} />
     </Nav>
   )
