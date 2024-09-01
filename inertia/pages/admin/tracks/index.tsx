@@ -116,8 +116,8 @@ export default function AdminTracks(props: any) {
           city: track.city ?? 'NA',
           adress: track.adress ?? 'NA',
           distance: track.distance ?? 'NA',
-          bestLapTime: track.best_lap_time ?? 'NA',
-          bestLapTimePilote: track.best_lap_time ?? 'NA',
+          bestLapTime: track.bestLapTime ?? 'NA',
+          bestLapTimePilote: track.bestLapTime ?? 'NA',
           infos: track.infos ?? 'NA',
         })
       }

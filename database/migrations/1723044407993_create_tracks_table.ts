@@ -13,12 +13,12 @@ export default class extends BaseSchema {
       table.string('city')
       table.string('adress')
       table.string('distance')
-      table.string('best_lap_time')
-      table.string('best_lap_time_pilote')
+      table.string('bestLapTime')
+      table.string('bestLapTimePilote')
       table.text('infos')
 
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.timestamp('createdAt')
+      table.timestamp('updatedAt')
     })
   }
 
