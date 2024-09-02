@@ -67,6 +67,13 @@ export default function Register() {
       >
         <Input.Password prefix={<LockOutlined />} autoComplete="current-password" />
       </Form.Item>
+      <Form.Item<RegisterFieldType>
+        label={i18n.t('password_confirm')}
+        name="password_confirm"
+        rules={[{ required: true, message: i18n.t('password_required') }]}
+      >
+        <Input.Password prefix={<LockOutlined />} />
+      </Form.Item>
 
       <Form.Item<RegisterFieldType>
         label={i18n.t('country')}

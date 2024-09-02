@@ -81,15 +81,15 @@ export default function Login() {
       </Flex>
 
       <Flex justify="space-around" align="center">
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Form.Item>
           <Button type="primary" htmlType="submit" loading={isLoading}>
             {i18n.t('login')}
           </Button>
-          <Button>{i18n.t('register')}</Button>
+          {/* <Button>{i18n.t('register')}</Button>
           <Button>{i18n.t('register_with_facebook')}</Button>
           <Button>{i18n.t('register_with_google')}</Button>
           <Button>{i18n.t('register_with_twitter')}</Button>
-          <Button>{i18n.t('register_with_apple')}</Button>
+          <Button>{i18n.t('register_with_apple')}</Button> */}
         </Form.Item>
       </Flex>
     </Form>

@@ -4,9 +4,10 @@ import { PlusOutlined } from '@ant-design/icons'
 import { Card } from 'antd'
 import LogoNogaro from '../../images/logo_nogaro.png'
 
-import type { Trackday } from '../../../@types/trackday'
+import type { Trackday } from '#types/trackday'
 import { router } from '@inertiajs/react'
 import NoDataFound from '#components/no_data_found'
+import i18n from '#config/i18n_react'
 
 const { Meta } = Card
 const { Title } = Typography
@@ -23,14 +24,14 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
             alignItems: 'center',
           }}
         >
-          Trackdays
+          {i18n.t('trackdays')}
           <Button
             type="primary"
             onClick={() => {
               router.visit('/trackdays/create')
             }}
           >
-            Create new trackday <PlusOutlined />
+            {i18n.t('create_trackday')} <PlusOutlined />
           </Button>
         </Title>
 

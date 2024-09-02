@@ -1,5 +1,6 @@
 import { defineConfig } from '@adonisjs/inertia'
 import type { InferSharedProps } from '@adonisjs/inertia/types'
+import i18n from './i18n_react.js'
 
 const inertiaConfig = defineConfig({
   /**
@@ -11,7 +12,7 @@ const inertiaConfig = defineConfig({
    * Data that should be shared with all rendered pages
    */
   sharedData: {
-    appName: 'Trackday Data Management',
+    appName: i18n.t('app_title'),
     errors: (ctx) => ctx.session.flashMessages.get('error'),
     success: (ctx) => ctx.session.flashMessages.get('success'),
     user: (ctx) => ctx.auth.user,

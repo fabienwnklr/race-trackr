@@ -116,20 +116,22 @@ export default function Nav(props: {
   ])
 
   const userDropdownItems: MenuItem[] = [
-    getItem('Account settings', '/settings/account', <UserOutlined />),
+    getItem(i18n.t('account_settings'), '/settings/account', <UserOutlined />),
     getItem(
       <Typography.Link
         onClick={() => {
           showModal()
         }}
       >
-        App settings
+        {i18n.t('app_settings')}
       </Typography.Link>,
       '',
       <SettingOutlined />
     ),
     getItem(
-      <Typography.Link onClick={() => router.post('/auth/logout')}>Logout</Typography.Link>,
+      <Typography.Link onClick={() => router.post('/auth/logout')}>
+        {i18n.t('logout')}
+      </Typography.Link>,
       '/logout',
       <LogoutOutlined />
     ),
@@ -194,7 +196,7 @@ export default function Nav(props: {
               height: 64,
             }}
           />
-          <Typography.Title level={3}>Trackday Data Management</Typography.Title>
+          <Typography.Title level={3}>{i18n.t('app_title')}</Typography.Title>
           <Dropdown menu={{ items: userDropdownItems }} trigger={['click']}>
             <Avatar
               style={{
@@ -209,7 +211,7 @@ export default function Nav(props: {
         </Header>
         <Content style={{ margin: '0 16px' }}>
           <Modal
-            title="App settings"
+            title={i18n.t('app_settings')}
             open={isModalOpen}
             onOk={() => {
               hideModal()
@@ -239,7 +241,8 @@ export default function Nav(props: {
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
+          TDM ©2023 {i18n.t('created_by')} <a href="https://fabienwinkler.fr">Fabien</a>{' '}
+          {i18n.t('member_of_team')} <a href="#">FRT</a>
         </Footer>
       </Layout>
     </Layout>

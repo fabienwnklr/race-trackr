@@ -15,8 +15,7 @@ import {
 import { Line, Bar, Doughnut } from 'react-chartjs-2'
 import { green, orange, red } from '@ant-design/colors'
 import { WarningOutlined } from '@ant-design/icons'
-
-const { Meta } = Card
+import i18n from '#config/i18n_react'
 
 ChartJS.register(
   CategoryScale,
@@ -34,7 +33,7 @@ export default function Dashboard(props: any) {
   return (
     <>
       <Nav route="/dashboard" {...props}>
-        <h1>Dashboard</h1>
+        <h1>{i18n.t('dashboard')}</h1>
         <Row gutter={20} style={{ marginTop: 20, marginBottom: 20 }}>
           <Col span={12} sm={8} md={8}>
             <Card
@@ -43,7 +42,7 @@ export default function Dashboard(props: any) {
               }}
             >
               <Avatar src="https://api.dicebear.com/9.x/adventurer/svg?seed=Midnight" />
-              {'Next trackday on 14 days'}
+              {i18n.t('next_trackday_on', { days: 14 })}
               <Avatar src="https://api.dicebear.com/9.x/adventurer/svg?seed=Midnight" />
             </Card>
           </Col>
@@ -54,7 +53,7 @@ export default function Dashboard(props: any) {
               }}
             >
               <WarningOutlined style={{ marginRight: 10, fontSize: 20 }} />
-              {'Last maintenance 14 days'}
+              {i18n.t('last_maintenance', { days: 14 })}
             </Card>
           </Col>
           <Col span={8}>
@@ -64,7 +63,7 @@ export default function Dashboard(props: any) {
               }}
             >
               <WarningOutlined style={{ marginRight: 10, fontSize: 20 }} />
-              {'Last maintenance 14 days'}
+              {i18n.t('last_maintenance', { days: 14 })}
             </Card>
           </Col>
         </Row>
@@ -87,7 +86,7 @@ function ChronosChart() {
     plugins: {
       title: {
         display: true,
-        text: 'Chronos progress',
+        text: i18n.t('chronos'),
       },
     },
     scales: {
@@ -140,7 +139,7 @@ function TrackdaysChart() {
       },
       title: {
         display: true,
-        text: 'Trackdays count',
+        text: i18n.t('trackdays'),
       },
     },
   }
@@ -206,7 +205,7 @@ function TrackChart() {
       },
       title: {
         display: true,
-        text: 'Tracks',
+        text: i18n.t('tracks'),
       },
     },
   }

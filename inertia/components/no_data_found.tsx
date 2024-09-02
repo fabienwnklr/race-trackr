@@ -1,5 +1,6 @@
 import { Col, Row, Typography, theme } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
+import i18n from '#config/i18n_react'
 
 export default function NoDataFound() {
   const { token } = theme.useToken()
@@ -21,7 +22,7 @@ export default function NoDataFound() {
           type="secondary"
         >
           <InboxOutlined />
-          No data
+          {i18n.t('no_data_found')}
         </Typography.Title>
       </Col>
     </Row>
