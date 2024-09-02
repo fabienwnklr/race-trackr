@@ -15,7 +15,19 @@ import {
 } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import type { MenuProps } from 'antd'
-import { Avatar, Button, Dropdown, Grid, Layout, Menu, Modal, Space, theme, Typography } from 'antd'
+import {
+  Avatar,
+  Button,
+  Dropdown,
+  Grid,
+  Layout,
+  Menu,
+  Modal,
+  Select,
+  Space,
+  theme,
+  Typography,
+} from 'antd'
 import { useState } from 'react'
 
 interface LevelKeysProps {
@@ -160,6 +172,8 @@ export default function Nav(props: {
     }
   }
 
+  const locale = i18n.language
+
   return (
     <Layout style={{ height: '100vh' }}>
       <Sider theme="light" style={siderStyle} collapsible collapsed={collapsed}>
@@ -197,17 +211,32 @@ export default function Nav(props: {
             }}
           />
           <Typography.Title level={3}>{i18n.t('app_title')}</Typography.Title>
-          <Dropdown menu={{ items: userDropdownItems }} trigger={['click']}>
-            <Avatar
-              style={{
-                cursor: 'pointer',
-                boxShadow: 'rgba(150, 190, 238, 0.35) 0px 0px 10px 2px',
+
+          <Space>
+            <Select
+              value={locale}
+              style={{ width: 120 }}
+              onChange={(value) => {
+                i18n.changeLanguage(value)
+                window.location.reload()
               }}
-              size={'large'}
-            >
-              <Space>F</Space>
-            </Avatar>
-          </Dropdown>
+              options={[
+                { value: 'fr', label: 'FR - Français' },
+                { value: 'en', label: 'EN - English' },
+              ]}
+            />
+            <Dropdown menu={{ items: userDropdownItems }} trigger={['click']}>
+              <Avatar
+                style={{
+                  cursor: 'pointer',
+                  boxShadow: 'rgba(150, 190, 238, 0.35) 0px 0px 10px 2px',
+                }}
+                size={'large'}
+              >
+                <Space>F</Space>
+              </Avatar>
+            </Dropdown>
+          </Space>
         </Header>
         <Content style={{ margin: '0 16px' }}>
           <Modal
@@ -219,11 +248,7 @@ export default function Nav(props: {
             onCancel={() => {
               hideModal()
             }}
-          >
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-          </Modal>
+          ></Modal>
           <div
             style={{
               margin: '16px 0',
