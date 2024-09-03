@@ -1,4 +1,4 @@
-import Nav from '#components/nav'
+import Main from '#components/layout/main'
 import { Button, Typography } from 'antd'
 import { LeftOutlined, PlusOutlined } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
@@ -10,7 +10,7 @@ const { Title } = Typography
 export default function Trackday(props: any) {
   console.log(props)
   return (
-    <Nav route="/trackdays" {...props}>
+    <Main route="/trackdays" {...props}>
       <Title
         style={{
           display: 'flex',
@@ -31,6 +31,6 @@ export default function Trackday(props: any) {
           Add new trackday <PlusOutlined />
         </Button>
       </Title>
-    </Nav>
+    </Main>
   )
 }

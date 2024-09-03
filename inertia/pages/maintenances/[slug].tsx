@@ -1,4 +1,4 @@
-import Nav from '#components/nav'
+import Main from '#components/layout/main'
 import { Button, Typography } from 'antd'
 import { LeftOutlined, PlusOutlined } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
@@ -9,7 +9,7 @@ const { Title } = Typography
  */
 export default function Maintenance(props: any) {
   return (
-    <Nav route="/maintenances" {...props}>
+    <Main route="/maintenances" {...props}>
       <Title
         style={{
           display: 'flex',
@@ -30,6 +30,6 @@ export default function Maintenance(props: any) {
           Create new maintenance <PlusOutlined />
         </Button>
       </Title>
-    </Nav>
+    </Main>
   )
 }

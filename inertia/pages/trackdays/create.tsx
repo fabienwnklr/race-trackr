@@ -1,4 +1,4 @@
-import Nav from '#components/nav'
+import Main from '#components/layout/main'
 import { Button, Form, Input, Typography, Select, Row, Col, Space } from 'antd'
 import { LeftOutlined, PlusOutlined } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
@@ -14,7 +14,7 @@ type FieldType = {
 export default function CreateTrackDay(props: any) {
   const [form] = Form.useForm()
   return (
-    <Nav route="/trackdays" {...props}>
+    <Main route="/trackdays" {...props}>
       <Title
         style={{
           display: 'flex',
@@ -63,6 +63,6 @@ export default function CreateTrackDay(props: any) {
           </Space>
         </Form.Item>
       </Form>
-    </Nav>
+    </Main>
   )
 }

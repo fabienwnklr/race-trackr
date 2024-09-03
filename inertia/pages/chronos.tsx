@@ -1,7 +1,7 @@
 import { Button, Space, Table, Typography } from 'antd'
 import type { TableColumnsType, TableProps } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
-import Nav from '#components/nav'
+import Main from '#components/layout/main'
 
 const { Title } = Typography
 
@@ -104,7 +104,7 @@ const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter,
 
 export default function Chronos(props: any) {
   return (
-    <Nav route="/chronos" {...props}>
+    <Main route="/chronos" {...props}>
       <Title
         style={{
           display: 'flex',
@@ -118,6 +118,6 @@ export default function Chronos(props: any) {
         </Button>
       </Title>
       <Table columns={columns} dataSource={data} onChange={onChange} />
-    </Nav>
+    </Main>
   )
 }

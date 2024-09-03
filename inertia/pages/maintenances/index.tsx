@@ -1,4 +1,4 @@
-import Nav from '#components/nav'
+import Main from '#components/layout/main'
 import { Button, Col, Row, Typography } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { Card, theme } from 'antd'
@@ -16,7 +16,7 @@ export default function Maintenances(props: { vehicles: Trackday[]; user: any })
   const vehicles = useState(props.vehicles)
   return (
     <>
-      <Nav route="/maintenances" {...props}>
+      <Main route="/maintenances" {...props}>
         <Title
           style={{
             display: 'flex',
@@ -37,6 +37,7 @@ export default function Maintenances(props: { vehicles: Trackday[]; user: any })
               style={{
                 marginBottom: 20,
               }}
+              key={i}
             >
               <Card
                 onClick={() => {
@@ -54,7 +55,7 @@ export default function Maintenances(props: { vehicles: Trackday[]; user: any })
             </Col>
           ))}
         </Row>
-      </Nav>
+      </Main>
     </>
   )
 }

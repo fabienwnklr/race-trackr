@@ -1,7 +1,7 @@
 import { Button, Descriptions, Modal, Space, Table, Typography } from 'antd'
 import type { TableProps } from 'antd'
 import { PlusOutlined, EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons'
-import Nav from '#components/nav'
+import Main from '#components/layout/main'
 import { router } from '@inertiajs/react'
 
 import type { Track } from '#types/track'
@@ -80,7 +80,7 @@ export default function AdminTracks(
   ]
 
   return (
-    <Nav route="/admin/tracks" {...props}>
+    <Main route="/admin/tracks" {...props}>
       <Title
         style={{
           display: 'flex',
@@ -117,6 +117,6 @@ export default function AdminTracks(
         </Descriptions>
       </Modal>
       <Table columns={[...columns, ...aditionnalCols]} dataSource={data} onChange={onChange} />
-    </Nav>
+    </Main>
   )
 }

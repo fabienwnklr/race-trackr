@@ -1,4 +1,4 @@
-import Nav from '#components/nav'
+import Main from '#components/layout/main'
 import { Avatar, Card, Col, Row } from 'antd'
 import {
   Chart as ChartJS,
@@ -32,7 +32,7 @@ ChartJS.register(
 export default function Dashboard(props: any) {
   return (
     <>
-      <Nav route="/dashboard" {...props}>
+      <Main route="/dashboard" {...props}>
         <h1>{i18n.t('dashboard')}</h1>
         <Row gutter={20} style={{ marginTop: 20, marginBottom: 20 }}>
           <Col span={12} sm={8} md={8}>
@@ -70,7 +70,7 @@ export default function Dashboard(props: any) {
         <ChronosChart />
         <TrackdaysChart />
         <TrackChart />
-      </Nav>
+      </Main>
     </>
   )
 }

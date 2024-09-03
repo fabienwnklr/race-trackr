@@ -1,4 +1,4 @@
-import Nav from '#components/nav'
+import Main from '#components/layout/main'
 import { Button, Col, Row, Typography } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { Card } from 'antd'
@@ -16,7 +16,7 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
   const { trackdays = [] } = props
   return (
     <>
-      <Nav route="/trackdays" {...props}>
+      <Main route="/trackdays" {...props}>
         <Title
           style={{
             display: 'flex',
@@ -60,7 +60,7 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
         ) : (
           <NoDataFound />
         )}
-      </Nav>
+      </Main>
     </>
   )
 }

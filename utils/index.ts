@@ -1,3 +1,5 @@
+import type { MenuItem } from '#types/menu'
+
 export function slugify(...args: (string | number)[]): string {
   const value = args.join(' ')
 
@@ -8,4 +10,18 @@ export function slugify(...args: (string | number)[]): string {
     .trim()
     .replace(/[^a-z0-9 ]/g, '') // remove all chars not letters, numbers and spaces (to be replaced)
     .replace(/\s+/g, '-') // separator
+}
+
+export function getItem(
+  label: React.ReactNode,
+  key: React.Key,
+  icon?: React.ReactNode,
+  children?: MenuItem[]
+): MenuItem {
+  return {
+    key,
+    icon,
+    children,
+    label,
+  } as MenuItem
 }

@@ -1,4 +1,4 @@
-import Nav from '#components/nav'
+import Main from '#components/layout/main'
 import { router } from '@inertiajs/react'
 import { Button, Col, Form, Input, Row, Select, Space, theme } from 'antd'
 import { Typography } from 'antd'
@@ -41,7 +41,7 @@ export default function CreateAdminTrack(
   }
 
   return (
-    <Nav route="/admin/tracks/create" {...props}>
+    <Main route="/admin/tracks/create" {...props}>
       <Title
         style={{
           display: 'flex',
@@ -133,6 +133,6 @@ export default function CreateAdminTrack(
           </Space>
         </div>
       </Form>
-    </Nav>
+    </Main>
   )
 }

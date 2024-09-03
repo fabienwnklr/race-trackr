@@ -29,11 +29,7 @@ import {
   Typography,
 } from 'antd'
 import { useState } from 'react'
-
-interface LevelKeysProps {
-  key?: string
-  children?: LevelKeysProps[]
-}
+import type { LevelKeysProps, MenuItem } from '#types/menu'
 
 const { Header, Content, Footer, Sider } = Layout
 const { useBreakpoint } = Grid
@@ -44,8 +40,6 @@ const siderStyle: React.CSSProperties = {
   scrollbarWidth: 'thin',
   scrollbarColor: 'unset',
 }
-
-type MenuItem = Required<MenuProps>['items'][number]
 
 function getItem(
   label: React.ReactNode,
@@ -64,7 +58,7 @@ function getItem(
 /**
  * Nav is main component, including container layout
  */
-export default function Nav(props: {
+export default function Main(props: {
   route: string
   children: React.ReactNode | React.ReactNode[]
   user: any
@@ -82,6 +76,10 @@ export default function Nav(props: {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
   const screens = useBreakpoint()
+
+  // if (!collapsed && (screens.sm || screens.xs)) {
+  //   setCollapsed(true)
+  // }
 
   const showModal = () => {
     setIsModalOpen(true)
@@ -210,7 +208,7 @@ export default function Nav(props: {
               height: 64,
             }}
           />
-          <Typography.Title level={3}>{i18n.t('app_title')}</Typography.Title>
+          <Typography.Title level={3}>Trackday Data Management</Typography.Title>
 
           <Space>
             <Select
