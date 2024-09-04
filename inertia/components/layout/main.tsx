@@ -219,8 +219,8 @@ export default function Main(props: {
                 window.location.reload()
               }}
               options={[
-                { value: 'fr', label: 'FR - Français' },
                 { value: 'en', label: 'EN - English' },
+                { value: 'fr', label: 'FR - Français' },
               ]}
             />
             <Dropdown menu={{ items: userDropdownItems }} trigger={['click']}>

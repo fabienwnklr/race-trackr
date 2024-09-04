@@ -1,0 +1,6 @@
+{
+  "full_name_required": "Il nome completo è richiesto",
+  "country_required": "Il paese è richiesto",
+  "email_required": "L'email è richiesta",
+  "password_required": "La password è richiesta"
+}

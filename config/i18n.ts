@@ -5,7 +5,7 @@ const i18nConfig = defineConfig({
   defaultLocale: 'en',
   formatter: formatters.icu(),
   supportedLocales: ['en', 'fr', 'it'],
-  fallback: (identifier, locale) => {
+  fallback: (identifier, _locale) => {
     return `${identifier} (auto-generated)`
   },
   loaders: [

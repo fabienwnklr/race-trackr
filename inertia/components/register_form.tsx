@@ -47,7 +47,7 @@ export default function Register() {
       <Form.Item<RegisterFieldType>
         label={i18n.t('full_name')}
         name="fullName"
-        rules={[{ required: true, message: i18n.t('full_name_required') }]}
+        rules={[{ required: true, message: i18n.t('validation:full_name_required') }]}
       >
         <Input prefix={<UserOutlined />} />
       </Form.Item>
@@ -55,7 +55,7 @@ export default function Register() {
       <Form.Item<RegisterFieldType>
         label={i18n.t('email')}
         name="email"
-        rules={[{ required: true, message: i18n.t('email_required'), type: 'email' }]}
+        rules={[{ required: true, message: i18n.t('validation:email_required'), type: 'email' }]}
       >
         <Input prefix={<UserOutlined />} autoComplete="email" />
       </Form.Item>
@@ -63,14 +63,14 @@ export default function Register() {
       <Form.Item<RegisterFieldType>
         label={i18n.t('password')}
         name="password"
-        rules={[{ required: true, message: i18n.t('password_required') }]}
+        rules={[{ required: true, message: i18n.t('validation:password_required') }]}
       >
         <Input.Password prefix={<LockOutlined />} autoComplete="current-password" />
       </Form.Item>
       <Form.Item<RegisterFieldType>
         label={i18n.t('password_confirm')}
         name="password_confirm"
-        rules={[{ required: true, message: i18n.t('password_required') }]}
+        rules={[{ required: true, message: i18n.t('validation:password_required') }]}
       >
         <Input.Password prefix={<LockOutlined />} />
       </Form.Item>
@@ -78,7 +78,7 @@ export default function Register() {
       <Form.Item<RegisterFieldType>
         label={i18n.t('country')}
         name="country"
-        rules={[{ required: true, message: i18n.t('country_required') }]}
+        rules={[{ required: true, message: i18n.t('validation:country_required') }]}
       >
         <Select showSearch suffixIcon={<DownOutlined />}>
           <Option value="fr">FR - France</Option>

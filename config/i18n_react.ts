@@ -8,8 +8,10 @@ i18n
   .use(Backend)
   .use(initReactI18next)
   .init({
+    ns: ['common', 'validation'],
+    defaultNS: ['common'],
     supportedLngs: ['en', 'fr', 'es', 'it'],
-    fallbackLng: 'en',
+    fallbackLng: 'fr',
     interpolation: {
       escapeValue: false,
     },

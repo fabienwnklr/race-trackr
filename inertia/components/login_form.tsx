@@ -45,7 +45,7 @@ export default function Login() {
       <Form.Item<LoginFieldType>
         label={i18n.t('email')}
         name="email"
-        rules={[{ required: true, message: i18n.t('email_required') }]}
+        rules={[{ required: true, message: i18n.t('validation:email_required') }]}
       >
         <Input prefix={<UserOutlined />} autoComplete="email" />
       </Form.Item>
@@ -53,7 +53,7 @@ export default function Login() {
       <Form.Item<LoginFieldType>
         label={i18n.t('password')}
         name="password"
-        rules={[{ required: true, message: i18n.t('password_required') }]}
+        rules={[{ required: true, message: i18n.t('validation:password_required') }]}
       >
         <Input.Password autoComplete="current-password" prefix={<LockOutlined />} />
       </Form.Item>
