@@ -14,6 +14,8 @@
   "infos": "Informations",
   "actions": "Actions",
   "create_track": "Ajouter un nouveau circuit",
+  "edit_track": "Modifier un circuit",
+  "remove_track": "Supprimer un circuit",
   "view": "Visualiser",
   "edit": "Modifier",
   "delete": "Supprimer",

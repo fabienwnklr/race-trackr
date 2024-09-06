@@ -14,6 +14,8 @@
   "infos": "Informazioni",
   "actions": "Azioni",
   "create_track": "Crea un nuovo track",
+  "edit_track": "Modifica un track",
+  "remove_track": "Rimuovi un track",
   "view": "Visualizza",
   "edit": "Modifica",
   "delete": "Cancella",
