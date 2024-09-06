@@ -34,7 +34,7 @@ export default class TrackController {
     })
     const columns: ColumnType<Track>[] = Object.keys(paginationJSON.data[0]).map((key) => {
       return {
-        title: i18n.t(`translation.${key}`),
+        title: i18n.t(`common.${key}`),
         dataIndex: key,
         key: key,
       }

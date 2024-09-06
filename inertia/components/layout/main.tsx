@@ -55,6 +55,11 @@ function getItem(
   } as MenuItem
 }
 
+async function setLocale(locale: string) {
+  i18n.changeLanguage(locale)
+  window.location.reload()
+}
+
 /**
  * Nav is main component, including container layout
  */
@@ -215,12 +220,11 @@ export default function Main(props: {
               value={locale}
               style={{ width: 120 }}
               onChange={(value) => {
-                i18n.changeLanguage(value)
-                window.location.reload()
+                setLocale(value)
               }}
               options={[
-                { value: 'en', label: 'EN - English' },
                 { value: 'fr', label: 'FR - Français' },
+                { value: 'en', label: 'EN - English' },
               ]}
             />
             <Dropdown menu={{ items: userDropdownItems }} trigger={['click']}>

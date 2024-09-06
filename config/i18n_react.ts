@@ -5,19 +5,26 @@ import { initReactI18next } from 'react-i18next'
 
 i18n
   .use(LanguageDetector)
-  .use(Backend)
   .use(initReactI18next)
+  .use(Backend)
   .init({
+    load: 'languageOnly',
+    preload: ['fr', 'en'],
+    fallbackLng: 'fr',
     ns: ['common', 'validation'],
     defaultNS: ['common'],
     supportedLngs: ['en', 'fr', 'es', 'it'],
-    fallbackLng: 'fr',
     interpolation: {
       escapeValue: false,
     },
     backend: {
       loadPath: '/resources/lang/{{lng}}/{{ns}}.json',
     },
+    react: {
+      useSuspense: false,
+    },
+    saveMissing: true,
+    // debug: process.env.NODE_ENV === 'development',
   })
 
 export default i18n
