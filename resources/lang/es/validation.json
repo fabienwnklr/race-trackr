@@ -2,5 +2,6 @@
   "full_name_required": "Se requiere nombre completo",
   "country_required": "Se requiere el país",
   "email_required": "Se requiere correo",
-  "password_required": "Se requiere contraseña"
+  "password_required": "Se requiere contraseña",
+  "select_city": "Seleccionar ciudad"
 }

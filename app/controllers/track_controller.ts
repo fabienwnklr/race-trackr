@@ -27,8 +27,8 @@ export default class TrackController {
         'city',
         'adress',
         'distance',
-        'best_lap_time',
-        'best_lap_time_pilote',
+        'bestLapTime',
+        'bestLapTimePilote',
         'infos',
       ],
     })
@@ -41,6 +41,7 @@ export default class TrackController {
     })
 
     const data = []
+
     for (const track of paginationJSON.data as Track[]) {
       data.push({
         key: track.slug ?? defaultData,

@@ -9,8 +9,8 @@
   "city": "Citta",
   "adress": "Indirizzo",
   "distance": "Distanza",
-  "best_lap_time": "Tempo migliore",
-  "best_lap_time_pilote": "Pilota migliore",
+  "bestLapTime": "Tempo migliore",
+  "bestLapTimePilote": "Pilota migliore",
   "infos": "Informazioni",
   "actions": "Azioni",
   "create_track": "Crea un nuovo track",
@@ -18,6 +18,7 @@
   "edit": "Modifica",
   "delete": "Cancella",
   "cancel": "Annulla",
+  "save": "Salva",
   "confirm": "Conferma",
   "yes": "Si",
   "no": "No",
@@ -69,5 +70,6 @@
   "deleted_at": "Cancellato il",
   "deleted_by": "Cancellato da",
   "member_of_team": "Membro del team",
-  "no_data_found": "Nessun dato trovato"
+  "no_data_found": "Nessun dato trovato",
+  "select_city": "Seleziona una citta'"
 }

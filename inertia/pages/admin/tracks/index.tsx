@@ -108,12 +108,13 @@ export default function AdminTracks(
         }}
       >
         <Descriptions bordered size="middle" layout="vertical">
-          <Descriptions.Item label={i18n.t('name')}>{modalData?.name}</Descriptions.Item>
-          <Descriptions.Item label={i18n.t('slug')}>{modalData?.slug}</Descriptions.Item>
-          <Descriptions.Item label={i18n.t('country')}>{modalData?.country}</Descriptions.Item>
-          <Descriptions.Item label={i18n.t('city')}>{modalData?.city}</Descriptions.Item>
-          <Descriptions.Item label={i18n.t('adress')}>{modalData?.adress}</Descriptions.Item>
-          <Descriptions.Item label={i18n.t('infos')}>{modalData?.infos}</Descriptions.Item>
+          {Object.keys(modalData || {}).map((key) => {
+            return (
+              <Descriptions.Item key={key} label={i18n.t(key)}>
+                {modalData?.[key as keyof Track]}
+              </Descriptions.Item>
+            )
+          })}
         </Descriptions>
       </Modal>
       <Table columns={[...columns, ...aditionnalCols]} dataSource={data} onChange={onChange} />

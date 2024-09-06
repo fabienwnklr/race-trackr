@@ -5,6 +5,7 @@ import { Typography } from 'antd'
 
 import type { Track } from '#types/track'
 import { PropsWithChildren } from 'react'
+import i18n from '#config/i18n_react'
 
 const { Option } = Select
 const { Title } = Typography
@@ -49,7 +50,7 @@ export default function CreateAdminTrack(
           alignItems: 'center',
         }}
       >
-        Admin - {track ? 'Edit Track' : 'Create Track'}
+        Admin - {track ? i18n.t('edit_track') : i18n.t('create_track')}
       </Title>
       <Form
         form={form}
@@ -70,7 +71,7 @@ export default function CreateAdminTrack(
           <Col span={colSpan}>
             <Form.Item<Track>
               name="name"
-              label="Name"
+              label={i18n.t('name')}
               rules={[{ required: true }]}
               tooltip="Change this name perform to change URL !"
             >
@@ -78,41 +79,41 @@ export default function CreateAdminTrack(
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item<Track> name="country" label="Country">
-              <Select placeholder="Select a country" allowClear>
-                <Option value="france">France</Option>
+            <Form.Item<Track> name="country" label={i18n.t('country')}>
+              <Select placeholder={i18n.t('select_country')} allowClear>
+                <Option value="France">France</Option>
               </Select>
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item<Track> name="city" label="City">
-              <Select placeholder="Select a country" allowClear>
-                <Option value="france">Nogaro</Option>
+            <Form.Item<Track> name="city" label={i18n.t('city')}>
+              <Select placeholder={i18n.t('select_city')} allowClear>
+                <Option value="Nogaro">Nogaro</Option>
               </Select>
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item<Track> name="adress" label="Adress">
+            <Form.Item<Track> name="adress" label={i18n.t('adress')}>
               <Input />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item<Track> name="distance" label="Distance">
+            <Form.Item<Track> name="distance" label={i18n.t('distance')}>
               <Input />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item<Track> name="bestLapTime" label="Best lap time">
+            <Form.Item<Track> name="bestLapTime" label={i18n.t('bestLapTime')}>
               <Input />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item<Track> name="bestLapTimePilote" label="Best lap time pilote">
+            <Form.Item<Track> name="bestLapTimePilote" label={i18n.t('bestLapTimePilote')}>
               <Input />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item<Track> name="infos" label="Infos">
+            <Form.Item<Track> name="infos" label={i18n.t('infos')}>
               <TextArea />
             </Form.Item>
           </Col>
@@ -121,14 +122,14 @@ export default function CreateAdminTrack(
         <div style={buttonsStyle}>
           <Space>
             <Button htmlType="button" onClick={onCancel}>
-              Cancel
+              {i18n.t('cancel')}
             </Button>
             <Button
               type="primary"
               htmlType="submit"
               disabled={!!form.getFieldsError().filter(({ errors }) => errors.length).length}
             >
-              Submit
+              {i18n.t('save')}
             </Button>
           </Space>
         </div>
