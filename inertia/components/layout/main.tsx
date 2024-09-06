@@ -9,9 +9,9 @@ import {
   CalendarOutlined,
   PropertySafetyOutlined,
   CarOutlined,
-  PlusCircleOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  FlagOutlined,
 } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import type { MenuProps } from 'antd'
@@ -119,13 +119,7 @@ export default function Main(props: {
 
   const adminNavItems: MenuItem[] = Array.prototype.concat(asideNavItems, [
     getItem(i18n.t('admin'), 'admin-submenu', <PropertySafetyOutlined />, [
-      getItem(
-        i18n.t('tracks'),
-        '/admin/tracks',
-        <Button size="small">
-          <PlusCircleOutlined />
-        </Button>
-      ),
+      getItem(i18n.t('tracks'), '/admin/tracks', <FlagOutlined />),
       getItem(i18n.t('vehicles'), '/admin/vehicles', <CarOutlined />),
     ]),
   ])

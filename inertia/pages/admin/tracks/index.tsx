@@ -28,9 +28,25 @@ export default function AdminTracks(
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalData, setModalData] = useState<Track | null>(null)
 
-  const showModal = (track: Track) => {
+  const showTrack = (track: Track) => {
     setModalData(track)
     setIsModalOpen(true)
+  }
+
+  const deleteTrack = (track: Track) => {
+    Modal.confirm({
+      title: i18n.t('delete_track'),
+      content: i18n.t('delete_track_confirm'),
+      onOk: () => {
+        router.delete(`/api/tracks/${track.slug}/delete`)
+      },
+      cancelText: i18n.t('cancel'),
+      okButtonProps: {
+        danger: true,
+      },
+      okText: i18n.t('delete'),
+      centered: true,
+    })
   }
 
   const hideModal = () => {
@@ -49,7 +65,7 @@ export default function AdminTracks(
             <Button
               size="small"
               onClick={() => {
-                showModal(track)
+                showTrack(track)
               }}
             >
               <EyeOutlined />
@@ -68,7 +84,7 @@ export default function AdminTracks(
               size="small"
               type="primary"
               onClick={() => {
-                router.delete(`/api/tracks/${track.slug}/delete`)
+                deleteTrack(track)
               }}
             >
               <DeleteOutlined />
