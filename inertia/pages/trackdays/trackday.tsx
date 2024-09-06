@@ -8,7 +8,6 @@ const { Title } = Typography
  * Show unique trackday
  */
 export default function Trackday(props: any) {
-  console.log(props)
   return (
     <Main route="/trackdays" {...props}>
       <Title

@@ -30,8 +30,8 @@ export default class Trackday extends BaseModel {
   declare chronos: HasMany<typeof Chrono>
 
   @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
+  declare created_at: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime
+  declare updated_at: DateTime
 }

@@ -27,8 +27,8 @@ export default class TrackController {
         'city',
         'adress',
         'distance',
-        'bestLapTime',
-        'bestLapTimePilote',
+        'best_lap_time',
+        'best_lap_time_pilote',
         'infos',
       ],
     })
@@ -51,8 +51,8 @@ export default class TrackController {
         city: track.city ?? defaultData,
         adress: track.adress ?? defaultData,
         distance: track.distance ?? defaultData,
-        bestLapTime: track.bestLapTime ?? defaultData,
-        bestLapTimePilote: track.bestLapTimePilote ?? defaultData,
+        best_lap_time: track.best_lap_time ?? defaultData,
+        best_lap_time_pilote: track.best_lap_time_pilote ?? defaultData,
         infos: track.infos ?? defaultData,
       })
     }

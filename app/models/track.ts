@@ -24,17 +24,17 @@ export default class Track extends BaseModel {
   declare distance: string | null
 
   @column()
-  declare bestLapTime: string | null
+  declare best_lap_time: string | null
 
   @column()
-  declare bestLapTimePilote: string | null
+  declare best_lap_time_pilote: string | null
 
   @column()
   declare infos: string | null
 
   @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
+  declare created_at: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime
+  declare updated_at: DateTime
 }

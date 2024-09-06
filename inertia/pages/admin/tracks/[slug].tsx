@@ -29,7 +29,7 @@ export default function CreateAdminTrack(
   const { token } = theme.useToken()
   const colSpan = 12
   const { track } = props
-  console.log(props)
+
   if (track) {
     form.setFieldsValue(track)
   }
@@ -104,12 +104,12 @@ export default function CreateAdminTrack(
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item<Track> name="bestLapTime" label={i18n.t('bestLapTime')}>
+            <Form.Item<Track> name="best_lap_time" label={i18n.t('best_lap_time')}>
               <Input />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item<Track> name="bestLapTimePilote" label={i18n.t('bestLapTimePilote')}>
+            <Form.Item<Track> name="best_lap_time_pilote" label={i18n.t('best_lap_time_pilote')}>
               <Input />
             </Form.Item>
           </Col>

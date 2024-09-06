@@ -23,8 +23,8 @@ export default class UserVehicle extends BaseModel {
   declare brand: HasOne<typeof VehicleBrand>
 
   @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
+  declare created_at: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime
+  declare updated_at: DateTime
 }

@@ -8,6 +8,6 @@ export type Trackday = {
   tire_pressure: string
   track: HasOne<typeof Track>
   chronos: HasMany<typeof Chrono>
-  createdAt: DateTime
-  updatedAt: DateTime
+  created_at: DateTime
+  updated_at: DateTime
 }

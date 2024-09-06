@@ -70,3 +70,8 @@ router
     router.post('/logout', [AuthController, 'logout']).use(middleware.auth())
   })
   .prefix('/auth')
+
+router.get('/api/vehicles/types', [VehiclesController, 'readVehicleType'])
+router.get('/api/vehicles/:id/brands', [VehiclesController, 'readBrand'])
+router.get('/api/vehicles/:id/models', [VehiclesController, 'readModels'])
+router.get('/api/vehicles/:id/cylinders', [VehiclesController, 'readCylinders'])

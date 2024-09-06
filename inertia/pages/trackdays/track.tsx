@@ -8,7 +8,6 @@ const { Title } = Typography
  * Show trackdays filtering on specific track
  */
 export default function Track(props: any) {
-  console.log(props)
   return (
     <Main route="/trackdays" {...props}>
       <Title

@@ -6,9 +6,9 @@ export type Track = {
   city: string | null
   adress: string | null
   distance: string | null
-  bestLapTime: string | null
-  bestLapTimePilote: string | null
+  best_lap_time: string | null
+  best_lap_time_pilote: string | null
   infos: string | null
-  createdAt: DateTime
-  updatedAt: DateTime
+  created_at: DateTime
+  updated_at: DateTime
 }
