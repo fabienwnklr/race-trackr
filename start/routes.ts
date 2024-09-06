@@ -51,8 +51,12 @@ router
     // Api endpoint
     router
       .group(() => {
-        router.get('/tracks', [TrackController, 'all'])
-        router.post('/tracks/update', [TrackController, 'update'])
+        // Track CRUD
+        router.post('/tracks/create', [TrackController, 'create'])
+        router.get('/tracks/read', [TrackController, 'read'])
+        router.get('/tracks/:slug/read', [TrackController, 'read'])
+        router.post('/tracks/:slug/update', [TrackController, 'update'])
+        router.delete('/tracks/:slug/delete', [TrackController, 'delete'])
       })
       .prefix('api')
   })

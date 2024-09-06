@@ -56,6 +56,7 @@ export default class TrackController {
         infos: track.infos ?? defaultData,
       })
     }
+
     return inertia.render('admin/tracks/index', {
       columns,
       data,
@@ -71,7 +72,12 @@ export default class TrackController {
     return inertia.render('admin/tracks/[slug]')
   }
 
-  async all({ response }: HttpContext) {
+  async read({ response, params }: HttpContext) {
+    if (params.slug) {
+      const track = await Track.findByOrFail('slug', params.slug)
+      return response.json(track)
+    }
+
     const tracks = await Track.all()
 
     return response.json(tracks)
@@ -87,7 +93,7 @@ export default class TrackController {
 
       const track = await Track.create(data)
       session.flash('success', 'Track created')
-      return response.json(track)
+      return response.redirect(`/admin/tracks/${track.slug}/edit`)
     } catch (error) {
       session.flash('error', 'Something went wrong while creating track')
       if (error instanceof errors.E_VALIDATION_ERROR) {
@@ -98,12 +104,12 @@ export default class TrackController {
     }
   }
 
-  async update({ request, response, session }: HttpContext) {
+  async update({ request, response, session, params }: HttpContext) {
     try {
       const data = request.all() as Track
-      console.log(data)
+      const slug = params.slug ?? data.slug
       await createTrackValidator.validate(data)
-      const track = await Track.findByOrFail('slug', data.slug)
+      const track = await Track.findByOrFail('slug', slug)
 
       data.slug = slugify(data.name)
 
@@ -118,6 +124,19 @@ export default class TrackController {
       } else {
         return response.json({ error: error })
       }
+    }
+  }
+
+  async delete({ request, response, session }: HttpContext) {
+    try {
+      const slug = request.params().slug
+      const track = await Track.findByOrFail('slug', slug)
+      await track.delete()
+      session.flash('success', 'Track deleted')
+      return response.redirect('/admin/tracks')
+    } catch (error) {
+      session.flash('error', 'Something went wrong while deleting track')
+      return response.json({ error: error })
     }
   }
 }

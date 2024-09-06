@@ -68,7 +68,7 @@ export default function AdminTracks(
               size="small"
               type="primary"
               onClick={() => {
-                //
+                router.delete(`/api/tracks/${track.slug}/delete`)
               }}
             >
               <DeleteOutlined />
@@ -87,6 +87,7 @@ export default function AdminTracks(
           justifyContent: 'space-between',
           alignItems: 'center',
         }}
+        level={2}
       >
         Admin - {i18n.t('tracks')}
         <Button type="primary" onClick={() => router.visit('/admin/tracks/create')}>

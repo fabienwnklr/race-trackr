@@ -49,6 +49,7 @@ export default function CreateAdminTrack(
           justifyContent: 'space-between',
           alignItems: 'center',
         }}
+        level={2}
       >
         Admin - {track ? i18n.t('edit_track') : i18n.t('create_track')}
       </Title>
@@ -61,9 +62,9 @@ export default function CreateAdminTrack(
         onFinish={(values: Track) => {
           if (track) {
             values.slug = track.slug
-            router.post(`/api/tracks/update`, values)
+            router.post(`/api/tracks/${values.slug}/update`, values)
           } else {
-            router.visit('/admin/tracks')
+            router.post('/api/tracks/create', values)
           }
         }}
       >
