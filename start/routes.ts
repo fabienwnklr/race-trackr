@@ -57,6 +57,12 @@ router
         router.get('/tracks/:slug/read', [TrackController, 'read'])
         router.post('/tracks/:slug/update', [TrackController, 'update'])
         router.delete('/tracks/:slug/delete', [TrackController, 'delete'])
+
+        // Vehicle CRUD
+        router.get('/vehicles/types', [VehiclesController, 'readVehicleType'])
+        router.get('/vehicles/:id/brands', [VehiclesController, 'readBrand'])
+        router.get('/vehicles/:id/models', [VehiclesController, 'readModels'])
+        router.get('/vehicles/:id/cylinders', [VehiclesController, 'readCylinders'])
       })
       .prefix('api')
   })
@@ -70,8 +76,3 @@ router
     router.post('/logout', [AuthController, 'logout']).use(middleware.auth())
   })
   .prefix('/auth')
-
-router.get('/api/vehicles/types', [VehiclesController, 'readVehicleType'])
-router.get('/api/vehicles/:id/brands', [VehiclesController, 'readBrand'])
-router.get('/api/vehicles/:id/models', [VehiclesController, 'readModels'])
-router.get('/api/vehicles/:id/cylinders', [VehiclesController, 'readCylinders'])
