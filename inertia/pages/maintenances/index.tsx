@@ -8,12 +8,13 @@ import type { Trackday } from '#types/trackday'
 import type { Vehicle } from '#types/vehicle'
 import { router } from '@inertiajs/react'
 import { useState } from 'react'
+import NoDataFound from '#components/no_data_found'
 
 const { Meta } = Card
 const { Title } = Typography
 
 export default function Maintenances(props: { vehicles: Trackday[]; user: any }) {
-  const vehicles = useState(props.vehicles)
+  const vehicles = [] as Trackday[]
   return (
     <>
       <Main route="/maintenances" {...props}>
@@ -30,31 +31,35 @@ export default function Maintenances(props: { vehicles: Trackday[]; user: any })
           </Button>
         </Title>
 
-        <Row gutter={30}>
-          {vehicles.map((td, i) => (
-            <Col
-              span={6}
-              style={{
-                marginBottom: 20,
-              }}
-              key={i}
-            >
-              <Card
-                onClick={() => {
-                  router.get('/maintenances/my-bike-' + (i + 1))
-                }}
-                hoverable
+        {vehicles.length ? (
+          <Row gutter={30}>
+            {vehicles.map((td, i) => (
+              <Col
+                span={6}
                 style={{
-                  width: 240,
-                  padding: 10,
+                  marginBottom: 20,
                 }}
-                cover={<img alt="nogaro" src={LogoMoto} />}
+                key={i}
               >
-                <Meta title={`My bike ${i + 1}`} />
-              </Card>
-            </Col>
-          ))}
-        </Row>
+                <Card
+                  onClick={() => {
+                    router.get('/maintenances/my-bike-' + (i + 1))
+                  }}
+                  hoverable
+                  style={{
+                    width: 240,
+                    padding: 10,
+                  }}
+                  cover={<img alt="nogaro" src={LogoMoto} />}
+                >
+                  <Meta title={`My bike ${i + 1}`} />
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        ) : (
+          <NoDataFound />
+        )}
       </Main>
     </>
   )

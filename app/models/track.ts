@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
+import Trackday from './trackday.js'
 
 export default class Track extends BaseModel {
   @column({ isPrimary: true })
@@ -31,6 +33,9 @@ export default class Track extends BaseModel {
 
   @column()
   declare infos: string | null
+
+  @hasMany(() => Trackday)
+  declare trackDays: HasMany<typeof Trackday>
 
   @column.dateTime({ autoCreate: true })
   declare created_at: DateTime

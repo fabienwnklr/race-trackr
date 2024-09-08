@@ -31,7 +31,7 @@
   "dashboard": "Tableau de bord",
   "trackdays": "Journées pistes",
   "maintenances": "Maintenances",
-  "chronos": "Chronomètres",
+  "chronos": "Chronos",
   "vehicles": "Vehicules",
   "admin": "Admin",
   "email": "Adresse mail",
@@ -78,5 +78,10 @@
   "deleted_by": "Supprime par",
   "member_of_team": "Membre de l'équipe",
   "no_data_found": "Aucune donnée",
-  "select_city": "Choisir une ville"
+  "select_city": "Choisir une ville",
+  "weather": "Météo",
+  "tire_pressure": "Pression des pneus",
+  "add_chrono": "Ajouter un chrono",
+  "date": "Date",
+  "details": "Détails"
 }

@@ -2,5 +2,7 @@
   "full_name_required": "Le nom complet est requis",
   "country_required": "Le pays est requis",
   "email_required": "L'adresse mail est requise",
-  "password_required": "Le mot de passe est requis"
+  "password_required": "Le mot de passe est requis",
+  "track_required": "Le circuit est requis",
+  "date_required": "La date est requise"
 }

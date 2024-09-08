@@ -31,6 +31,7 @@ router
     router.get('/trackdays', [TrackDaysController, 'index'])
     router.get('/trackdays/create', [TrackDaysController, 'showCreateForm'])
     router.get('/trackdays/:id', [TrackDaysController, 'showTrackday'])
+    router.post('/trackdays/create', [TrackDaysController, 'create'])
     // Vehicle maintenance
     router.get('/maintenances', [MaintenancesController, 'index'])
     router.get('/maintenances/:slug', [MaintenancesController, 'showMaintenanceForVehicle'])
