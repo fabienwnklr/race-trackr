@@ -32,7 +32,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
           {i18n.t('back')}
         </Typography.Link>
         {i18n.t('trackday_of', { date: dayjs(trackday.date).format('DD/MM/YYYY') })}
-        <Button type="primary">
+        <Button type="primary" onClick={() => router.get('/trackdays/' + trackday.id + '/edit')}>
           {i18n.t('edit')}
           <EditOutlined />
         </Button>

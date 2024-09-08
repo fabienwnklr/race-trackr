@@ -29,8 +29,9 @@ router
     router.get('/dashboard', [DashboardController, 'index'])
     // Trackdays
     router.get('/trackdays', [TrackDaysController, 'index'])
-    router.get('/trackdays/create', [TrackDaysController, 'showCreateForm'])
+    router.get('/trackdays/create', [TrackDaysController, 'createOrEdit'])
     router.get('/trackdays/:id', [TrackDaysController, 'showTrackday'])
+    router.get('/trackdays/:id/edit', [TrackDaysController, 'createOrEdit'])
     router.post('/trackdays/create', [TrackDaysController, 'create'])
     // Vehicle maintenance
     router.get('/maintenances', [MaintenancesController, 'index'])

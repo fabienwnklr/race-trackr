@@ -67,7 +67,7 @@ async function setLocale(locale: string) {
  */
 export default function Main(props: {
   route: string
-  children: React.ReactNode[]
+  children: React.ReactNode | React.ReactNode[]
   user: User
   success?: string
   errors?: string
@@ -78,7 +78,6 @@ export default function Main(props: {
   let stateSubMenu = ['']
   if (isAdminSubmenu && !collapsed) stateSubMenu = ['admin-submenu']
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const [stateOpenKeys, setStateOpenKeys] = useState(stateSubMenu)
   const isAdmin = user.role === 'admin'
   const {
@@ -193,7 +192,7 @@ export default function Main(props: {
             paddingRight: '20px',
           }}
         >
-          <Button
+          {/* <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={() => setCollapsed(!collapsed)}
@@ -202,6 +201,11 @@ export default function Main(props: {
               width: 64,
               height: 64,
             }}
+          /> */}
+          <img
+            src={'/inertia/images/logo_seul_light.png'}
+            alt="logo"
+            style={{ width: 'auto', height: '64px', marginLeft: '20px' }}
           />
           <Typography.Title level={3}>Trackday Data Management</Typography.Title>
 

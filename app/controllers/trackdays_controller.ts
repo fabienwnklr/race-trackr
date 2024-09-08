@@ -29,11 +29,17 @@ export default class TrackDaysController {
   }
 
   /**
-   * Show trackday filtering on track
+   * Show form to create/edit trackday
    */
-  async showCreateForm({ inertia }: HttpContext) {
+  async createOrEdit({ inertia, params }: HttpContext) {
     const tracks = await Track.all()
-    return inertia.render('trackdays/create', { tracks })
+
+    if (params.id) {
+      const trackday = await Trackday.findByOrFail('id', params.id)
+
+      return inertia.render('trackdays/[id]', { trackday, tracks })
+    }
+    return inertia.render('trackdays/[id]', { tracks })
   }
   /**
    * Show trackday filtering on track

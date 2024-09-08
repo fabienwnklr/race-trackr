@@ -53,6 +53,7 @@
   "create_vehicle_model": "Ajouter un nouveau modèle de véhicule",
   "create_vehicle_cylinder": "Ajouter un nouveau cylindre de véhicule",
   "create_trackday": "Ajouter une nouvelle journée piste",
+  "edit_trackday": "Modifier une journée piste",
   "delete_confirm_track": "Etes-vous sûr de vouloir supprimer ce circuit ?",
   "delete_confirm_chrono": "Etes-vous sûr de vouloir supprimer ce chronomètre ?",
   "delete_confirm_vehicle": "Etes-vous sûr de vouloir supprimer ce véhicule ?",
