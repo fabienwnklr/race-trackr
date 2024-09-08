@@ -30,6 +30,7 @@
   "track": "Circuit",
   "dashboard": "Tableau de bord",
   "trackdays": "Journées pistes",
+  "trackday_of": "Journée piste du {{date}}",
   "maintenances": "Maintenances",
   "chronos": "Chronos",
   "vehicles": "Vehicules",
@@ -83,5 +84,6 @@
   "tire_pressure": "Pression des pneus",
   "add_chrono": "Ajouter un chrono",
   "date": "Date",
-  "details": "Détails"
+  "details": "Détails",
+  "back": "Retour"
 }

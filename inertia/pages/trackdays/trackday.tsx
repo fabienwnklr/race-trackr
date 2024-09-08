@@ -1,13 +1,18 @@
 import Main from '#components/layout/main'
 import { Button, Typography } from 'antd'
-import { LeftOutlined, PlusOutlined } from '@ant-design/icons'
+import { LeftOutlined, PlusOutlined, EditOutlined } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
+import type { User } from '#types/user'
+import type { Trackday } from '#types/trackday'
+import i18n from '#config/i18n_react'
+import dayjs from 'dayjs'
 
 const { Title } = Typography
 /**
  * Show unique trackday
  */
-export default function Trackday(props: any) {
+export default function Trackday(props: { user: User; trackday: Trackday }) {
+  const { trackday } = props
   return (
     <Main route="/trackdays" {...props}>
       <Title
@@ -16,6 +21,7 @@ export default function Trackday(props: any) {
           justifyContent: 'space-between',
           alignItems: 'center',
         }}
+        level={2}
       >
         <Typography.Link
           onClick={() => {
@@ -23,11 +29,12 @@ export default function Trackday(props: any) {
           }}
         >
           <LeftOutlined style={{ marginRight: 5 }} />
-          Back
+          {i18n.t('back')}
         </Typography.Link>
-        Trackdays of 04/09/2024
+        {i18n.t('trackday_of', { date: dayjs(trackday.date).format('DD/MM/YYYY') })}
         <Button type="primary">
-          Add new trackday <PlusOutlined />
+          {i18n.t('edit')}
+          <EditOutlined />
         </Button>
       </Title>
     </Main>

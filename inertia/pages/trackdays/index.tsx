@@ -1,8 +1,7 @@
 import Main from '#components/layout/main'
-import { Button, Col, Row, Typography } from 'antd'
+import { Button, Col, Row, theme, Typography } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { Card } from 'antd'
-import LogoNogaro from '../../images/logo_nogaro.png'
 import dayjs from 'dayjs'
 
 import type { Trackday } from '#types/trackday'
@@ -15,7 +14,7 @@ const { Meta } = Card
 const { Title } = Typography
 
 export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
-  console.log(props)
+  const { token } = theme.useToken()
   const { trackdays } = props
   return (
     <>
@@ -39,20 +38,20 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
         </Title>
 
         {trackdays.length ? (
-          <Row gutter={30}>
+          <Row>
             {trackdays.map((td, i) => (
               <Col
-                span={6}
+                span={8}
                 style={{
                   marginBottom: 20,
                 }}
               >
                 <Card
                   onClick={() => {
-                    router.get('/trackdays/nogaro')
+                    router.get(`/trackdays/${td.id}`)
                   }}
                   hoverable
-                  style={{ width: 240, padding: 10 }}
+                  style={{ width: 'calc(100% - 20px)', padding: 10 }}
                   cover={
                     <img
                       alt={td.track.name}
@@ -61,8 +60,7 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
                     />
                   }
                 >
-                  <Meta title={td.track.name} />
-                  <Meta title={dayjs(td.date).format('DD/MM/YYYY')} />
+                  <Meta title={td.track.name} description={dayjs(td.date).format('DD/MM/YYYY')} />
                 </Card>
               </Col>
             ))}

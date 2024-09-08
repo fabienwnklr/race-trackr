@@ -15,6 +15,7 @@ export default class TrackDaysController {
 
     const trackDays = await Trackday.query()
       .where('user_id', auth.user.id)
+      .orderBy('date', 'desc')
       .preload('track') // Charger la piste associée
       .preload('chronos') // Charger tous les chronos liés
       .paginate(1, 10)
@@ -50,7 +51,7 @@ export default class TrackDaysController {
     const trackday = await Trackday.findBy('id', params.id)
 
     if (trackday) {
-      return inertia.render('trackdays/[id]')
+      return inertia.render('trackdays/trackday', { trackday })
     }
     return inertia.render('errors/not_found')
   }

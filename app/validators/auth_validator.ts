@@ -5,6 +5,7 @@ export const createRegisterValidator = vine.compile(
     fullName: vine.string().trim(),
     email: vine.string().trim().email(),
     password: vine.string().trim(),
+    country: vine.string().trim(),
   })
 )
 
