@@ -62,9 +62,9 @@ export default function CreateAdminTrack(
         onFinish={(values: Track) => {
           if (track) {
             values.slug = track.slug
-            router.post(`/api/tracks/${values.slug}/update`, values)
+            router.post(`/admin/tracks/${values.slug}/update`, values)
           } else {
-            router.post('/api/tracks/create', values)
+            router.post('/admin/tracks/create', values)
           }
         }}
       >

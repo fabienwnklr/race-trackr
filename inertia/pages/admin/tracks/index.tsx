@@ -38,7 +38,7 @@ export default function AdminTracks(
       title: i18n.t('delete_track'),
       content: i18n.t('delete_track_confirm'),
       onOk: () => {
-        router.delete(`/api/tracks/${track.slug}/delete`)
+        router.delete(`/admin/tracks/${track.slug}/delete`)
       },
       cancelText: i18n.t('cancel'),
       okButtonProps: {
