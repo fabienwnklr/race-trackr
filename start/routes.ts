@@ -30,8 +30,7 @@ router
     // Trackdays
     router.get('/trackdays', [TrackDaysController, 'index'])
     router.get('/trackdays/create', [TrackDaysController, 'showCreateForm'])
-    router.get('/trackdays/:slug', [TrackDaysController, 'showTrackdaysForTrack'])
-    router.get('/trackdays/:slug/:id', [TrackDaysController, 'showTrackday'])
+    router.get('/trackdays/:id', [TrackDaysController, 'showTrackday'])
     // Vehicle maintenance
     router.get('/maintenances', [MaintenancesController, 'index'])
     router.get('/maintenances/:slug', [MaintenancesController, 'showMaintenanceForVehicle'])
@@ -41,30 +40,19 @@ router
     // Admin pages
     router
       .group(() => {
+        // Track views
         router.get('/tracks', [TrackController, 'indexAdmin'])
         router.get('/tracks/create', [TrackController, 'createOrEditTrack'])
         router.get('/tracks/:slug/edit', [TrackController, 'createOrEditTrack'])
-        router.get('/vehicles', [VehiclesController, 'indexAdmin'])
-      })
-      .prefix('admin')
-
-    // Api endpoint
-    router
-      .group(() => {
         // Track CRUD
         router.post('/tracks/create', [TrackController, 'create'])
-        router.get('/tracks/read', [TrackController, 'read'])
-        router.get('/tracks/:slug/read', [TrackController, 'read'])
         router.post('/tracks/:slug/update', [TrackController, 'update'])
         router.delete('/tracks/:slug/delete', [TrackController, 'delete'])
 
-        // Vehicle CRUD
-        router.get('/vehicles/types', [VehiclesController, 'readVehicleType'])
-        router.get('/vehicles/:id/brands', [VehiclesController, 'readBrand'])
-        router.get('/vehicles/:id/models', [VehiclesController, 'readModels'])
-        router.get('/vehicles/:id/cylinders', [VehiclesController, 'readCylinders'])
+        // Vehicle views
+        router.get('/vehicles', [VehiclesController, 'indexAdmin'])
       })
-      .prefix('api')
+      .prefix('admin')
   })
   .use(middleware.auth())
 
@@ -76,3 +64,27 @@ router
     router.post('/logout', [AuthController, 'logout']).use(middleware.auth())
   })
   .prefix('/auth')
+
+// Api endpoint
+router
+  .group(() => {
+    // Track CRUD
+    router.post('/tracks/create', [TrackController, 'create'])
+    router.get('/tracks', [TrackController, 'read'])
+    router.get('/tracks/:slug', [TrackController, 'read'])
+    router.post('/tracks/:slug/update', [TrackController, 'update'])
+    router.delete('/tracks/:slug/delete', [TrackController, 'delete'])
+
+    // Trackday CRUD
+    router.post('/trackdays/create', [TrackDaysController, 'create'])
+    router.get('/trackdays', [TrackDaysController, 'read'])
+    router.get('/trackdays/:id', [TrackDaysController, 'read'])
+
+    // Vehicle CRUD
+    router.get('/vehicles/types', [VehiclesController, 'readVehicleType'])
+    router.get('/vehicles/:id/brands', [VehiclesController, 'readBrand'])
+    router.get('/vehicles/:id/models', [VehiclesController, 'readModels'])
+    router.get('/vehicles/:id/cylinders', [VehiclesController, 'readCylinders'])
+  })
+  .prefix('api')
+  .use(middleware.auth()) // Create api middleware instead use auth
