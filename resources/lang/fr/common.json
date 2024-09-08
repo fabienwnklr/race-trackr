@@ -16,7 +16,7 @@
   "create_track": "Ajouter un nouveau circuit",
   "edit_track": "Modifier un circuit",
   "delete_track": "Supprimer un circuit",
-  "delete_track_confirm": "Etes-vous sûr de vouloir supprimer ce circuit ?",
+  "delete_track_confirm": "Etes-vous sûr de vouloir supprimer le circuit {{name}} ?",
   "view": "Visualiser",
   "edit": "Modifier",
   "delete": "Supprimer",
@@ -85,5 +85,8 @@
   "add_chrono": "Ajouter un chrono",
   "date": "Date",
   "details": "Détails",
-  "back": "Retour"
+  "back": "Retour",
+  "select_country": "Choisir un pays",
+  "track_created": "Circuit créé",
+  "track_deleted": "Circuit supprimé"
 }
