@@ -4,10 +4,8 @@ import User from '#models/user'
 import { errors } from '@vinejs/vine'
 
 export default class AuthController {
-  async index({ inertia, session }: HttpContext) {
-    return inertia.render('home', {
-      error: session.flashMessages.get('error'),
-    })
+  async index({ inertia }: HttpContext) {
+    return inertia.render('home')
   }
 
   async register({ request, response, auth }: HttpContext) {
@@ -31,7 +29,7 @@ export default class AuthController {
     }
   }
 
-  async login({ request, response, auth, session }: HttpContext) {
+  async login({ request, response, auth, session, i18n }: HttpContext) {
     try {
       const { email, password } = request.only(['email', 'password'])
 
@@ -41,15 +39,15 @@ export default class AuthController {
 
       await auth.use('web').login(user)
 
-      session.flash('success', `Welcome ${user.fullName}`)
+      session.flash('success', i18n.t('login_success'))
 
       return response.redirect('/dashboard')
     } catch (error) {
       // if (error instanceof E_INVALID_CREDENTIALS) {
 
       // }
-      session.flash('error', `Invalid credentials`)
-      return response.header('x-inertia', 'true').status(403)
+      session.flash('error', i18n.t('validation.invalid_credentials'))
+      return response.redirect('/')
     }
   }
 

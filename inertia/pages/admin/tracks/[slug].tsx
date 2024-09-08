@@ -1,6 +1,6 @@
 import Main from '#components/layout/main'
 import { router } from '@inertiajs/react'
-import { Button, Col, Form, Input, Row, Select, Space, theme } from 'antd'
+import { Button, Col, Form, Input, notification, Row, Select, Space, theme } from 'antd'
 import { Typography } from 'antd'
 
 import type { Track } from '#types/track'
@@ -23,7 +23,7 @@ const onCancel = () => {
 }
 
 export default function CreateAdminTrack(
-  props: PropsWithChildren & { user: any; track: Track | null; errors: any }
+  props: PropsWithChildren & { user: any; track: Track | null; errors?: string; success?: string }
 ) {
   const [form] = Form.useForm()
   const { token } = theme.useToken()
@@ -73,7 +73,7 @@ export default function CreateAdminTrack(
             <Form.Item<Track>
               name="name"
               label={i18n.t('name')}
-              rules={[{ required: true }]}
+              rules={[{ required: true, message: i18n.t('name_required') }]}
               tooltip="Change this name perform to change URL !"
             >
               <Input />
@@ -128,7 +128,9 @@ export default function CreateAdminTrack(
             <Button
               type="primary"
               htmlType="submit"
-              disabled={!!form.getFieldsError().filter(({ errors }) => errors.length).length}
+              disabled={
+                !!form.getFieldsError().filter(({ errors: error_list }) => error_list.length).length
+              }
             >
               {i18n.t('save')}
             </Button>

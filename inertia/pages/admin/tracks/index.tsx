@@ -36,7 +36,7 @@ export default function AdminTracks(
   const deleteTrack = (track: Track) => {
     Modal.confirm({
       title: i18n.t('delete_track'),
-      content: i18n.t('delete_track_confirm'),
+      content: i18n.t('delete_track_confirm', { name: track.name }),
       onOk: () => {
         router.delete(`/admin/tracks/${track.slug}/delete`)
       },

@@ -83,19 +83,17 @@ export default class TrackController {
     return response.json(tracks)
   }
 
-  async create({ request, response, session }: HttpContext) {
+  async create({ request, response, session, i18n }: HttpContext) {
     try {
       const data = request.all() as Track
 
-      await createTrackValidator.validate(data)
-
       data.slug = slugify(data.name)
-
-      const track = await Track.create(data)
-      session.flash('success', 'Track created')
-      return response.redirect(`/admin/tracks/${track.slug}/edit`)
+      await createTrackValidator.validate(data)
+      await Track.create(data)
+      session.flash('success', i18n.t('track_created'))
+      return response.redirect('/admin/tracks')
     } catch (error) {
-      session.flash('error', 'Something went wrong while creating track')
+      session.flash('error', i18n.t('error_creating_track'))
       if (error instanceof errors.E_VALIDATION_ERROR) {
         return response.json({ error: error.messages[0] })
       } else {
@@ -104,7 +102,7 @@ export default class TrackController {
     }
   }
 
-  async update({ request, response, session, params }: HttpContext) {
+  async update({ request, response, session, params, i18n }: HttpContext) {
     try {
       const data = request.all() as Track
       const slug = params.slug ?? data.slug
@@ -115,10 +113,10 @@ export default class TrackController {
 
       await track.merge(data).save()
 
-      session.flash('success', 'Track updated')
+      session.flash('success', i18n.t('track_updated'))
       return response.redirect(`/admin/tracks/${track.slug}/edit`)
     } catch (error) {
-      session.flash('error', 'Something went wrong while updating track')
+      session.flash('error', i18n.t('error_updating_track'))
       if (error instanceof errors.E_VALIDATION_ERROR) {
         return response.json({ error: error.messages[0] })
       } else {
@@ -127,15 +125,15 @@ export default class TrackController {
     }
   }
 
-  async delete({ request, response, session }: HttpContext) {
+  async delete({ request, response, session, i18n }: HttpContext) {
     try {
       const slug = request.params().slug
       const track = await Track.findByOrFail('slug', slug)
       await track.delete()
-      session.flash('success', 'Track deleted')
+      session.flash('success', i18n.t('track_deleted'))
       return response.redirect('/admin/tracks')
     } catch (error) {
-      session.flash('error', 'Something went wrong while deleting track')
+      session.flash('error', i18n.t('error_deleting_track'))
       return response.json({ error: error })
     }
   }

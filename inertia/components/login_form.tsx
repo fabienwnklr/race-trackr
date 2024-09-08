@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button, Checkbox, Flex, Form, Input } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import { router } from '@inertiajs/react'
+import { router, useForm } from '@inertiajs/react'
 
 import type { LoginFieldType } from '#types/auth'
 import i18n from '#config/i18n_react'
@@ -20,9 +20,11 @@ const onLogin = async (values: LoginFieldType) => {
  */
 export default function Login() {
   const [isLoading, setLoading] = useState(false)
+  const [form] = Form.useForm<LoginFieldType>()
 
   return (
     <Form
+      form={form}
       name="login"
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
@@ -45,7 +47,7 @@ export default function Login() {
       <Form.Item<LoginFieldType>
         label={i18n.t('email')}
         name="email"
-        rules={[{ required: true, message: i18n.t('validation:email_required') }]}
+        rules={[{ required: true, type: 'email', message: i18n.t('validation:email_required') }]}
       >
         <Input prefix={<UserOutlined />} autoComplete="email" />
       </Form.Item>
@@ -81,16 +83,14 @@ export default function Login() {
       </Flex>
 
       <Flex justify="space-around" align="center">
-        <Form.Item>
-          <Button type="primary" htmlType="submit" loading={isLoading}>
-            {i18n.t('login')}
-          </Button>
-          {/* <Button>{i18n.t('register')}</Button>
+        <Button type="primary" htmlType="submit" loading={isLoading}>
+          {i18n.t('login')}
+        </Button>
+        {/* <Button>{i18n.t('register')}</Button>
           <Button>{i18n.t('register_with_facebook')}</Button>
           <Button>{i18n.t('register_with_google')}</Button>
           <Button>{i18n.t('register_with_twitter')}</Button>
           <Button>{i18n.t('register_with_apple')}</Button> */}
-        </Form.Item>
       </Flex>
     </Form>
   )

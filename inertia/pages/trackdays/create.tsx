@@ -139,7 +139,7 @@ export default function CreateTrackDay(props: {
               name="track"
               rules={[{ required: true, message: i18n.t('validation:track_required') }]}
             >
-              <Select showSearch allowClear options={trackOptions} />
+              <Select showSearch optionFilterProp="label" options={trackOptions} />
             </Form.Item>
           </Col>
 

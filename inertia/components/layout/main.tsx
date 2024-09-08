@@ -23,6 +23,7 @@ import {
   Layout,
   Menu,
   Modal,
+  notification,
   Select,
   Space,
   theme,
@@ -30,6 +31,7 @@ import {
 } from 'antd'
 import { useState } from 'react'
 import type { LevelKeysProps, MenuItem } from '#types/menu'
+import { User } from '../../../@types/user'
 
 const { Header, Content, Footer, Sider } = Layout
 const { useBreakpoint } = Grid
@@ -65,11 +67,13 @@ async function setLocale(locale: string) {
  */
 export default function Main(props: {
   route: string
-  children: React.ReactNode | React.ReactNode[]
-  user: any
+  children: React.ReactNode[]
+  user: User
+  success?: string
+  errors?: string
 }) {
   const [collapsed, setCollapsed] = useState(false)
-  const { route, children, user } = props
+  const { route, children, user, success, errors } = props
   const isAdminSubmenu = route.match('/admin') !== null
   let stateSubMenu = ['']
   if (isAdminSubmenu && !collapsed) stateSubMenu = ['admin-submenu']
@@ -82,16 +86,18 @@ export default function Main(props: {
   } = theme.useToken()
   const screens = useBreakpoint()
 
-  // if (!collapsed && (screens.sm || screens.xs)) {
-  //   setCollapsed(true)
-  // }
+  notification.config({
+    placement: 'bottomRight',
+    bottom: 50,
+    duration: 5,
+  })
 
-  const showModal = () => {
-    setIsModalOpen(true)
+  if (success) {
+    notification.success({ message: success })
   }
 
-  const hideModal = () => {
-    setIsModalOpen(false)
+  if (errors) {
+    notification.error({ message: errors })
   }
 
   const getLevelKeys = (items1: LevelKeysProps[]) => {
@@ -126,17 +132,7 @@ export default function Main(props: {
 
   const userDropdownItems: MenuItem[] = [
     getItem(i18n.t('account_settings'), '/settings/account', <UserOutlined />),
-    getItem(
-      <Typography.Link
-        onClick={() => {
-          showModal()
-        }}
-      >
-        {i18n.t('app_settings')}
-      </Typography.Link>,
-      '',
-      <SettingOutlined />
-    ),
+    getItem(<Typography.Link>{i18n.t('app_settings')}</Typography.Link>, '', <SettingOutlined />),
     getItem(
       <Typography.Link onClick={() => router.post('/auth/logout')}>
         {i18n.t('logout')}
@@ -235,16 +231,6 @@ export default function Main(props: {
           </Space>
         </Header>
         <Content style={{ margin: '0 16px' }}>
-          <Modal
-            title={i18n.t('app_settings')}
-            open={isModalOpen}
-            onOk={() => {
-              hideModal()
-            }}
-            onCancel={() => {
-              hideModal()
-            }}
-          ></Modal>
           <div
             style={{
               margin: '16px 0',

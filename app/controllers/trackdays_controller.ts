@@ -24,7 +24,6 @@ export default class TrackDaysController {
     }
 
     const paginationJSON = trackDays.serialize()
-    console.log(paginationJSON.data)
 
     return inertia.render('trackdays/index', { trackdays: paginationJSON.data })
   }
@@ -34,7 +33,7 @@ export default class TrackDaysController {
    */
   async showCreateForm({ inertia }: HttpContext) {
     const tracks = await Track.all()
-    return inertia.render('trackdays/[id]', { tracks })
+    return inertia.render('trackdays/create', { tracks })
   }
   /**
    * Show trackday filtering on track
