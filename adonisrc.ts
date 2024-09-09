@@ -10,7 +10,11 @@ export default defineConfig({
   | will be scanned automatically from the "./commands" directory.
   |
   */
-  commands: [() => import('@adonisjs/core/commands'), () => import('@adonisjs/lucid/commands'), () => import('@adonisjs/bouncer/commands')],
+  commands: [
+    () => import('@adonisjs/core/commands'),
+    () => import('@adonisjs/lucid/commands'),
+    () => import('@adonisjs/bouncer/commands'),
+  ],
 
   /*
   |--------------------------------------------------------------------------
@@ -39,7 +43,7 @@ export default defineConfig({
     () => import('@adonisjs/auth/auth_provider'),
     () => import('@adonisjs/inertia/inertia_provider'),
     () => import('@adonisjs/i18n/i18n_provider'),
-    () => import('@adonisjs/bouncer/bouncer_provider')
+    () => import('@adonisjs/bouncer/bouncer_provider'),
   ],
 
   /*
@@ -72,6 +76,11 @@ export default defineConfig({
         files: ['tests/functional/**/*.spec(.ts|.js)'],
         name: 'functional',
         timeout: 30000,
+      },
+      {
+        files: ['tests/browser/**/*.spec(.ts|.js)'],
+        name: 'browser',
+        timeout: 300000,
       },
     ],
     forceExit: false,
