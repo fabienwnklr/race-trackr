@@ -17,6 +17,14 @@ const DashboardController = () => import('#controllers/dashboard_controller')
 const TrackDaysController = () => import('#controllers/trackdays_controller')
 const MaintenancesController = () => import('#controllers/maintenances_controller')
 const ChronosController = () => import('#controllers/chronos_controller')
+const HealthChecksController = () => import('#controllers/health_checks_controller')
+
+router.get('/health', [HealthChecksController]).use(({ request, response }, next) => {
+  if (request.header('x-monitoring-secret') === 'some_secret_value') {
+    return next()
+  }
+  response.unauthorized({ message: 'Unauthorized access' })
+})
 
 router.group(() => {
   router.get('/', [AuthController, 'index']).use(middleware.guest())
