@@ -10,6 +10,7 @@ export function slugify(...args: (string | number)[]): string {
     .trim()
     .replace(/[^a-z0-9 ]/g, '') // remove all chars not letters, numbers and spaces (to be replaced)
     .replace(/\s+/g, '-') // separator
+    .replace(/^-+|-+$/g, '') // remove start and end hyphens
 }
 
 export function getItem(
