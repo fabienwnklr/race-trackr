@@ -21,7 +21,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
           justifyContent: 'space-between',
           alignItems: 'center',
         }}
-        level={2}
+        level={3}
       >
         <Typography.Link
           onClick={() => {
@@ -31,7 +31,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
           <LeftOutlined style={{ marginRight: 5 }} />
           {i18n.t('back')}
         </Typography.Link>
-        {i18n.t('trackday_of', { date: dayjs(trackday.date).format('DD/MM/YYYY') })}
+        {trackday.track.name} - {dayjs(trackday.date).format('DD/MM/YYYY')}
         <Button type="primary" onClick={() => router.get('/trackdays/' + trackday.id + '/edit')}>
           {i18n.t('edit')}
           <EditOutlined />

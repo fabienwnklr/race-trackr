@@ -6,10 +6,11 @@ export type Trackday = {
   date: string
   track_map: string
   weather: string
-  tire_pressure_front: string
-  tire_pressure_back: string
+  tirePressureFront: string
+  tirePressureBack: string
   details: string
   track: Track
+  trackId: number
   chronos: Chrono[]
   created_at: DateTime
   updated_at: DateTime

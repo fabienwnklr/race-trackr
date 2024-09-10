@@ -35,7 +35,11 @@ export default class TrackDaysController {
     const tracks = await Track.all()
 
     if (params.id) {
-      const trackday = await Trackday.findByOrFail('id', params.id)
+      const trackday = await Trackday.query()
+        .preload('track')
+        .preload('chronos')
+        .where('id', params.id)
+        .firstOrFail()
 
       return inertia.render('trackdays/[id]', { trackday, tracks })
     }
@@ -53,12 +57,13 @@ export default class TrackDaysController {
    * Show specific trackday details
    */
   async showTrackday({ inertia, params, response }: HttpContext) {
-    const trackday = await Trackday.findBy('id', params.id)
+    const trackday = await Trackday.query()
+      .preload('track')
+      .preload('chronos')
+      .where('id', params.id)
+      .firstOrFail()
 
-    if (trackday) {
-      return inertia.render('trackdays/trackday', { trackday })
-    }
-    return inertia.render('errors/not_found')
+    return inertia.render('trackdays/trackday', { trackday })
   }
 
   // ---- CRUD ---- //
