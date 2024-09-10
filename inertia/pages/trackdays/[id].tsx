@@ -133,11 +133,20 @@ export default function CreateTrackDay(props: {
         level={3}
       >
         {trackday
-          ? `${trackday.track.name} - ${dayjs(trackday.date).format('DD/MM/YYYY')}`
+          ? `${trackday.track.name} - ${dayjs(trackday.date, locale.DatePicker?.dateFormat)}`
           : i18n.t('create_trackday')}
       </Title>
 
-      <Form name="create_trackday" form={form} labelWrap onFinish={onSubmit}>
+      <Form
+        name="create_trackday"
+        form={form}
+        labelWrap
+        onFinish={onSubmit}
+        initialValues={{
+          track: trackday?.trackId,
+          date: trackday?.date ? dayjs(trackday?.date).valueOf() : undefined,
+        }}
+      >
         <Row gutter={18}>
           <Col span={12}>
             <Form.Item<Trackday>
@@ -146,12 +155,7 @@ export default function CreateTrackDay(props: {
               name="track"
               rules={[{ required: true, message: i18n.t('validation:track_required') }]}
             >
-              <Select
-                showSearch
-                optionFilterProp="label"
-                options={trackOptions}
-                defaultValue={trackday?.trackId}
-              />
+              <Select showSearch optionFilterProp="label" options={trackOptions} />
             </Form.Item>
           </Col>
 
@@ -161,12 +165,12 @@ export default function CreateTrackDay(props: {
               label={i18n.t('date')}
               name="date"
               rules={[{ required: true, message: i18n.t('validation:date_required') }]}
+              getValueProps={(value) => ({ value: value && dayjs(Number(value)) })}
             >
               <DatePicker
                 style={{ width: '100%' }}
                 format={locale.DatePicker?.dateFormat}
                 locale={locale.DatePicker}
-                defaultValue={trackday?.date ? dayjs(trackday?.date) : dayjs()}
               />
             </Form.Item>
           </Col>
@@ -183,30 +187,20 @@ export default function CreateTrackDay(props: {
                 name="tire_pressure_front"
                 style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
               >
-                <Input
-                  placeholder="Avant"
-                  type="number"
-                  step={0.1}
-                  value={trackday?.tirePressureFront}
-                />
+                <Input placeholder="Avant" type="number" step={0.1} />
               </Form.Item>
               <Form.Item
                 name="tire_pressure_back"
                 style={{ display: 'inline-block', width: 'calc(50%)', marginLeft: '8px' }}
               >
-                <Input
-                  placeholder="Arrière"
-                  type="number"
-                  step={0.1}
-                  value={trackday?.tirePressureBack}
-                />
+                <Input placeholder="Arrière" type="number" step={0.1} />
               </Form.Item>
             </Form.Item>
           </Col>
 
           <Col span={12}>
             <Form.Item<Trackday> {...formItemLayout} label={i18n.t('details')} name="details">
-              <Input.TextArea value={trackday?.details} />
+              <Input.TextAreaX />
             </Form.Item>
           </Col>
 
