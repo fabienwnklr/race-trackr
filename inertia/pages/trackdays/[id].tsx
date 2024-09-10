@@ -133,7 +133,7 @@ export default function CreateTrackDay(props: {
         level={3}
       >
         {trackday
-          ? `${trackday.track.name} - ${dayjs(trackday.date, locale.DatePicker?.dateFormat)}`
+          ? `${trackday.track.name} - ${dayjs(trackday.date).format(locale.DatePicker?.dateFormat)}`
           : i18n.t('create_trackday')}
       </Title>
 
@@ -200,7 +200,7 @@ export default function CreateTrackDay(props: {
 
           <Col span={12}>
             <Form.Item<Trackday> {...formItemLayout} label={i18n.t('details')} name="details">
-              <Input.TextAreaX />
+              <Input.TextArea />
             </Form.Item>
           </Col>
 
