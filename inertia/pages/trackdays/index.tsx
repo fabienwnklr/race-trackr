@@ -16,6 +16,7 @@ const { Title } = Typography
 export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
   const { token } = theme.useToken()
   const { trackdays } = props
+
   return (
     <>
       <Main route="/trackdays" {...props}>
@@ -25,6 +26,8 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}
+          level={3}
+          ellipsis
         >
           {i18n.t('trackdays')}
           <Button
@@ -42,6 +45,9 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
             {trackdays.map((td, i) => (
               <Col
                 span={8}
+                xs={24}
+                sm={12}
+                md={8}
                 style={{
                   marginBottom: 20,
                 }}

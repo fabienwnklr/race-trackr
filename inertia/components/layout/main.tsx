@@ -242,8 +242,8 @@ export default function Main(props: {
               minHeight: 360,
               maxHeight: '100%',
               overflow: 'auto',
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
+              // background: colorBgContainer,
+              // borderRadius: borderRadiusLG,
               display: 'flex',
               flexDirection: 'column',
             }}

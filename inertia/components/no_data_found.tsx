@@ -6,7 +6,7 @@ export default function NoDataFound() {
   const { token } = theme.useToken()
   const style: React.CSSProperties = {
     maxWidth: 'none',
-    backgroundColor: token.colorFillAlter,
+    backgroundColor: token.colorFillTertiary,
     borderRadius: token.borderRadiusLG,
     padding: 24,
     flex: '1',
