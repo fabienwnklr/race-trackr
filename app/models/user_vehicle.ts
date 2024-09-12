@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasOne } from '@adonisjs/lucid/orm'
-import type { HasOne } from '@adonisjs/lucid/types/relations'
-import VehicleBrand from './vehicle_brand.js'
+import { BaseModel, CamelCaseNamingStrategy, column } from '@adonisjs/lucid/orm'
+
+BaseModel.namingStrategy = new CamelCaseNamingStrategy()
 
 /**
  * Vehicle model used into maintenances (My bike 1, etc)
@@ -16,15 +16,9 @@ export default class UserVehicle extends BaseModel {
   @column()
   declare slug: string
 
-  @column()
-  declare creation_date: DateTime
+  @column.dateTime({ autoCreate: true, columnName: 'createdAt' })
+  declare createdAt: DateTime
 
-  @hasOne(() => VehicleBrand)
-  declare brand: HasOne<typeof VehicleBrand>
-
-  @column.dateTime({ autoCreate: true })
-  declare created_at: DateTime
-
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updated_at: DateTime
+  @column.dateTime({ autoCreate: true, autoUpdate: true, columnName: 'updatedAt' })
+  declare updatedAt: DateTime
 }

@@ -1,10 +1,12 @@
 import { DateTime } from 'luxon'
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, CamelCaseNamingStrategy, column, hasMany } from '@adonisjs/lucid/orm'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 import Trackday from './trackday.js'
+
+BaseModel.namingStrategy = new CamelCaseNamingStrategy()
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
@@ -33,9 +35,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @hasMany(() => Trackday)
   declare trackDays: HasMany<typeof Trackday>
 
-  @column.dateTime({ autoCreate: true })
-  declare created_at: DateTime
+  @column.dateTime({ autoCreate: true, columnName: 'createdAt' })
+  declare createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updated_at: DateTime | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true, columnName: 'updatedAt' })
+  declare updatedAt: DateTime | null
 }

@@ -51,7 +51,7 @@ export default function CreateAdminTrack(
         }}
         level={2}
       >
-        Admin - {track ? i18n.t('edit_track') : i18n.t('create_track')}
+        Admin - {track ? i18n.t('editTrack') : i18n.t('createTrack')}
       </Title>
       <Form
         form={form}
@@ -73,7 +73,7 @@ export default function CreateAdminTrack(
             <Form.Item<Track>
               name="name"
               label={i18n.t('name')}
-              rules={[{ required: true, message: i18n.t('name_required') }]}
+              rules={[{ required: true, message: i18n.t('required:nameRequired') }]}
               tooltip="Change this name perform to change URL !"
             >
               <Input />
@@ -81,7 +81,7 @@ export default function CreateAdminTrack(
           </Col>
           <Col span={colSpan}>
             <Form.Item<Track> name="country" label={i18n.t('country')}>
-              <Select placeholder={i18n.t('select_country')} allowClear>
+              <Select placeholder={i18n.t('selectCountry')} allowClear>
                 <Option value="France">France</Option>
               </Select>
             </Form.Item>
@@ -104,12 +104,12 @@ export default function CreateAdminTrack(
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item<Track> name="best_lap_time" label={i18n.t('best_lap_time')}>
+            <Form.Item<Track> name="bestLapTime" label={i18n.t('bestLapTime')}>
               <Input />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item<Track> name="best_lap_time_pilote" label={i18n.t('best_lap_time_pilote')}>
+            <Form.Item<Track> name="bestLapTimePilote" label={i18n.t('bestLapTimePilote')}>
               <Input />
             </Form.Item>
           </Col>

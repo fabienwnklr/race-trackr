@@ -8,14 +8,14 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('cylinder').notNullable()
       table
-        .integer('vehicle_model_id')
+        .integer('vehicleModelId')
         .unsigned()
         .references('id')
-        .inTable('vehicle_models')
-        .onDelete('CASCADE') // Clé étrangère vers vehicle_models
+        .inTable('vehicleModels')
+        .onDelete('CASCADE') // Clé étrangère vers vehicleModels
 
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.timestamp('createdAt')
+      table.timestamp('updatedAt')
     })
   }
 

@@ -33,7 +33,7 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
               router.visit('/trackdays/create')
             }}
           >
-            {i18n.t('create_trackday')} <PlusOutlined />
+            {i18n.t('createTrackday')} <PlusOutlined />
           </Button>
         </Title>
 

@@ -4,7 +4,6 @@ import { Chrono } from './chrono.js'
 export type Trackday = {
   id: number
   date: string
-  track_map: string
   weather: string
   tirePressureFront: string
   tirePressureBack: string
@@ -12,6 +11,6 @@ export type Trackday = {
   track: Track
   trackId: number
   chronos: Chrono[]
-  created_at: DateTime
-  updated_at: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
 }

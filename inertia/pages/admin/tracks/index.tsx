@@ -107,7 +107,7 @@ export default function AdminTracks(
       >
         Admin - {i18n.t('tracks')}
         <Button type="primary" onClick={() => router.visit('/admin/tracks/create')}>
-          {i18n.t('create_track')} <PlusOutlined />
+          {i18n.t('createTrack')} <PlusOutlined />
         </Button>
       </Title>
 

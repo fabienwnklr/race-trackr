@@ -1,8 +1,10 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column, hasMany, hasOne } from '@adonisjs/lucid/orm'
-import type { BelongsTo, HasMany, HasOne } from '@adonisjs/lucid/types/relations'
+import { BaseModel, belongsTo, CamelCaseNamingStrategy, column, hasMany } from '@adonisjs/lucid/orm'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import VehicleModel from './vehicle_model.js'
 import VehicleType from './vehicle_type.js'
+
+BaseModel.namingStrategy = new CamelCaseNamingStrategy()
 
 export default class VehicleBrand extends BaseModel {
   @column({ isPrimary: true })
@@ -24,9 +26,9 @@ export default class VehicleBrand extends BaseModel {
   @hasMany(() => VehicleModel)
   declare models: HasMany<typeof VehicleModel>
 
-  @column.dateTime({ autoCreate: true })
-  declare created_at: DateTime
+  @column.dateTime({ autoCreate: true, columnName: 'createdAt' })
+  declare createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updated_at: DateTime
+  @column.dateTime({ autoCreate: true, autoUpdate: true, columnName: 'updatedAt' })
+  declare updatedAt: DateTime
 }

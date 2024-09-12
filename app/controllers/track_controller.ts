@@ -27,8 +27,8 @@ export default class TrackController {
         'city',
         'adress',
         'distance',
-        'best_lap_time',
-        'best_lap_time_pilote',
+        'bestLapTime',
+        'bestLapTimePilote',
         'infos',
       ],
     })
@@ -51,8 +51,8 @@ export default class TrackController {
         city: track.city ?? defaultData,
         adress: track.adress ?? defaultData,
         distance: track.distance ?? defaultData,
-        best_lap_time: track.best_lap_time ?? defaultData,
-        best_lap_time_pilote: track.best_lap_time_pilote ?? defaultData,
+        bestLapTime: track.bestLapTime ?? defaultData,
+        bestLapTimePilote: track.bestLapTimePilote ?? defaultData,
         infos: track.infos ?? defaultData,
       })
     }
@@ -90,7 +90,7 @@ export default class TrackController {
       data.slug = slugify(data.name)
       await createTrackValidator.validate(data)
       await Track.create(data)
-      session.flash('success', i18n.t('track_created'))
+      session.flash('success', i18n.t('success.track_created'))
       return response.redirect('/admin/tracks')
     } catch (error) {
       session.flash('error', i18n.t('error_creating_track'))
@@ -113,7 +113,7 @@ export default class TrackController {
 
       await track.merge(data).save()
 
-      session.flash('success', i18n.t('track_updated'))
+      session.flash('success', i18n.t('success.track_updated'))
       return response.redirect(`/admin/tracks/${track.slug}/edit`)
     } catch (error) {
       session.flash('error', i18n.t('error_updating_track'))
@@ -130,7 +130,7 @@ export default class TrackController {
       const slug = request.params().slug
       const track = await Track.findByOrFail('slug', slug)
       await track.delete()
-      session.flash('success', i18n.t('track_deleted'))
+      session.flash('success', i18n.t('success.track_deleted'))
       return response.redirect('/admin/tracks')
     } catch (error) {
       session.flash('error', i18n.t('error_deleting_track'))

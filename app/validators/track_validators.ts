@@ -11,8 +11,8 @@ export const createTrackValidator = vine.compile(
     city: vine.string().trim().optional(),
     adress: vine.string().trim().optional(),
     distance: vine.string().trim().optional(),
-    best_lap_time: vine.string().trim().optional(),
-    best_lap_time_pilote: vine.string().trim().optional(),
+    bestLapTime: vine.string().trim().optional(),
+    bestLapTimePilote: vine.string().trim().optional(),
     infos: vine.string().trim().optional(),
   })
 )

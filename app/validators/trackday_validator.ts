@@ -10,8 +10,8 @@ export const createTrackdayValidator = vine.compile(
     }),
     trackId: vine.number().withoutDecimals().positive(),
     weather: vine.string().trim().optional(),
-    tire_pressure_front: vine.string().trim().optional(),
-    tire_pressure_back: vine.string().trim().optional(),
+    tirePressureFront: vine.string().trim().optional(),
+    tirePressureBack: vine.string().trim().optional(),
     details: vine.string().trim().optional(),
   })
 )

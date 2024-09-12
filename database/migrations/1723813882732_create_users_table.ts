@@ -12,8 +12,8 @@ export default class extends BaseSchema {
       table.string('country').notNullable()
       table.string('role').notNullable().defaultTo('user')
 
-      table.timestamp('created_at').notNullable()
-      table.timestamp('updated_at').nullable()
+      table.timestamp('createdAt').notNullable()
+      table.timestamp('updatedAt').nullable()
     })
   }
 

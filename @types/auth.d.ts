@@ -7,7 +7,7 @@ export type LoginFieldType = {
 export type RegisterFieldType = {
   email: string
   password: string
-  password_confirm: string
+  passwordConfirm: string
   remember: string
   fullName: string
   country: string

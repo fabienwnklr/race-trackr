@@ -1,7 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, CamelCaseNamingStrategy, column, hasMany } from '@adonisjs/lucid/orm'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 import Trackday from './trackday.js'
+
+BaseModel.namingStrategy = new CamelCaseNamingStrategy()
 
 export default class Track extends BaseModel {
   @column({ isPrimary: true })
@@ -25,11 +27,11 @@ export default class Track extends BaseModel {
   @column()
   declare distance: string | null
 
-  @column()
-  declare best_lap_time: string | null
+  @column({ columnName: 'bestLapTime' })
+  declare bestLapTime: string | null
 
-  @column()
-  declare best_lap_time_pilote: string | null
+  @column({ columnName: 'bestLapTimePilote' })
+  declare bestLapTimePilote: string | null
 
   @column()
   declare infos: string | null
@@ -37,9 +39,9 @@ export default class Track extends BaseModel {
   @hasMany(() => Trackday)
   declare trackDays: HasMany<typeof Trackday>
 
-  @column.dateTime({ autoCreate: true })
-  declare created_at: DateTime
+  @column.dateTime({ autoCreate: true, columnName: 'createdAt' })
+  declare createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updated_at: DateTime
+  @column.dateTime({ autoCreate: true, autoUpdate: true, columnName: 'updatedAt' })
+  declare updatedAt: DateTime
 }

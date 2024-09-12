@@ -6,10 +6,10 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.integer('lap_time').notNullable()
-      table.integer('trackday_id').unsigned().references('trackdays.id').onDelete('CASCADE') // delete post when user is deleted
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.integer('lapTime').notNullable()
+      table.integer('trackdayId').unsigned().references('trackdays.id').onDelete('CASCADE') // delete post when user is deleted
+      table.timestamp('createdAt')
+      table.timestamp('updatedAt')
     })
   }
 

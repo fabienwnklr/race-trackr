@@ -14,7 +14,7 @@ export default class TrackDaysController {
     }
 
     const trackDays = await Trackday.query()
-      .where('user_id', auth.user.id)
+      .where('userId', auth.user.id)
       .orderBy('date', 'desc')
       .preload('track') // Charger la piste associée
       .preload('chronos') // Charger tous les chronos liés
@@ -97,8 +97,8 @@ export default class TrackDaysController {
             date: trackDayData.date,
             trackId: track.id,
             weather: trackDayData.weather,
-            tire_pressure_front: trackDayData.tire_pressure_front,
-            tire_pressure_back: trackDayData.tire_pressure_back,
+            tirePressureFront: trackDayData.tirePressureFront,
+            tirePressureBack: trackDayData.tirePressureBack,
             details: trackDayData.details,
             userId: user.id,
           }).filter(([key, value]) => value !== null && value !== undefined && value !== '') // Filtrer les valeurs nulles ou undefined
@@ -131,7 +131,7 @@ export default class TrackDaysController {
     }
     if (params.id) {
       const trackDay = await Trackday.query()
-        .where('user_id', auth.user.id)
+        .where('userId', auth.user.id)
         .where('id', params.id)
         .preload('chronos') // Charger tous les chronos liés
         .preload('track') // Charger la piste associée
@@ -140,7 +140,7 @@ export default class TrackDaysController {
     }
 
     const trackDays = await Trackday.query()
-      .where('user_id', auth.user.id)
+      .where('userId', auth.user.id)
       .preload('track') // Charger la piste associée
       .preload('chronos') // Charger tous les chronos liés
       .paginate(1, 10)
