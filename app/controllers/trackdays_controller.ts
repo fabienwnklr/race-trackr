@@ -6,6 +6,7 @@ import dayjs from 'dayjs'
 import type { HttpContext } from '@adonisjs/core/http'
 import type { Trackday as TrackdayType } from '#types/trackday'
 import type { Chrono as ChronoType } from '#types/chrono'
+import ApiException from '#exceptions/api_error'
 
 export default class TrackDaysController {
   async index({ inertia, auth }: HttpContext) {
@@ -125,31 +126,30 @@ export default class TrackDaysController {
     }
   }
 
-  async read({ inertia, auth, params }: HttpContext) {
-    if (!auth.user) {
-      return inertia.render('errors/unauthorized')
-    }
+  async read({ response, params, request }: HttpContext) {
+    const getParams = request.qs() as { page?: number; limit?: number; relations?: string[] }
+    const page = getParams.page ?? 1
+    const limit = getParams.limit ?? 10
+
     if (params.id) {
       const trackDay = await Trackday.query()
-        .where('userId', auth.user.id)
+        .where('userId', params.user)
         .where('id', params.id)
         .preload('chronos') // Charger tous les chronos liés
         .preload('track') // Charger la piste associée
         .firstOrFail()
-      return inertia.render('trackdays/[id]', { trackDay })
+
+      return response.json(trackDay)
     }
 
     const trackDays = await Trackday.query()
-      .where('userId', auth.user.id)
+      .where('userId', params.user)
       .preload('track') // Charger la piste associée
       .preload('chronos') // Charger tous les chronos liés
-      .paginate(1, 10)
-    if (!trackDays) {
-      return inertia.render('trackdays/index')
-    }
+      .paginate(page, limit)
 
     const paginationJSON = trackDays.serialize()
 
-    return inertia.render('trackdays/index', { trackDays: paginationJSON.data })
+    return response.json(paginationJSON)
   }
 }

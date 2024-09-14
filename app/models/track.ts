@@ -3,9 +3,9 @@ import { BaseModel, CamelCaseNamingStrategy, column, hasMany } from '@adonisjs/l
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 import Trackday from './trackday.js'
 
-BaseModel.namingStrategy = new CamelCaseNamingStrategy()
-
 export default class Track extends BaseModel {
+  static namingStrategy = new CamelCaseNamingStrategy()
+
   @column({ isPrimary: true })
   declare id: number
 

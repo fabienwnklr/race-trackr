@@ -9,6 +9,7 @@
 
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+import User from '#models/user'
 
 const VehiclesController = () => import('#controllers/vehicles_controller')
 const TrackController = () => import('#controllers/track_controller')
@@ -87,14 +88,24 @@ router
 
     // Trackday CRUD
     router.post('/trackdays/create', [TrackDaysController, 'create'])
-    router.get('/trackdays', [TrackDaysController, 'read'])
-    router.get('/trackdays/:id', [TrackDaysController, 'read'])
+    router.get('/trackdays/:user', [TrackDaysController, 'read'])
+    router.get('/trackdays/:user/:id', [TrackDaysController, 'read'])
 
     // Vehicle CRUD
     router.get('/vehicles/types', [VehiclesController, 'readVehicleType'])
     router.get('/vehicles/:id/brands', [VehiclesController, 'readBrand'])
     router.get('/vehicles/:id/models', [VehiclesController, 'readModels'])
     router.get('/vehicles/:id/cylinders', [VehiclesController, 'readCylinders'])
+
+    router.get('/users/:id/tokens', async ({ params }) => {
+      const user = await User.findOrFail(params.id)
+      const token = await User.accessTokens.create(user)
+
+      return {
+        type: 'bearer',
+        value: token.value!.release(),
+      }
+    })
   })
   .prefix('api')
-  .use(middleware.auth()) // Create api middleware instead use auth
+//.use(middleware.auth()) // Create api middleware instead use auth
