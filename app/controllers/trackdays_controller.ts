@@ -6,7 +6,6 @@ import dayjs from 'dayjs'
 import type { HttpContext } from '@adonisjs/core/http'
 import type { Trackday as TrackdayType } from '#types/trackday'
 import type { Chrono as ChronoType } from '#types/chrono'
-import ApiException from '#exceptions/api_error'
 
 export default class TrackDaysController {
   async index({ inertia, auth }: HttpContext) {
@@ -18,7 +17,7 @@ export default class TrackDaysController {
       .where('userId', auth.user.id)
       .orderBy('date', 'desc')
       .preload('track') // Charger la piste associée
-      .preload('chronos') // Charger tous les chronos liés
+      .preload('chronos')
       .paginate(1, 10)
     if (!trackDays) {
       return inertia.render('trackdays/index')
@@ -57,7 +56,7 @@ export default class TrackDaysController {
   /**
    * Show specific trackday details
    */
-  async showTrackday({ inertia, params, response }: HttpContext) {
+  async showTrackday({ inertia, params }: HttpContext) {
     const trackday = await Trackday.query()
       .preload('track')
       .preload('chronos')
@@ -135,8 +134,8 @@ export default class TrackDaysController {
       const trackDay = await Trackday.query()
         .where('userId', params.user)
         .where('id', params.id)
-        .preload('chronos') // Charger tous les chronos liés
-        .preload('track') // Charger la piste associée
+        .preload('chronos')
+        .preload('track')
         .firstOrFail()
 
       return response.json(trackDay)
@@ -144,8 +143,8 @@ export default class TrackDaysController {
 
     const trackDays = await Trackday.query()
       .where('userId', params.user)
-      .preload('track') // Charger la piste associée
-      .preload('chronos') // Charger tous les chronos liés
+      .preload('track')
+      .preload('chronos')
       .paginate(page, limit)
 
     const paginationJSON = trackDays.serialize()

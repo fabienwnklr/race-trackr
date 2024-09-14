@@ -11,6 +11,8 @@ export default class extends BaseSchema {
       table.string('weather').nullable()
       table.string('tirePressureFront').nullable()
       table.string('tirePressureBack').nullable()
+      table.string('bestChrono').nullable()
+      table.string('regulChrono').nullable()
       table.text('details').nullable()
       table.integer('trackId').unsigned().references('tracks.id').onDelete('CASCADE') // Relation avec Track
       table.integer('userId').unsigned().references('users.id').onDelete('CASCADE') // Référence à l'utilisateur
