@@ -47,6 +47,8 @@ router
     router.get('/maintenances/:slug', [MaintenancesController, 'showMaintenanceForVehicle'])
     // Chronos
     router.get('/chronos', [ChronosController, 'index'])
+    // Api key
+    router.get('/api_key', [AuthController, 'apiKey'])
 
     // Admin pages
     router

@@ -103,7 +103,7 @@ export default function AdminTracks(
           justifyContent: 'space-between',
           alignItems: 'center',
         }}
-        level={2}
+        level={3}
       >
         Admin - {i18n.t('tracks')}
         <Button type="primary" onClick={() => router.visit('/admin/tracks/create')}>

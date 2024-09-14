@@ -87,5 +87,8 @@
   "date": "Date",
   "details": "Détails",
   "back": "Retour",
-  "selectCountry": "Choisir un pays"
+  "selectCountry": "Choisir un pays",
+  "apiKeys": "Clés API",
+  "apiKey": "Clé API",
+  "createApiKey": "Ajouter une nouvelle clé API"
 }

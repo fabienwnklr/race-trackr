@@ -8,6 +8,14 @@ export default class AuthController {
     return inertia.render('home')
   }
 
+  async apiKey({ inertia, auth }: HttpContext) {
+    if (!auth.user) {
+      return inertia.render('errors/unauthorized')
+    }
+    const apiKeys = {} //await User.accessTokens.all(auth.user)
+    return inertia.render('api_key', { apiKeys })
+  }
+
   async register({ request, response, auth }: HttpContext) {
     try {
       const data = request.all()

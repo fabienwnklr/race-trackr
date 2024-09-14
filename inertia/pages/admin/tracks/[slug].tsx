@@ -99,7 +99,7 @@ export default function CreateAdminTrack(
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item<Track> name="distance" label={i18n.t('distance')}>
+            <Form.Item<Track> name="trackLength" label={i18n.t('distance')}>
               <Input />
             </Form.Item>
           </Col>

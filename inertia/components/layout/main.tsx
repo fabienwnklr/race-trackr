@@ -12,6 +12,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   FlagOutlined,
+  KeyOutlined,
 } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import type { MenuProps } from 'antd'
@@ -30,8 +31,9 @@ import {
   Typography,
 } from 'antd'
 import { useState } from 'react'
+
 import type { LevelKeysProps, MenuItem } from '#types/menu'
-import { User } from '../../../@types/user'
+import type { User } from '#types/user'
 
 const { Header, Content, Footer, Sider } = Layout
 const { useBreakpoint } = Grid
@@ -132,6 +134,13 @@ export default function Main(props: {
   const userDropdownItems: MenuItem[] = [
     getItem(i18n.t('account_settings'), '/settings/account', <UserOutlined />),
     getItem(<Typography.Link>{i18n.t('app_settings')}</Typography.Link>, '', <SettingOutlined />),
+    getItem(
+      <Typography.Link onClick={() => router.visit('/api_key')}>
+        {i18n.t('api_key')}
+      </Typography.Link>,
+      '/api_key',
+      <KeyOutlined />
+    ),
     getItem(
       <Typography.Link onClick={() => router.post('/auth/logout')}>
         {i18n.t('logout')}
