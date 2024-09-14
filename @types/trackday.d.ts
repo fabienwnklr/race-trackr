@@ -18,6 +18,8 @@ export type Trackday = {
   details: string
   track: Track
   trackId: number
+  bestChrono: string
+  regulChrono: string
   chronos: Chrono[]
   createdAt: DateTime
   updatedAt: DateTime
