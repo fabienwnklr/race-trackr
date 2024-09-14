@@ -3,6 +3,10 @@ const errors = {
     code: 2000,
     message: 'Relation "{{params}}" does not exist',
   },
+  'Unauthorized access': {
+    code: 1000,
+    message: 'You cannot access this resource',
+  },
 }
 export default class ApiException {
   error: string

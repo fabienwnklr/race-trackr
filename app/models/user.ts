@@ -5,7 +5,7 @@ import { BaseModel, CamelCaseNamingStrategy, column, hasMany } from '@adonisjs/l
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 import Trackday from './trackday.js'
-import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
+import { AccessToken, DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
@@ -14,6 +14,8 @@ const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
 
 export default class User extends compose(BaseModel, AuthFinder) {
   static namingStrategy = new CamelCaseNamingStrategy()
+
+  currentAccessToken?: AccessToken
 
   @column({ isPrimary: true })
   declare id: number

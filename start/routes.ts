@@ -108,4 +108,8 @@ router
     })
   })
   .prefix('api')
-//.use(middleware.auth()) // Create api middleware instead use auth
+  .use(
+    middleware.auth({
+      guards: ['api'],
+    })
+  ) // Create api middleware instead use auth

@@ -1,6 +1,8 @@
 import app from '@adonisjs/core/services/app'
 import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
 import type { StatusPageRange, StatusPageRenderer } from '@adonisjs/core/types/http'
+import { errors } from '@adonisjs/auth'
+import ApiException from './api_error.js'
 
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
@@ -30,7 +32,13 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * response to the client
    */
   async handle(error: unknown, ctx: HttpContext) {
-    console.log('Error from ExceptionHandler', error)
+    const url = ctx.request.url()
+    if (url.startsWith('/api')) {
+      if (error instanceof errors.E_UNAUTHORIZED_ACCESS) {
+        return ctx.response.unauthorized(new ApiException(error.message))
+      }
+      return ctx.response.json(error)
+    }
     return super.handle(error, ctx)
   }
 
