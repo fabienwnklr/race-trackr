@@ -24,8 +24,17 @@ export default class Track extends BaseModel {
   @column()
   declare adress: string | null
 
-  @column()
-  declare distance: string | null
+  @column({ columnName: 'turnCount' })
+  declare turnCount: number | null
+
+  @column({ columnName: 'trackWidth' })
+  declare trackWidth: number | null
+
+  @column({ columnName: 'trackLength' })
+  declare trackLength: number | null
+
+  @column({ columnName: 'maxDb' })
+  declare maxDb: number | null
 
   @column({ columnName: 'bestLapTime' })
   declare bestLapTime: string | null

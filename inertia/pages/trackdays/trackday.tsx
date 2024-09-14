@@ -68,8 +68,8 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
           {trackday.tirePressureFront || trackday.tirePressureBack ? (
             <Col span={12} xs={24} sm={5}>
               <p>{i18n.t('tire_pressure')}</p>
-              <p>{trackday.tirePressureFront}</p>
-              <p>{trackday.tirePressureBack}</p>
+              <p>{i18n.t('front') + ' : ' + trackday.tirePressureFront}</p>
+              <p>{i18n.t('back') + ' : ' + trackday.tirePressureBack}</p>
             </Col>
           ) : (
             ''
