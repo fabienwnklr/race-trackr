@@ -1,5 +1,5 @@
 import Main from '#components/layout/main'
-import { Button, Typography, Row, Col, Card, theme } from 'antd'
+import { Button, Typography, Row, Col, Card, theme, Image } from 'antd'
 import { LeftOutlined, EditOutlined } from '@ant-design/icons'
 import SunnyIcon from '#components/icons/sunny'
 import { router } from '@inertiajs/react'
@@ -102,10 +102,10 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
         </Button>
       </Title>
 
-      <Card bordered={false}>
-        <Row gutter={16}>
-          {/* Weather */}
-          <Col span={12} xs={24} sm={5}>
+      <Row gutter={16}>
+        {/* Weather */}
+        <Col span={12} xs={24} sm={6}>
+          <Card bordered={false} style={{ height: '100%' }}>
             <p>{i18n.t('weather')}</p>
             {trackday.weather === 'sunny' ? (
               <SunnyIcon size={80} />
@@ -114,58 +114,65 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
             ) : (
               <RainyIcon size={80} />
             )}
-          </Col>
-          {/* Tire pressure */}
-          {trackday.tirePressureFront || trackday.tirePressureBack ? (
-            <Col span={12} xs={24} sm={5}>
-              <p>{i18n.t('tire_pressure')}</p>
-              <p>{i18n.t('front') + ' : ' + trackday.tirePressureFront}</p>
-              <p>{i18n.t('back') + ' : ' + trackday.tirePressureBack}</p>
-            </Col>
-          ) : (
-            ''
-          )}
-          {/* Best chrono */}
-          {trackday.bestChrono ? (
-            <Col span={12} xs={24} sm={5}>
-              <p>{i18n.t('best_chrono')}</p>
-              <p>{trackday.bestChrono}</p>
-            </Col>
-          ) : (
-            ''
-          )}
-          {/* Chrono regul */}
-          {trackday.regulChrono ? (
-            <Col span={12} xs={24} sm={5}>
-              <p>{i18n.t('regul_chrono')}</p>
-              <p>{trackday.regulChrono}</p>
-            </Col>
-          ) : (
-            ''
-          )}
+          </Card>
+        </Col>
+        {/* Tire pressure */}
+        <Col span={12} xs={24} sm={6}>
+          <Card bordered={false} style={{ height: '100%' }}>
+            <p>{i18n.t('tire_pressure')}</p>
+            <p>{i18n.t('front') + ' : ' + trackday.tirePressureFront}</p>
+            <p>{i18n.t('back') + ' : ' + trackday.tirePressureBack}</p>
+          </Card>
+        </Col>
+        {/* Best chrono */}
+        <Col span={12} xs={24} sm={6}>
+          <Card bordered={false} style={{ height: '100%' }}>
+            <p>{i18n.t('best_chrono')}</p>
+            <p>{trackday.bestChrono}</p>
+          </Card>
+        </Col>
 
-          {/* Chronos chart */}
-          {trackday.chronos.length ? (
-            <Col span={24} style={{ marginTop: 20 }}>
-              <ChronosChart chronos={trackday.chronos} />
-            </Col>
-          ) : (
-            ''
-          )}
-        </Row>
-      </Card>
-      {/* <Col span={12} xs={24} sm={12}>
-          <Card bordered={false}>
-            <Statistic
-              title="Idle"
-              value={9.3}
-              precision={2}
-              valueStyle={{ color: '#cf1322' }}
-              prefix={<ArrowDownOutlined />}
-              suffix="%"
+        {/* Chrono regul */}
+        <Col span={12} xs={24} sm={6}>
+          <Card bordered={false} style={{ height: '100%' }}>
+            <p>{i18n.t('regul_chrono')}</p>
+            <p>{trackday.regulChrono}</p>
+          </Card>
+        </Col>
+
+        {/* Track map */}
+        <Col span={24} style={{ marginTop: 20 }}>
+          <Card bordered={false} style={{ height: '100%' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: 10,
+              }}
+            >
+              <p>{i18n.t('track_map')}</p>
+              <Button onClick={() => router.visit(`/tracks/${trackday.track.slug}`)}>
+                See map infos
+              </Button>
+            </div>
+            <Image
+              alt={trackday.track.name}
+              height={250}
+              width="100%"
+              preview={{ bodyStyle: { backgroundColor: token.colorBgContainer } }}
+              src={`/inertia/images/track_${trackday.track.slug}.svg`}
             />
           </Card>
-        </Col> */}
+        </Col>
+
+        {/* Chronos chart */}
+        <Col span={24} style={{ marginTop: 20 }}>
+          <Card bordered={false} style={{ height: '100%' }}>
+            <ChronosChart chronos={trackday.chronos} />
+          </Card>
+        </Col>
+      </Row>
     </Main>
   )
 }
