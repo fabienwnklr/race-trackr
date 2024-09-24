@@ -106,11 +106,7 @@ export default function CreateTrackDay(props: {
   }))
 
   const onCancel = () => {
-    if (trackday) {
-      router.visit(`/trackdays/${trackday.id}/`)
-    } else {
-      router.visit('/trackdays')
-    }
+    window.history.back()
   }
 
   const onSubmit = (values: Trackday) => {

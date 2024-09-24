@@ -136,7 +136,7 @@ export default function Main(props: {
     getItem(<Typography.Link>{i18n.t('app_settings')}</Typography.Link>, '', <SettingOutlined />),
     getItem(
       <Typography.Link onClick={() => router.visit('/api_key')}>
-        {i18n.t('api_key')}
+        {i18n.t('apiKeys')}
       </Typography.Link>,
       '/api_key',
       <KeyOutlined />

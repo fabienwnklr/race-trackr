@@ -1,4 +1,5 @@
 import type { MenuItem } from '#types/menu'
+import { defaultData } from '../constants/index.js'
 
 export function slugify(...args: (string | number)[]): string {
   const value = args.join(' ')
@@ -39,4 +40,11 @@ export function convertToChronoFormat(milliseconds: number): string {
   milliseconds %= 1000
 
   return `${minutes}.${seconds}.${milliseconds}`
+}
+
+/**
+ * Function for set default value in case of value is falsy
+ */
+export function cleanFalsyValues(data: any) {
+  return data ?? defaultData
 }

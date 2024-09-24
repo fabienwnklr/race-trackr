@@ -9,7 +9,8 @@ import i18n from '#config/i18n_react'
 import dayjs from 'dayjs'
 import RainyIcon from '#components/icons/rainy'
 import CloudyIcon from '#components/icons/cloudy'
-import { convertToChronoFormat, convertToMilliseconds } from '#utils/index'
+import ChronoIcon from '#components/icons/chrono'
+import { cleanFalsyValues, convertToChronoFormat, convertToMilliseconds } from '#utils/index'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -105,8 +106,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
       <Row gutter={16}>
         {/* Weather */}
         <Col span={12} xs={24} sm={6}>
-          <Card bordered={false} style={{ height: '100%' }}>
-            <p>{i18n.t('weather')}</p>
+          <Card title={i18n.t('weather')} bordered={false} style={{ height: '100%' }}>
             {trackday.weather === 'sunny' ? (
               <SunnyIcon size={80} />
             ) : trackday.weather === 'cloudy' ? (
@@ -118,24 +118,51 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
         </Col>
         {/* Tire pressure */}
         <Col span={12} xs={24} sm={6}>
-          <Card bordered={false} style={{ height: '100%' }}>
-            <p>{i18n.t('tire_pressure')}</p>
-            <p>{i18n.t('front') + ' : ' + trackday.tirePressureFront}</p>
-            <p>{i18n.t('back') + ' : ' + trackday.tirePressureBack}</p>
+          <Card title={i18n.t('tire_pressure')} bordered={false} style={{ height: '100%' }}>
+            <p>{i18n.t('front') + ' : ' + cleanFalsyValues(trackday.tirePressureFront)}</p>
+            <p>{i18n.t('back') + ' : ' + cleanFalsyValues(trackday.tirePressureBack)}</p>
           </Card>
         </Col>
         {/* Best chrono */}
         <Col span={12} xs={24} sm={6}>
-          <Card bordered={false} style={{ height: '100%' }}>
-            <p>{i18n.t('best_chrono')}</p>
+          <Card
+            styles={{
+              title: {
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              },
+              body: {
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              },
+            }}
+            title={
+              <>
+                {i18n.t('bestLapTime')}
+                <ChronoIcon size={30} />
+              </>
+            }
+            bordered={false}
+            style={{ height: '100%' }}
+          >
+            {/* <ChronoIcon size={100} /> */}
             <p>{trackday.bestChrono}</p>
+            <Button
+              style={{
+                marginTop: 20,
+              }}
+            >
+              {i18n.t('show_my_chronos')}
+            </Button>
           </Card>
         </Col>
 
         {/* Chrono regul */}
         <Col span={12} xs={24} sm={6}>
-          <Card bordered={false} style={{ height: '100%' }}>
-            <p>{i18n.t('regul_chrono')}</p>
+          <Card title={i18n.t('regulLapTime')} bordered={false} style={{ height: '100%' }}>
             <p>{trackday.regulChrono}</p>
           </Card>
         </Col>

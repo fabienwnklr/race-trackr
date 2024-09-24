@@ -5,6 +5,7 @@ import { createTrackdayValidator } from '#validators/trackday_validator'
 import type { HttpContext } from '@adonisjs/core/http'
 import type { Trackday as TrackdayType } from '#types/trackday'
 import type { Chrono as ChronoType } from '#types/chrono'
+import { cleanFalsyValues } from '#utils/index'
 
 export default class TrackDaysController {
   async index({ inertia, auth }: HttpContext) {
