@@ -35,6 +35,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare role: string
 
+  @column()
+  declare premium: boolean
+
   static accessTokens = DbAccessTokensProvider.forModel(User)
 
   @hasMany(() => Trackday)
