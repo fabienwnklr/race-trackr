@@ -41,7 +41,7 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
         </Title>
 
         {trackdays.length ? (
-          <Row>
+          <Row gutter={30}>
             {trackdays.map((td, i) => (
               <Col
                 key={i}
@@ -58,7 +58,7 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
                     router.get(`/trackdays/${td.id}`)
                   }}
                   hoverable
-                  style={{ width: 'calc(100% - 20px)', padding: 10 }}
+                  style={{ width: '100%', padding: 10 }}
                   cover={
                     <img
                       alt={td.track.name}
