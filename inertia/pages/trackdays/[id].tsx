@@ -19,7 +19,7 @@ import locale from 'antd/locale/fr_FR'
 import type { User } from '#types/user'
 import type { Trackday } from '#types/trackday'
 import type { Track } from '#types/track'
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 
 const { Title } = Typography
 
@@ -115,7 +115,7 @@ export default function CreateTrackDay(props: {
 
   const onSubmit = (values: Trackday) => {
     if (trackday) {
-      router.post(`/trackdays/${values.id}/update`, values)
+      router.post(`/trackdays/${trackday.id}/update`, values)
     } else {
       router.post('/trackdays/create', values)
     }
@@ -143,7 +143,7 @@ export default function CreateTrackDay(props: {
         labelWrap
         onFinish={onSubmit}
         initialValues={{
-          track: trackday?.trackId,
+          trackId: trackday?.trackId,
           date: trackday?.date ? dayjs(trackday?.date).valueOf() : undefined,
         }}
       >
@@ -152,7 +152,7 @@ export default function CreateTrackDay(props: {
             <Form.Item<Trackday>
               {...formItemLayout}
               label={i18n.t('track')}
-              name="track"
+              name="trackId"
               rules={[{ required: true, message: i18n.t('validation:track_required') }]}
             >
               <Select showSearch optionFilterProp="label" options={trackOptions} />

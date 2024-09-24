@@ -6,7 +6,7 @@ import vine from '@vinejs/vine'
 export const createTrackdayValidator = vine.compile(
   vine.object({
     date: vine.date({
-      formats: ['DD/MM/YYYY'],
+      formats: { utc: true },
     }),
     trackId: vine.number().withoutDecimals().positive(),
     weather: vine.string().trim().optional(),

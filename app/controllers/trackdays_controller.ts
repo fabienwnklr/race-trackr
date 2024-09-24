@@ -2,7 +2,6 @@ import Chrono from '#models/chrono'
 import Track from '#models/track'
 import Trackday from '#models/trackday'
 import { createTrackdayValidator } from '#validators/trackday_validator'
-import dayjs from 'dayjs'
 import type { HttpContext } from '@adonisjs/core/http'
 import type { Trackday as TrackdayType } from '#types/trackday'
 import type { Chrono as ChronoType } from '#types/chrono'
@@ -20,12 +19,12 @@ export default class TrackDaysController {
       .preload('chronos')
       .paginate(1, 10)
     if (!trackDays) {
-      return inertia.render('trackdays/index')
+      return inertia.render('trackdays/trackdays')
     }
 
     const paginationJSON = trackDays.serialize()
 
-    return inertia.render('trackdays/index', { trackdays: paginationJSON.data })
+    return inertia.render('trackdays/trackdays', { trackdays: paginationJSON.data })
   }
 
   /**
@@ -83,7 +82,7 @@ export default class TrackDaysController {
         return response.unauthorized({ message: 'Track not found' })
       }
 
-      trackDayData.date = dayjs(trackDayData.date).format('DD/MM/YYYY')
+      trackDayData.date = new Date(trackDayData.date).toISOString()
 
       await createTrackdayValidator.validate({
         date: trackDayData.date,
@@ -150,5 +149,50 @@ export default class TrackDaysController {
     const paginationJSON = trackDays.serialize()
 
     return response.json(paginationJSON)
+  }
+
+  async update({ request, response, params, session, i18n }: HttpContext) {
+    try {
+      const trackDayData = request.all() as TrackdayType
+      const trackDay = await Trackday.findByOrFail('id', params.id)
+
+      const formatedDate = new Date(trackDayData.date).toISOString()
+
+      console.log(formatedDate)
+
+      await createTrackdayValidator.validate({
+        date: formatedDate,
+        trackId: trackDayData.trackId,
+      })
+
+      // they are required so always updated
+      trackDay.trackId = trackDayData.trackId
+      trackDay.date = formatedDate
+
+      if (trackDayData.weather) {
+        trackDay.weather = trackDayData.weather
+      }
+
+      if (trackDayData.tirePressureFront) {
+        trackDay.tirePressureFront = trackDayData.tirePressureFront
+      }
+
+      if (trackDayData.tirePressureBack) {
+        trackDay.tirePressureBack = trackDayData.tirePressureBack
+      }
+
+      if (trackDayData.details) {
+        trackDay.details = trackDayData.details
+      }
+
+      trackDay.save()
+
+      session.flash('success', i18n.t('success.trackday_updated'))
+      return response.redirect(`/trackdays/${trackDay.id}`)
+    } catch (error) {
+      session.flash('error', i18n.t('error_updating_trackday') + error.message)
+      console.log(error)
+      return response.redirect(`/trackdays/${params.id}/edit`)
+    }
   }
 }
