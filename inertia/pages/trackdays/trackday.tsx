@@ -1,12 +1,6 @@
 import Main from '#components/layout/main'
-import { Button, Typography, Row, Col, Card, Statistic, theme, List } from 'antd'
-import {
-  LeftOutlined,
-  EditOutlined,
-  ArrowUpOutlined,
-  ArrowDownOutlined,
-  SunOutlined,
-} from '@ant-design/icons'
+import { Button, Typography, Row, Col, Card, theme } from 'antd'
+import { LeftOutlined, EditOutlined } from '@ant-design/icons'
 import SunnyIcon from '#components/icons/sunny'
 import { router } from '@inertiajs/react'
 import type { User } from '#types/user'
@@ -15,6 +9,39 @@ import i18n from '#config/i18n_react'
 import dayjs from 'dayjs'
 import RainyIcon from '#components/icons/rainy'
 import CloudyIcon from '#components/icons/cloudy'
+import { convertToChronoFormat, convertToMilliseconds } from '#utils/index'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  PointElement,
+  LineElement,
+  Title as ChartTitle,
+  Tooltip,
+  Legend,
+  BarElement,
+  ArcElement,
+} from 'chart.js'
+import { Line } from 'react-chartjs-2'
+import 'chartjs-adapter-spacetime'
+
+import type { Chrono } from '#types/chrono'
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  PointElement,
+  LineElement,
+  ChartTitle,
+  Tooltip,
+  Legend,
+  BarElement,
+  ArcElement
+)
 
 const { Title } = Typography
 /**
@@ -23,6 +50,30 @@ const { Title } = Typography
 export default function Trackday(props: { user: User; trackday: Trackday }) {
   const { token } = theme.useToken()
   const { trackday } = props
+
+  if (!trackday.bestChrono) {
+    // calcul best chrono time into chronos array
+    const bestChrono = trackday.chronos.reduce((a, b) => {
+      return a.lapTime < b.lapTime ? a : b
+    })
+    trackday.bestChrono = bestChrono.lapTime
+  }
+
+  if (!trackday.regulChrono) {
+    // Calcul de la somme des temps de tour (lapTime) avec la fonction reduce
+    let totalLapTime = 0
+
+    for (let i = 0; i < trackday.chronos.length; i++) {
+      totalLapTime += convertToMilliseconds(trackday.chronos[i].lapTime)
+    }
+
+    // Calcul de la moyenne
+    const averageLapTimeMs = Math.round(totalLapTime / trackday.chronos.length)
+    const averageChrono = convertToChronoFormat(averageLapTimeMs)
+
+    trackday.regulChrono = averageChrono
+  }
+
   return (
     <Main route="" {...props}>
       <Title
@@ -38,7 +89,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
       >
         <Typography.Link
           onClick={() => {
-            router.get('/trackdays')
+            window.history.back()
           }}
         >
           <LeftOutlined style={{ marginRight: 5 }} />
@@ -83,7 +134,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
           ) : (
             ''
           )}
-
+          {/* Chrono regul */}
           {trackday.regulChrono ? (
             <Col span={12} xs={24} sm={5}>
               <p>{i18n.t('regul_chrono')}</p>
@@ -93,14 +144,10 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
             ''
           )}
 
-          {/* Chronos */}
+          {/* Chronos chart */}
           {trackday.chronos.length ? (
             <Col span={24} style={{ marginTop: 20 }}>
-              <p>{i18n.t('chronos')}</p>
-              <List
-                dataSource={trackday.chronos}
-                renderItem={(chrono: any) => <List.Item>{chrono.lapTime}</List.Item>}
-              ></List>
+              <ChronosChart chronos={trackday.chronos} />
             </Col>
           ) : (
             ''
@@ -121,4 +168,57 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
         </Col> */}
     </Main>
   )
+}
+
+function ChronosChart({ chronos }: { chronos: Chrono[] }) {
+  const options = {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: i18n.t('chronos'),
+      },
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Tours',
+        },
+      },
+      y: {
+        type: 'linear' as const,
+        display: true,
+        position: 'left' as const,
+      },
+    },
+  }
+  const labels = chronos.map((_chrono, index) => {
+    return index + 1
+  })
+  const chronosData = chronos.map((chrono, index) => {
+    return {
+      x: index + 1,
+      // need to slice millisecond otherwise data doesn't display
+      y: chrono.lapTime.slice(0, 4),
+    }
+  })
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: '',
+        data: chronosData,
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        yAxisID: 'y',
+      },
+    ],
+  }
+
+  return <Line options={options} data={data} />
 }

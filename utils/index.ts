@@ -26,3 +26,17 @@ export function getItem(
     label,
   } as MenuItem
 }
+
+export function convertToMilliseconds(chrono: string): number {
+  const [minutes, seconds, milliseconds] = chrono.split('.').map(Number)
+  return minutes * 60 * 1000 + seconds * 1000 + milliseconds
+}
+
+export function convertToChronoFormat(milliseconds: number): string {
+  const minutes = Math.floor(milliseconds / (60 * 1000))
+  milliseconds %= 60 * 1000
+  const seconds = Math.floor(milliseconds / 1000)
+  milliseconds %= 1000
+
+  return `${minutes}.${seconds}.${milliseconds}`
+}
