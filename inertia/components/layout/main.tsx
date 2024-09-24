@@ -216,7 +216,7 @@ export default function Main(props: {
             alt="logo"
             style={{ width: 'auto', height: '64px', marginLeft: '20px' }}
           />
-          <Typography.Title level={3}>Trackday Data Management</Typography.Title>
+          <Typography.Title level={3}>Race Trackr</Typography.Title>
 
           <Space>
             <Select
@@ -261,7 +261,7 @@ export default function Main(props: {
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          TDM ©2023 {i18n.t('created_by')} <a href="https://fabienwinkler.fr">Fabien</a>{' '}
+          Race Trackr ©2023 {i18n.t('created_by')} <a href="https://fabienwinkler.fr">Fabien</a>{' '}
           {i18n.t('member_of_team')} <a href="#">FRT</a>
         </Footer>
       </Layout>
