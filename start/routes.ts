@@ -10,6 +10,8 @@
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 import User from '#models/user'
+import { AccessToken } from '@adonisjs/auth/access_tokens'
+import { Secret } from '@adonisjs/core/helpers'
 
 const VehiclesController = () => import('#controllers/vehicles_controller')
 const TrackController = () => import('#controllers/track_controller')
@@ -66,6 +68,16 @@ router
         router.get('/vehicles', [VehiclesController, 'indexAdmin'])
       })
       .prefix('admin')
+
+    router.get('/tokens/create', async ({ params }) => {
+      const user = await User.findOrFail(params.id)
+      const token = await User.accessTokens.create(user)
+
+      return {
+        type: 'bearer',
+        value: token.value!.release(),
+      }
+    })
   })
   .use(middleware.auth())
 
@@ -98,16 +110,6 @@ router
     router.get('/vehicles/:id/brands', [VehiclesController, 'readBrand'])
     router.get('/vehicles/:id/models', [VehiclesController, 'readModels'])
     router.get('/vehicles/:id/cylinders', [VehiclesController, 'readCylinders'])
-
-    router.get('/users/:id/tokens', async ({ params }) => {
-      const user = await User.findOrFail(params.id)
-      const token = await User.accessTokens.create(user)
-
-      return {
-        type: 'bearer',
-        value: token.value!.release(),
-      }
-    })
   })
   .prefix('api')
 // .use(

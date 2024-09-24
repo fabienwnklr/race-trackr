@@ -35,13 +35,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare role: string
 
-  static accessTokens = DbAccessTokensProvider.forModel(User, {
-    expiresIn: '30 days',
-    prefix: 'oat_',
-    table: 'auth_access_tokens',
-    type: 'auth_token',
-    tokenSecretLength: 40,
-  })
+  static accessTokens = DbAccessTokensProvider.forModel(User)
 
   @hasMany(() => Trackday)
   declare trackDays: HasMany<typeof Trackday>
