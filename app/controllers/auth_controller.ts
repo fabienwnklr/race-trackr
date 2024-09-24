@@ -8,12 +8,32 @@ export default class AuthController {
     return inertia.render('home')
   }
 
-  async apiKey({ inertia, auth }: HttpContext) {
+  async createToken({ inertia, auth, params }: HttpContext) {
     if (!auth.user) {
       return inertia.render('errors/unauthorized')
     }
-    const apiKeys = {} //await User.accessTokens.all(auth.user)
-    return inertia.render('api_key', { apiKeys })
+    const { abilities, expiresIn, name } = params
+    const token = await User.accessTokens.create(
+      auth.user,
+      abilities,
+      {
+        expiresIn,
+        name
+      }
+    )
+
+    return {
+      type: 'bearer',
+      value: token.value!.release(),
+    }
+  }
+
+  async readTokens({ inertia, auth }: HttpContext) {
+    if (!auth.user) {
+      return inertia.render('errors/unauthorized')
+    }
+    const tokens = await User.accessTokens.all(auth.user)
+    return inertia.render('tokens/index', { tokens })
   }
 
   async register({ request, response, auth }: HttpContext) {

@@ -9,9 +9,6 @@
 
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
-import User from '#models/user'
-import { AccessToken } from '@adonisjs/auth/access_tokens'
-import { Secret } from '@adonisjs/core/helpers'
 
 const VehiclesController = () => import('#controllers/vehicles_controller')
 const TrackController = () => import('#controllers/track_controller')
@@ -50,7 +47,9 @@ router
     // Chronos
     router.get('/chronos', [ChronosController, 'index'])
     // Api key
-    router.get('/api_key', [AuthController, 'apiKey'])
+    // Api key
+    router.get('/tokens', [AuthController, 'readTokens'])
+    router.post('/tokens/create', [AuthController, 'createToken'])
 
     // Admin pages
     router
@@ -68,16 +67,6 @@ router
         router.get('/vehicles', [VehiclesController, 'indexAdmin'])
       })
       .prefix('admin')
-
-    router.get('/tokens/create', async ({ params }) => {
-      const user = await User.findOrFail(params.id)
-      const token = await User.accessTokens.create(user)
-
-      return {
-        type: 'bearer',
-        value: token.value!.release(),
-      }
-    })
   })
   .use(middleware.auth())
 
