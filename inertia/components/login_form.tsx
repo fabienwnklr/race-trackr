@@ -75,10 +75,10 @@ export default function Login() {
           wrapperCol={{ span: 16 }}
           noStyle
         >
-          <Checkbox>{i18n.t('remember_me')}</Checkbox>
+          <Checkbox>{i18n.t('rememberMe')}</Checkbox>
         </Form.Item>
         <Button type="link" href="">
-          {i18n.t('forgot_password')}
+          {i18n.t('forgotPassword')}
         </Button>
       </Flex>
 

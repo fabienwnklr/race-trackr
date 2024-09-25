@@ -45,7 +45,7 @@ export default function Register() {
       autoComplete="off"
     >
       <Form.Item<RegisterFieldType>
-        label={i18n.t('full_name')}
+        label={i18n.t('fullName')}
         name="fullName"
         rules={[{ required: true, message: i18n.t('validation:full_name_required') }]}
       >
