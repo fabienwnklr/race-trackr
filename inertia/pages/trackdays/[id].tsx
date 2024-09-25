@@ -28,11 +28,18 @@ const buttonsStyle = { display: 'flex', width: '100%', justifyContent: 'flex-end
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 4 },
+    sm: { span: 3 },
   },
   wrapperCol: {
     xs: { span: 24 },
     sm: { span: 20 },
+  },
+}
+
+const formItemLayoutWithOutLabel = {
+  wrapperCol: {
+    xs: { span: 24, offset: 0 },
+    sm: { span: 20, offset: 3 },
   },
 }
 
@@ -101,9 +108,9 @@ export default function CreateTrackDay(props: {
   const [form] = Form.useForm()
 
   const weatherOptions = [
-    { value: 'sunny', label: 'Sunny' },
-    { value: 'cloudy', label: 'Cloudy' },
-    { value: 'rainy', label: 'Rainy' },
+    { value: 'sunny', label: i18n.t('sunny') },
+    { value: 'cloudy', label: i18n.t('cloudy') },
+    { value: 'rainy', label: i18n.t('rainy') },
   ]
 
   const trackOptions = tracks.map((track) => ({
@@ -112,7 +119,11 @@ export default function CreateTrackDay(props: {
   }))
 
   const onCancel = () => {
-    window.history.back()
+    if (trackday) {
+      router.visit('/trackdays/' + trackday.id)
+    } else {
+      router.visit('/trackdays')
+    }
   }
 
   const onSubmit = (values: Trackday) => {
@@ -151,6 +162,7 @@ export default function CreateTrackDay(props: {
           tirePressureFront: trackday?.tirePressureFront,
           tirePressureBack: trackday?.tirePressureBack,
           details: trackday?.details,
+          chronos: trackday?.chronos.map((chrono) => chrono.lapTime),
         }}
       >
         <Row gutter={18}>
@@ -210,43 +222,37 @@ export default function CreateTrackDay(props: {
             </Form.Item>
           </Col>
 
-          <Col span={24}>
+          <Col span={12}>
             <Form.List name="chronos">
               {(fields, { add, remove }, { errors }) => (
                 <>
-                  <Form.Item
-                    label={i18n.t('chronos')}
-                    labelCol={{ xs: { span: 2 }, sm: { span: 2 } }}
-                    wrapperCol={{ xs: { span: 24 }, sm: { span: 24 } }}
-                    tooltip={i18n.t('chronos_tooltip')}
-                  >
+                  {fields.map((field, index) => (
                     <Form.Item
-                      validateTrigger={['onChange', 'onBlur']}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please input chrono or delete this field.',
-                        },
-                      ]}
+                      required={false}
+                      key={field.key}
+                      label={index === 0 && !trackday?.chronos?.length ? i18n.t('chrono') : ''}
+                      {...(index === 0 && !trackday?.chronos?.length
+                        ? formItemLayout
+                        : formItemLayoutWithOutLabel)}
                     >
-                      <Input placeholder="1'32'122" />
-                    </Form.Item>
-                  </Form.Item>
-                  {fields.map((field, _index) => (
-                    <Form.Item required={false} key={field.key}>
                       <Form.Item
-                        {...field}
+                        key={field.key}
+                        name={field.name}
                         validateTrigger={['onChange', 'onBlur']}
                         rules={[
                           {
                             required: true,
                             whitespace: true,
-                            message: 'Please input chrono or delete this field.',
+                            message: i18n.t('required:chronoRequiredOrRemove'),
                           },
                         ]}
                         noStyle
                       >
-                        <Input placeholder="chrono" />
+                        <Input
+                          placeholder={i18n.t('chrono')}
+                          style={{ width: '50%', marginRight: 8 }}
+                          type="number"
+                        />
                       </Form.Item>
                       <MinusCircleOutlined
                         className="dynamic-delete-button"

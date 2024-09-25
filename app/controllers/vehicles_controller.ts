@@ -46,7 +46,6 @@ export default class VehiclesController {
 
   async readBrand({ response, params }: HttpContext) {
     try {
-      console.log(params)
       const vehicleBrand = await VehicleBrand.findByOrFail({
         vehicleTypeId: params.id,
       })

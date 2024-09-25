@@ -2,7 +2,6 @@ import Main from '#components/layout/main'
 import { Button, Col, Row, Typography } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { Card, theme } from 'antd'
-import LogoMoto from '../../images/logo_moto.jpg'
 
 import type { Trackday } from '#types/trackday'
 import type { Vehicle } from '#types/vehicle'
@@ -50,7 +49,7 @@ export default function Maintenances(props: { vehicles: Trackday[]; user: any })
                     width: 240,
                     padding: 10,
                   }}
-                  cover={<img alt="nogaro" src={LogoMoto} />}
+                  cover={<img alt="nogaro" src={"/resources/images/logo_moto.png"} />}
                 >
                   <Meta title={`My bike ${i + 1}`} />
                 </Card>

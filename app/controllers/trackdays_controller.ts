@@ -58,8 +58,6 @@ export default class TrackDaysController {
     return inertia.render('trackdays/trackday', { trackday })
   }
 
-  // ---- CRUD ---- //
-
   async create({ request, response, auth, session }: HttpContext) {
     try {
       const trackDayData = request.all() as TrackdayType
@@ -151,8 +149,6 @@ export default class TrackDaysController {
 
       const formatedDate = new Date(trackDayData.date).toISOString()
 
-      console.log(formatedDate)
-
       await createTrackdayValidator.validate({
         date: formatedDate,
         trackId: trackDayData.trackId,
@@ -178,14 +174,41 @@ export default class TrackDaysController {
         trackDay.details = trackDayData.details
       }
 
-      trackDay.save()
+      await trackDay.save()
+
+      // update chronos
+      if (trackDayData.chronos && trackDayData.chronos.length > 0) {
+        await trackDay.related('chronos').query().delete()
+
+        const chronosData = trackDayData.chronos.map((chrono: ChronoType) => ({
+          lapTime: chrono as unknown as string,
+          trackdayId: trackDay.id,
+        }))
+
+        console.log(chronosData)
+        await trackDay.related('chronos').createMany(chronosData)
+      }
 
       session.flash('success', i18n.t('success.trackdayUpdated'))
-      return response.redirect(`/trackdays/${trackDay.id}`)
+      return response.redirect(`/trackdays/${trackDay.id}/edit`)
     } catch (error) {
       session.flash('error', i18n.t('error_updating_trackday') + error.message)
-      console.log(error)
+      console.error(error)
       return response.redirect(`/trackdays/${params.id}/edit`)
+    }
+  }
+
+  async delete({ params, response, session, i18n }: HttpContext) {
+    const id = params.id
+    try {
+      const trackday = await Trackday.findByOrFail('id', id)
+      await trackday.delete()
+      session.flash('success', i18n.t('success.trackdayDeleted'))
+      return response.redirect('/trackdays')
+    } catch (error) {
+      session.flash('error', i18n.t('error.deleteTrackday'))
+      console.error(error)
+      return response.redirect('/trackdays/' + id)
     }
   }
 }

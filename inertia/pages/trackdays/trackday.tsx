@@ -12,7 +12,13 @@ import {
   Space,
   Modal,
 } from 'antd'
-import { LeftOutlined, EditOutlined, InfoCircleOutlined, DeleteOutlined, CloudDownloadOutlined } from '@ant-design/icons'
+import {
+  LeftOutlined,
+  EditOutlined,
+  InfoCircleOutlined,
+  DeleteOutlined,
+  CloudDownloadOutlined,
+} from '@ant-design/icons'
 import SunnyIcon from '#components/icons/sunny'
 import { router } from '@inertiajs/react'
 import type { User } from '#types/user'
@@ -41,7 +47,7 @@ import TirePressureIcon from '#components/icons/tire_pressure'
 import { Line } from 'react-chartjs-2'
 import type { Chrono } from '#types/chrono'
 import type { ItemType } from 'antd/es/menu/interface'
-import { modalConfigDelete } from '../../../constants'
+import { modalConfig, modalConfigDelete } from '../../../constants'
 
 ChartJS.register(
   CategoryScale,
@@ -102,7 +108,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
         Modal.confirm({
           ...modalConfigDelete(i18n),
           onOk: () => {
-            router.delete('/trackdays/' + trackday.id + '/delete')
+            router.delete('/trackdays/' + trackday.id)
           },
         })
       },
@@ -261,14 +267,21 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
               }}
             >
               <p>{i18n.t('trackMap')}</p>
-              <Button onClick={() => router.visit(`/tracks/${trackday.track.slug}`)}>
+              <Button
+                onClick={() =>
+                  Modal.info({
+                    ...modalConfig(i18n),
+                    title: trackday.track.name,
+                  })
+                }
+              >
                 {i18n.t('trackInfos')}
                 <InfoCircleOutlined />
               </Button>
             </div>
             <Image
               alt={trackday.track.name}
-              preview={{ bodyStyle: { backgroundColor: token.colorBgContainer } }}
+              preview={{ styles: { body: { backgroundColor: token.colorBgContainer } } }}
               src={`/resources/images/track_${trackday.track.slug}.svg`}
             />
           </Card>

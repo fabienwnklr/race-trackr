@@ -99,5 +99,9 @@
   "showTrackInfos": "Afficher les informations du circuit",
   "trackInfos": "Informations du circuit",
   "showMyChronos": "Afficher mes chronos",
-  "showMyChronosForTrack": "Afficher mes chronos sur ce circuit"
+  "showMyChronosForTrack": "Afficher mes chronos sur ce circuit",
+  "ok": "Ok",
+  "sunny": "Ensoleillé",
+  "cloudy": "Nuageux",
+  "rainy": "Pluvieux"
 }

@@ -8,5 +8,6 @@
   "distanceRequired": "La distance est requise",
   "bestLapTimeRequired": "Le meilleur chrono est requis",
   "bestLapTimePiloteRequired": "Le pilote du meilleur chrono est requis",
-  "passwordConfirmRequired": "La confirmation du mot de passe est requise"
+  "passwordConfirmRequired": "La confirmation du mot de passe est requise",
+  "chronoRequiredOrRemove": "Veuillez renseigner le chrono ou supprimer le"
 }
