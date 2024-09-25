@@ -13,20 +13,8 @@ export default class VehiclesController {
     return inertia.render('admin/vehicles/index')
   }
 
-  async read({ response, params }: HttpContext) {
+  async read({ response }: HttpContext) {
     try {
-      // Récupérer le VehicleType avec toutes les relations imbriquées
-      // const vehicleType = await VehicleType.query()
-      //   .where('id', 1)
-      //   .preload('brands', (brandQuery) => {
-      //     // Charger les modèles (VehicleModel) pour chaque marque (VehicleBrand)
-      //     brandQuery.preload('models', (modelQuery) => {
-      //       // Charger les cylindres (VehicleCylinder) pour chaque modèle (VehicleModel)
-      //       modelQuery.preload('cylinders')
-      //     })
-      //   })
-      //   .firstOrFail()
-
       // Récupérer le VehicleType avec toutes les relations imbriquées
       const vehicleType = await VehicleType.query()
         .where('id', 1) // Filtrer par VehicleType ID
@@ -47,7 +35,7 @@ export default class VehiclesController {
     }
   }
 
-  async readVehicleType({ response, params }: HttpContext) {
+  async readVehicleType({ response }: HttpContext) {
     try {
       const vehicleType = await VehicleType.all()
       return response.ok(vehicleType)

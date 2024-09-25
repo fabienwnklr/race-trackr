@@ -1,5 +1,22 @@
 {
-    "track_created": "Circuit creé",
-    "track_deleted": "Circuit supprimé",
-    "track_updated": "Circuit mis à jour"
+  "trackCreated": "Circuit creé",
+  "trackDeleted": "Circuit supprimé",
+  "trackUpdated": "Circuit mis à jour",
+  "trackdayCreated": "Trackday creé",
+  "trackdayDeleted": "Trackday supprimé",
+  "trackdayUpdated": "Trackday mis à jour",
+  "vehicleCreated": "Véhicule creé",
+  "vehicleDeleted": "Véhicule supprimé",
+  "vehicleUpdated": "Véhicule mis à jour",
+  "vehicleModelCreated": "Modele de véhicule creé",
+  "vehicleModelDeleted": "Modele de véhicule supprimé",
+  "vehicleModelUpdated": "Modele de véhicule mis à jour",
+  "vehicleCylinderCreated": "Cylindre de véhicule creé",
+  "vehicleCylinderDeleted": "Cylindre de véhicule supprimé",
+  "vehicleCylinderUpdated": "Cylindre de véhicule mis à jour",
+  "chronoCreated": "Chrono creé",
+  "chronoDeleted": "Chrono supprimé",
+  "chronoUpdated": "Chrono mis à jour",
+  "passwordUpdated": "Mot de passe mis à jour",
+  "passwordSuccess": "Mot de passe modifié avec succès"
 }

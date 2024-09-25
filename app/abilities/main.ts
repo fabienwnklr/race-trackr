@@ -25,6 +25,6 @@ export const editTrackday = Bouncer.ability((user: User, trackday: Trackday) => 
   return user.id === trackday.userId
 })
 
-export const editTrack = Bouncer.ability((user: User, track: Track) => {
+export const editTrack = Bouncer.ability((user: User, _track: Track) => {
   return user.role === 'admin'
 })

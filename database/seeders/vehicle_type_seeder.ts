@@ -1,7 +1,7 @@
-import VehicleBrand from '#models/vehicle_brand'
-import VehicleCylinder from '#models/vehicle_cylinder'
-import VehicleModel from '#models/vehicle_model'
-import VehicleType from '#models/vehicle_type'
+// import VehicleBrand from '#models/vehicle_brand'
+// import VehicleCylinder from '#models/vehicle_cylinder'
+// import VehicleModel from '#models/vehicle_model'
+// import VehicleType from '#models/vehicle_type'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
 export default class extends BaseSeeder {

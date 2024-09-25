@@ -212,7 +212,7 @@ export default function Main(props: {
             }}
           /> */}
           <img
-            src={'/inertia/images/logo_seul_light.png'}
+            src={'/resources/images/logo_seul_light.png'}
             alt="logo"
             style={{ width: 'auto', height: '64px', marginLeft: '20px' }}
           />
@@ -243,16 +243,13 @@ export default function Main(props: {
             </Dropdown>
           </Space>
         </Header>
-        <Content style={{ margin: '0 16px' }}>
+        <Content>
           <div
             style={{
-              margin: '16px 0',
               padding: 24,
               minHeight: 360,
               maxHeight: '100%',
               overflow: 'auto',
-              // background: colorBgContainer,
-              // borderRadius: borderRadiusLG,
               display: 'flex',
               flexDirection: 'column',
             }}
@@ -261,7 +258,7 @@ export default function Main(props: {
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          Race Trackr ©2023 {i18n.t('created_by')} <a href="https://fabienwinkler.fr">Fabien</a>{' '}
+          Race Trackr ©2023 {i18n.t('createdBy')} <a href="https://fabienwinkler.fr">Fabien</a>{' '}
           {i18n.t('member_of_team')} <a href="#">FRT</a>
         </Footer>
       </Layout>

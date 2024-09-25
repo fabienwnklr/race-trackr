@@ -12,6 +12,6 @@ test.group('Pages dashboard', () => {
 
     await browserContext.loginAs(user)
 
-    const page = await visit('/dashboard')
+    await visit('/dashboard')
   })
 })

@@ -100,6 +100,12 @@ export default function CreateTrackDay(props: {
   const { trackday, tracks } = props
   const [form] = Form.useForm()
 
+  const weatherOptions = [
+    { value: 'sunny', label: 'Sunny' },
+    { value: 'cloudy', label: 'Cloudy' },
+    { value: 'rainy', label: 'Rainy' },
+  ]
+
   const trackOptions = tracks.map((track) => ({
     value: track.id,
     label: track.name,
@@ -141,6 +147,10 @@ export default function CreateTrackDay(props: {
         initialValues={{
           trackId: trackday?.trackId,
           date: trackday?.date ? dayjs(trackday?.date).valueOf() : undefined,
+          weather: trackday?.weather,
+          tirePressureFront: trackday?.tirePressureFront,
+          tirePressureBack: trackday?.tirePressureBack,
+          details: trackday?.details,
         }}
       >
         <Row gutter={18}>
@@ -173,7 +183,7 @@ export default function CreateTrackDay(props: {
 
           <Col span={12}>
             <Form.Item<Trackday> {...formItemLayout} label={i18n.t('weather')} name="weather">
-              <Select />
+              <Select options={weatherOptions} />
             </Form.Item>
           </Col>
 

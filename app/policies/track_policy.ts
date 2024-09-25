@@ -4,7 +4,7 @@ import { BasePolicy } from '@adonisjs/bouncer'
 import { AuthorizerResponse } from '@adonisjs/bouncer/types'
 
 export default class TrackPolicy extends BasePolicy {
-  async before(user: User | null, action: string, ...params: any[]) {
+  async before(user: User | null, _action: string, ..._params: any[]) {
     /**
      * Always allow an admin user without performing any check
      */
@@ -22,14 +22,14 @@ export default class TrackPolicy extends BasePolicy {
   /**
    * Only the trackday creator can edit the post
    */
-  edit(user: User, track: Track): AuthorizerResponse {
+  edit(user: User, _track: Track): AuthorizerResponse {
     return user.role === 'admin'
   }
 
   /**
    * Only the trackday creator can delete the post
    */
-  delete(user: User, trackday: Track): AuthorizerResponse {
+  delete(user: User, _trackday: Track): AuthorizerResponse {
     return user.role === 'admin'
   }
 }

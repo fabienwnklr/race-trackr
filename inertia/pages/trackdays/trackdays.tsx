@@ -63,7 +63,7 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
                     <img
                       alt={td.track.name}
                       style={{ width: '100%', height: '70px' }}
-                      src={`inertia/images/logo_${slugify(td.track.name)}.png`}
+                      src={`resources/images/logo_${slugify(td.track.name)}.png`}
                     />
                   }
                 >

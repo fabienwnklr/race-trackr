@@ -5,7 +5,6 @@ import { createTrackdayValidator } from '#validators/trackday_validator'
 import type { HttpContext } from '@adonisjs/core/http'
 import type { Trackday as TrackdayType } from '#types/trackday'
 import type { Chrono as ChronoType } from '#types/chrono'
-import { cleanFalsyValues } from '#utils/index'
 
 export default class TrackDaysController {
   async index({ inertia, auth }: HttpContext) {
@@ -44,13 +43,6 @@ export default class TrackDaysController {
       return inertia.render('trackdays/[id]', { trackday, tracks })
     }
     return inertia.render('trackdays/[id]', { tracks })
-  }
-  /**
-   * Show trackday filtering on track
-   */
-  async showTrackdaysForTrack({ inertia, params }: HttpContext) {
-    // Trackday.findBy('slug', params.slug)
-    return inertia.render('trackdays/track')
   }
 
   /**
@@ -101,7 +93,7 @@ export default class TrackDaysController {
             tirePressureBack: trackDayData.tirePressureBack,
             details: trackDayData.details,
             userId: user.id,
-          }).filter(([key, value]) => value !== null && value !== undefined && value !== '') // Filtrer les valeurs nulles ou undefined
+          }).filter(([_key, value]) => value !== null && value !== undefined && value !== '') // Filtrer les valeurs nulles ou undefined
         )
       )
 
@@ -188,7 +180,7 @@ export default class TrackDaysController {
 
       trackDay.save()
 
-      session.flash('success', i18n.t('success.trackday_updated'))
+      session.flash('success', i18n.t('success.trackdayUpdated'))
       return response.redirect(`/trackdays/${trackDay.id}`)
     } catch (error) {
       session.flash('error', i18n.t('error_updating_trackday') + error.message)

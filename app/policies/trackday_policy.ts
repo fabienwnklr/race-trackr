@@ -4,7 +4,7 @@ import { BasePolicy } from '@adonisjs/bouncer'
 import { AuthorizerResponse } from '@adonisjs/bouncer/types'
 
 export default class TrackdayPolicy extends BasePolicy {
-  async before(user: User | null, action: string, ...params: any[]) {
+  async before(user: User | null, _action: string, ..._params: any[]) {
     /**
      * Always allow an admin user without performing any check
      */
@@ -15,7 +15,7 @@ export default class TrackdayPolicy extends BasePolicy {
   /**
    * Every logged-in user can create a trackday
    */
-  create(user: User): AuthorizerResponse {
+  create(_user: User): AuthorizerResponse {
     return true
   }
 
