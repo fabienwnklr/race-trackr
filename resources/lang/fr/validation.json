@@ -5,6 +5,6 @@
   "password_required": "Le mot de passe est requis",
   "track_required": "Le circuit est requis",
   "date_required": "La date est requise",
-  "invalid_credentials": "Identifiants invalides",
+  "invalidCredentials": "Identifiants invalides",
   "error": "Une erreur est survenue"
 }

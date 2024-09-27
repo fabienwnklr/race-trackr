@@ -34,7 +34,7 @@ router.group(() => {
 router
   .group(() => {
     // Views
-    router.get('/dashboard', [DashboardController, 'index'])
+    router.get('/dashboard', [DashboardController, 'index']).as('dashboard')
     // Trackdays
     router.get('/trackdays', [TrackDaysController, 'index'])
     router.get('/trackdays/create', [TrackDaysController, 'createOrEdit'])

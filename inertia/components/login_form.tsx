@@ -26,10 +26,9 @@ export default function Login() {
     <Form
       form={form}
       name="login"
-      labelCol={{ span: 8 }}
+      labelCol={{ span: 6 }}
       wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600 }}
-      initialValues={{ remember: true }}
+      initialValues={{ remember: true, email: 'admin@tdm.com', password: 'admin' }}
       onFinish={async (values) => {
         await onLogin(values)
         setLoading(false)

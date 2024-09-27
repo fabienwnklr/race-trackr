@@ -9,8 +9,6 @@ import {
   CalendarOutlined,
   PropertySafetyOutlined,
   CarOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
   FlagOutlined,
   KeyOutlined,
 } from '@ant-design/icons'
@@ -18,12 +16,9 @@ import { router } from '@inertiajs/react'
 import type { MenuProps } from 'antd'
 import {
   Avatar,
-  Button,
   Dropdown,
-  Grid,
   Layout,
   Menu,
-  Modal,
   notification,
   Select,
   Space,
@@ -36,7 +31,6 @@ import type { LevelKeysProps, MenuItem } from '#types/menu'
 import type { User } from '#types/user'
 
 const { Header, Content, Footer, Sider } = Layout
-const { useBreakpoint } = Grid
 
 const siderStyle: React.CSSProperties = {
   overflow: 'auto',
@@ -76,16 +70,14 @@ export default function Main(props: {
 }) {
   const [collapsed, setCollapsed] = useState(false)
   const { route, children, user, success, errors } = props
-  const isAdminSubmenu = route.match('/admin') !== null
-  let stateSubMenu = ['']
-  if (isAdminSubmenu && !collapsed) stateSubMenu = ['admin-submenu']
-
-  const [stateOpenKeys, setStateOpenKeys] = useState(stateSubMenu)
   const isAdmin = user.role === 'admin'
+  let stateSubMenu = ['']
+
+  if (isAdmin && !collapsed) stateSubMenu = ['admin-submenu']
+  const [stateOpenKeys, setStateOpenKeys] = useState(stateSubMenu)
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer },
   } = theme.useToken()
-  const screens = useBreakpoint()
 
   notification.config({
     placement: 'bottomRight',
@@ -99,22 +91,6 @@ export default function Main(props: {
 
   if (errors) {
     notification.error({ message: errors })
-  }
-
-  const getLevelKeys = (items1: LevelKeysProps[]) => {
-    const key: Record<string, number> = {}
-    const func = (items2: LevelKeysProps[], level = 1) => {
-      items2.forEach((item) => {
-        if (item.key) {
-          key[item.key] = level
-        }
-        if (item.children) {
-          func(item.children, level + 1)
-        }
-      })
-    }
-    func(items1)
-    return key
   }
 
   const asideNavItems: MenuItem[] = [
@@ -150,29 +126,6 @@ export default function Main(props: {
     ),
   ]
 
-  const levelKeys = getLevelKeys(adminNavItems as LevelKeysProps[])
-
-  const onOpenChange: MenuProps['onOpenChange'] = (openKeys) => {
-    const currentOpenKey = openKeys.find((key) => stateOpenKeys.indexOf(key) === -1)
-    // open
-    if (currentOpenKey !== undefined) {
-      const repeatIndex = openKeys
-        .filter((key) => key !== currentOpenKey)
-        .findIndex((key) => levelKeys[key] === levelKeys[currentOpenKey])
-
-      setStateOpenKeys(
-        openKeys
-          // remove repeat key
-          .filter((_, index) => index !== repeatIndex)
-          // remove current level all child
-          .filter((key) => levelKeys[key] <= levelKeys[currentOpenKey])
-      )
-    } else {
-      // close
-      setStateOpenKeys(openKeys)
-    }
-  }
-
   const locale = i18n.language
 
   return (
@@ -180,8 +133,7 @@ export default function Main(props: {
       <Sider theme="light" style={siderStyle} collapsible collapsed={collapsed}>
         <Menu
           selectedKeys={[route]}
-          openKeys={stateOpenKeys}
-          onOpenChange={onOpenChange}
+          defaultOpenKeys={stateOpenKeys}
           mode="inline"
           items={isAdmin ? adminNavItems : asideNavItems}
           onSelect={(d) => {
@@ -243,19 +195,17 @@ export default function Main(props: {
             </Dropdown>
           </Space>
         </Header>
-        <Content>
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              maxHeight: '100%',
-              overflow: 'auto',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            {children}
-          </div>
+        <Content
+          style={{
+            padding: 24,
+            minHeight: 360,
+            maxHeight: '100%',
+            overflow: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          {children}
         </Content>
         <Footer style={{ textAlign: 'center' }}>
           Race Trackr ©2023 {i18n.t('createdBy')} <a href="https://fabienwinkler.fr">Fabien</a>{' '}

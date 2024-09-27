@@ -148,6 +148,12 @@ export default function CreateTrackDay(props: {
         {trackday
           ? `${trackday.track.name} - ${dayjs(trackday.date).format(locale.DatePicker?.dateFormat)}`
           : i18n.t('createTrackday')}
+
+        {trackday && (
+          <Button type="primary" onClick={onCancel} style={{ marginRight: 8 }} size="small">
+            {i18n.t('showTrackday')}
+          </Button>
+        )}
       </Title>
 
       <Form
@@ -242,16 +248,29 @@ export default function CreateTrackDay(props: {
                         rules={[
                           {
                             required: true,
-                            whitespace: true,
-                            message: i18n.t('required:chronoRequiredOrRemove'),
+                            message: i18n.t('validation:chrono_required'),
                           },
+                          ({ getFieldValue }) => ({
+                            validator(_, value) {
+                              if (!/^\d+\.\d{1,2}(\.\d{1,3})?$/.test(value)) {
+                                return Promise.reject(
+                                  new Error(i18n.t('validation:chrono_invalid'))
+                                )
+                              }
+
+                              if (!value || getFieldValue('chronos').includes(value)) {
+                                return Promise.resolve()
+                              }
+
+                              return Promise.reject(new Error('test'))
+                            },
+                          }),
                         ]}
                         noStyle
                       >
                         <Input
                           placeholder={i18n.t('chrono')}
                           style={{ width: '50%', marginRight: 8 }}
-                          type="number"
                         />
                       </Form.Item>
                       <MinusCircleOutlined

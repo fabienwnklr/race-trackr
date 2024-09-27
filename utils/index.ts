@@ -29,7 +29,7 @@ export function getItem(
 }
 
 export function convertToMilliseconds(chrono: string): number {
-  const [minutes, seconds, milliseconds] = chrono.split('.').map(Number)
+  const [minutes = 0, seconds = 0, milliseconds = 0] = chrono.split('.').map(Number)
   return minutes * 60 * 1000 + seconds * 1000 + milliseconds
 }
 

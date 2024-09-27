@@ -185,7 +185,6 @@ export default class TrackDaysController {
           trackdayId: trackDay.id,
         }))
 
-        console.log(chronosData)
         await trackDay.related('chronos').createMany(chronosData)
       }
 

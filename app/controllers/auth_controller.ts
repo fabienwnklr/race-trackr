@@ -67,14 +67,12 @@ export default class AuthController {
 
       await auth.use('web').login(user)
 
-      session.flash('success', i18n.t('login_success'))
+      session.flash('success', i18n.t('success.login', { name: user.fullName }))
 
       return response.redirect('/dashboard')
     } catch (error) {
-      // if (error instanceof E_INVALID_CREDENTIALS) {
-
-      // }
-      session.flash('error', i18n.t('validation.invalid_credentials'))
+      console.error(error)
+      session.flash('error', i18n.t('validation.invalidCredentials'))
       return response.redirect('/')
     }
   }
