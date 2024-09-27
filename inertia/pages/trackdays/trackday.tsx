@@ -47,7 +47,8 @@ import TirePressureIcon from '#components/icons/tire_pressure'
 import { Line } from 'react-chartjs-2'
 import type { Chrono } from '#types/chrono'
 import type { ItemType } from 'antd/es/menu/interface'
-import { modalConfig, modalConfigDelete } from '../../../constants'
+import { defaultData, modalConfig, modalConfigDelete } from '../../../constants'
+import { NoWeatherIcon } from '#components/icons/no_weather'
 
 ChartJS.register(
   CategoryScale,
@@ -71,7 +72,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
   const { token } = theme.useToken()
   const { trackday } = props
 
-  if (!trackday.bestChrono) {
+  if (!trackday.bestChrono && trackday.chronos.length > 0) {
     // calcul best chrono time into chronos array
     const bestChrono = trackday.chronos.reduce((a, b) => {
       return a.lapTime < b.lapTime ? a : b
@@ -79,7 +80,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
     trackday.bestChrono = bestChrono.lapTime
   }
 
-  if (!trackday.regulChrono) {
+  if (!trackday.regulChrono && trackday.chronos.length > 0) {
     // Calcul de la somme des temps de tour (lapTime) avec la fonction reduce
     let totalLapTime = 0
 
@@ -170,7 +171,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
             ) : trackday.weather === 'rainy' ? (
               <RainyIcon size={100} />
             ) : (
-              ''
+              <NoWeatherIcon size={100} />
             )}
           </Card>
         </Col>
@@ -230,7 +231,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
             style={{ height: '100%' }}
           >
             <ChronoIcon size={100} />
-            <p>{i18n.t('bestLapTime') + ' ' + trackday.bestChrono}</p>
+            <p>{i18n.t('bestLapTime') + ' ' + (trackday.bestChrono ?? defaultData)}</p>
             <Button
               style={{
                 marginTop: 20,
@@ -244,7 +245,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
         {/* Chrono regul */}
         <Col xs={24} sm={6}>
           <Card title={i18n.t('regulLapTime')} bordered={false} style={{ height: '100%' }}>
-            <p>{trackday.regulChrono}</p>
+            <p>{trackday.regulChrono ?? defaultData}</p>
           </Card>
         </Col>
 
