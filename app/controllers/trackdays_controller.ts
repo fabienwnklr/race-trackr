@@ -68,7 +68,7 @@ export default class TrackDaysController {
       }
 
       // Créer ou trouver le Track
-      let track = await Track.findOrFail(trackDayData.track)
+      let track = await Track.findOrFail(trackDayData.trackId)
       if (!track) {
         return response.unauthorized({ message: 'Track not found' })
       }
@@ -108,10 +108,9 @@ export default class TrackDaysController {
       session.flash('success', `TrackDay created successfully`)
       return response.redirect('/trackdays')
     } catch (error) {
-      return response.badRequest({
-        message: 'Failed to create TrackDay',
-        error: error.message,
-      })
+      console.log(error)
+      session.flash('error', `Error creating TrackDay $`)
+      return response.redirect('/trackdays/create')
     }
   }
 
