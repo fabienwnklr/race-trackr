@@ -13,7 +13,6 @@ import {
   KeyOutlined,
 } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
-import type { MenuProps } from 'antd'
 import {
   Avatar,
   Dropdown,
@@ -27,7 +26,7 @@ import {
 } from 'antd'
 import { useState } from 'react'
 
-import type { LevelKeysProps, MenuItem } from '#types/menu'
+import type { MenuItem } from '#types/menu'
 import type { User } from '#types/user'
 
 const { Header, Content, Footer, Sider } = Layout
@@ -68,13 +67,13 @@ export default function Main(props: {
   success?: string
   errors?: string
 }) {
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, _setCollapsed] = useState(false)
   const { route, children, user, success, errors } = props
   const isAdmin = user.role === 'admin'
   let stateSubMenu = ['']
 
   if (isAdmin && !collapsed) stateSubMenu = ['admin-submenu']
-  const [stateOpenKeys, setStateOpenKeys] = useState(stateSubMenu)
+  const [stateOpenKeys, _setStateOpenKeys] = useState(stateSubMenu)
   const {
     token: { colorBgContainer },
   } = theme.useToken()
