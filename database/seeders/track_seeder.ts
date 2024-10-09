@@ -20,6 +20,50 @@ export default class extends BaseSeeder {
         name: 'Motorland Aràgon',
         slug: 'motorland-aragon',
       },
+      {
+        name: 'Alcarras',
+        slug: 'alcarras',
+      },
+      {
+        name: 'Valencia',
+        slug: 'valencia',
+      },
+      {
+        name: 'Jerez',
+        slug: 'jerez',
+      },
+      {
+        name: 'Calafat',
+        slug: 'calafat',
+      },
+      {
+        name: 'Dijon',
+        slug: 'dijon',
+      },
+      {
+        name: 'Misano',
+        slug: 'misano',
+      },
+      {
+        name: 'Mugello',
+        slug: 'mugello',
+      },
+      {
+        name: ' Magny Cours',
+        slug: 'magny-cours',
+      },
+      {
+        name: 'Ales',
+        slug: 'ales',
+      },
+      {
+        name: 'Le Mans',
+        slug: 'le-mans',
+      },
+      {
+        name: 'Portimao',
+        slug: 'portimao',
+      },
     ])
   }
 }

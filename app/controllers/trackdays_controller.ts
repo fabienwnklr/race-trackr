@@ -7,7 +7,8 @@ import type { Trackday as TrackdayType } from '#types/trackday'
 import type { Chrono as ChronoType } from '#types/chrono'
 
 export default class TrackDaysController {
-  async index({ inertia, auth }: HttpContext) {
+  async index({ inertia, auth, params }: HttpContext) {
+    const { page = 1, limit = 50 } = params
     if (!auth.user) {
       return inertia.render('errors/unauthorized')
     }
@@ -17,7 +18,7 @@ export default class TrackDaysController {
       .orderBy('date', 'desc')
       .preload('track') // Charger la piste associée
       .preload('chronos')
-      .paginate(1, 10)
+      .paginate(page, limit)
     if (!trackDays) {
       return inertia.render('trackdays/trackdays')
     }
@@ -58,7 +59,7 @@ export default class TrackDaysController {
     return inertia.render('trackdays/trackday', { trackday })
   }
 
-  async create({ request, response, auth, session }: HttpContext) {
+  async create({ request, response, auth, session, i18n }: HttpContext) {
     try {
       const trackDayData = request.all() as TrackdayType
 
@@ -104,8 +105,8 @@ export default class TrackDaysController {
 
         await Chrono.createMany(chronosData)
       }
-
-      session.flash('success', `TrackDay created successfully`)
+      console.log(trackDay)
+      session.flash('success', i18n.t('success.trackdayCreated'))
       return response.redirect('/trackdays')
     } catch (error) {
       console.log(error)

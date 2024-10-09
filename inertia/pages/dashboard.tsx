@@ -16,6 +16,7 @@ import { Line, Bar, Doughnut } from 'react-chartjs-2'
 import { WarningOutlined } from '@ant-design/icons'
 import i18n from '#config/i18n_react'
 import type { DefaultProps } from '#types/props'
+import { Head } from '@inertiajs/react'
 
 ChartJS.register(
   CategoryScale,
@@ -35,45 +36,48 @@ export default function Dashboard(props: DefaultProps) {
   } = theme.useToken()
   console.log(props)
   return (
-    <Main route='/dashboard' {...props}>
-      <h1>{i18n.t('dashboard')}</h1>
-      <Row gutter={20} style={{ marginTop: 20, marginBottom: 20 }}>
-        <Col span={12} sm={8} md={8}>
-          <Card
-            style={{
-              backgroundColor: colorSuccessBg,
-            }}
-          >
-            <Avatar src="https://api.dicebear.com/9.x/adventurer/svg?seed=Midnight" />
-            {i18n.t('next_trackday_on', { days: 14 })}
-            <Avatar src="https://api.dicebear.com/9.x/adventurer/svg?seed=Midnight" />
-          </Card>
-        </Col>
-        <Col span={8}>
-          <Card
-            style={{
-              backgroundColor: colorWarningBg,
-            }}
-          >
-            <WarningOutlined style={{ marginRight: 10, fontSize: 20 }} />
-            {i18n.t('last_maintenance', { days: 14 })}
-          </Card>
-        </Col>
-        <Col span={8}>
-          <Card
-            style={{
-              backgroundColor: colorWarningBg,
-            }}
-          >
-            <WarningOutlined style={{ marginRight: 10, fontSize: 20 }} />
-            {i18n.t('last_maintenance', { days: 14 })}
-          </Card>
-        </Col>
-      </Row>
-      <ChronosChart />
-      <TrackdaysChart />
-      <TrackChart />
-    </Main>
+    <>
+      <Head title="Homepage" />
+      <Main route="/dashboard" {...props}>
+        <h1>{i18n.t('dashboard')}</h1>
+        <Row gutter={20} style={{ marginTop: 20, marginBottom: 20 }}>
+          <Col span={12} sm={8} md={8}>
+            <Card
+              style={{
+                backgroundColor: colorSuccessBg,
+              }}
+            >
+              <Avatar src="https://api.dicebear.com/9.x/adventurer/svg?seed=Midnight" />
+              {i18n.t('next_trackday_on', { days: 14 })}
+              <Avatar src="https://api.dicebear.com/9.x/adventurer/svg?seed=Midnight" />
+            </Card>
+          </Col>
+          <Col span={8}>
+            <Card
+              style={{
+                backgroundColor: colorWarningBg,
+              }}
+            >
+              <WarningOutlined style={{ marginRight: 10, fontSize: 20 }} />
+              {i18n.t('last_maintenance', { days: 14 })}
+            </Card>
+          </Col>
+          <Col span={8}>
+            <Card
+              style={{
+                backgroundColor: colorWarningBg,
+              }}
+            >
+              <WarningOutlined style={{ marginRight: 10, fontSize: 20 }} />
+              {i18n.t('last_maintenance', { days: 14 })}
+            </Card>
+          </Col>
+        </Row>
+        <ChronosChart />
+        <TrackdaysChart />
+        <TrackChart />
+      </Main>
+    </>
   )
 }
 
