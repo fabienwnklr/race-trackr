@@ -17,8 +17,9 @@ import {
   PlusOutlined,
   LayoutOutlined,
   UnorderedListOutlined,
-  FilterOutlined
+  FilterOutlined,
 } from '@ant-design/icons'
+import { SortIcon } from '#components/icons/sort'
 import { Card } from 'antd'
 import dayjs from 'dayjs'
 
@@ -76,7 +77,7 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
 
         {trackdays.length ? (
           <>
-            <Flex style={{ marginBottom: 20 }} justify="space-between">
+            {/* <Flex style={{ marginBottom: 20 }} justify="space-between">
               <Flex>
                 <Radio.Group defaultValue="a">
                   <Tooltip title="Grid view">
@@ -95,15 +96,17 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
 
               <Flex gap={'small'}>
                 <Dropdown menu={{ items }} trigger={['click']}>
-                  <Button>Trier par...</Button>
+                  <Button>
+                    <SortIcon />
+                  </Button>
                 </Dropdown>
                 <Dropdown menu={{ items }} trigger={['click']}>
                   <Button>
-                    <FilterOutlined />
+                    <FilterOutlined style={{ fontSize: 20 }} />
                   </Button>
                 </Dropdown>
               </Flex>
-            </Flex>
+            </Flex> */}
             <Row gutter={30}>
               {trackdays.map((td, i) => (
                 <Col
@@ -135,14 +138,14 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
                 </Col>
               ))}
             </Row>
-            <Pagination
+            {/* <Pagination
               align="center"
               total={trackdays.length}
               showSizeChanger
               showQuickJumper
               defaultPageSize={50}
               showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
-            />
+            /> */}
           </>
         ) : (
           <NoDataFound />

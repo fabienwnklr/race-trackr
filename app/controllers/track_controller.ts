@@ -50,7 +50,7 @@ export default class TrackController {
         country: track.country ?? defaultData,
         city: track.city ?? defaultData,
         adress: track.adress ?? defaultData,
-        trackLength: track.trackLength ?? defaultData,
+        length: track.length ?? defaultData,
         bestLapTime: track.bestLapTime ?? defaultData,
         bestLapTimePilote: track.bestLapTimePilote ?? defaultData,
         infos: track.infos ?? defaultData,

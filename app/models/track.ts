@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, CamelCaseNamingStrategy, column, hasMany } from '@adonisjs/lucid/orm'
-import type { HasMany } from '@adonisjs/lucid/types/relations'
+import { BaseModel, belongsTo, CamelCaseNamingStrategy, column, hasMany, hasOne } from '@adonisjs/lucid/orm'
+import type { BelongsTo, HasMany, HasOne } from '@adonisjs/lucid/types/relations'
 import Trackday from './trackday.js'
+import Country from './country.js'
 
 export default class Track extends BaseModel {
   static namingStrategy = new CamelCaseNamingStrategy()
@@ -15,8 +16,11 @@ export default class Track extends BaseModel {
   @column()
   declare slug: string
 
-  @column()
-  declare country: string | null
+  @column({ columnName: 'countryId' })
+  declare countryId: number // Référence au pays
+
+  @hasOne(() => Country)
+  declare country: HasOne<typeof Country>
 
   @column()
   declare city: string | null
@@ -24,14 +28,11 @@ export default class Track extends BaseModel {
   @column()
   declare adress: string | null
 
-  @column({ columnName: 'turnCount' })
-  declare turnCount: number | null
+  declare turn: string | number | null
 
-  @column({ columnName: 'trackWidth' })
-  declare trackWidth: number | null
+  declare width: string | number | null
 
-  @column({ columnName: 'trackLength' })
-  declare trackLength: number | null
+  declare length: number | null
 
   @column({ columnName: 'maxDb' })
   declare maxDb: number | null

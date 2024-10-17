@@ -5,9 +5,9 @@ export type Track = {
   country: string | null
   city: string | null
   adress: string | null
-  turnCount: number | null
-  trackWidth: number | null
-  trackLength: number | null
+  turn: number | null
+  width: number | null
+  length: number | null
   maxDb: number | null
   bestLapTime: string | null
   bestLapTimePilote: string | null
