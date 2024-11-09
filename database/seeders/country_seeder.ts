@@ -81,6 +81,20 @@ export default class extends BaseSeeder {
         timezone: 'Europe/Amsterdam',
         capital: 'Amsterdam',
       },
+      {
+        name: 'Qatar',
+        slug: 'qatar',
+        iso: 'QA',
+        timezone: 'Asia/Qatar',
+        capital: 'Doha',
+      },
+      {
+        name: 'Amerique',
+        slug: 'amerique',
+        iso: 'US',
+        timezone: 'America/New_York',
+        capital: 'New York',
+      },
     ])
   }
 }

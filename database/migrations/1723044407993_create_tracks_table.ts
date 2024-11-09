@@ -12,13 +12,14 @@ export default class extends BaseSchema {
       table.string('country')
       table.string('city')
       table.string('adress')
-      table.integer('turn')
-      table.integer('width')
-      table.integer('length')
-      table.integer('maxDb')
+      table.string('turn')
+      table.string('width')
+      table.string('length')
+      table.double('maxDb')
       table.string('bestLapTime')
       table.string('bestLapTimePilote')
       table.text('infos')
+      table.integer('countryId').unsigned().references('countries.id').onDelete('CASCADE') // Relation avec Counntry
 
       table.timestamp('createdAt')
       table.timestamp('updatedAt')
