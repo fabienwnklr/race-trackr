@@ -283,7 +283,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
             <Image
               alt={trackday.track.name}
               preview={{ styles: { body: { backgroundColor: token.colorBgContainer } } }}
-              src={`/resources/images/track_${trackday.track.slug}.svg`}
+              src={`/resources/images/tracks/layout/${trackday.track.slug}.svg`}
             />
           </Card>
         </Col>

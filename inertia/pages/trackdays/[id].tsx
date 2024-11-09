@@ -9,7 +9,6 @@ import {
   Col,
   Space,
   DatePicker,
-  ConfigProvider,
 } from 'antd'
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons'
 import { router } from '@inertiajs/react'

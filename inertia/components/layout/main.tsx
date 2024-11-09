@@ -163,7 +163,7 @@ export default function Main(props: {
             }}
           /> */}
           <img
-            src={'/resources/images/logo_seul_light.png'}
+            src={'/resources/images/logos/logo_seul_light.png'}
             alt="logo"
             style={{ width: 'auto', height: '64px', marginLeft: '20px' }}
           />

@@ -10,11 +10,11 @@ export default class Maintenance extends BaseModel {
   @column()
   declare name: string
 
-  @column()
-  declare slug: string
-
   @column.dateTime({ autoCreate: false })
   declare date: DateTime
+
+  @column()
+  declare details: string
 
   @column.dateTime({ autoCreate: true, columnName: 'createdAt' })
   declare createdAt: DateTime

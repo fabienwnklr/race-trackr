@@ -45,6 +45,8 @@ router
     router.delete('/trackdays/:id', [TrackDaysController, 'delete'])
     // Vehicle maintenance
     router.get('/maintenances', [MaintenancesController, 'index'])
+    router.get('/maintenances/create', [MaintenancesController, 'createOrEdit'])
+    router.get('/maintenances/:id/edit', [MaintenancesController, 'createOrEdit'])
     router.get('/maintenances/:slug', [MaintenancesController, 'showMaintenanceForVehicle'])
     // Chronos
     router.get('/chronos', [ChronosController, 'index'])

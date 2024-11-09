@@ -7,8 +7,8 @@ export const defaultData = 'N/R'
 export function modalConfigDelete(i18n: typeof locale): Partial<ModalFuncProps> {
   return {
     ...modalConfig(i18n),
-    title: i18n.t('deleteTrack'),
-    content: i18n.t('deleteTrackConfirm'),
+    title: i18n.t('deleteTrackday'),
+    content: i18n.t('deleteTrackdayConfirm'),
     okText: i18n.t('delete'),
     okButtonProps: {
       danger: true,

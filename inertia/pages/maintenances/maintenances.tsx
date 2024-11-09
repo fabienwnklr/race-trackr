@@ -8,6 +8,7 @@ import type { Vehicle } from '#types/vehicle'
 import { router } from '@inertiajs/react'
 import { useState } from 'react'
 import NoDataFound from '#components/no_data_found'
+import i18n from '#config/i18n_react'
 
 const { Meta } = Card
 const { Title } = Typography
@@ -25,8 +26,13 @@ export default function Maintenances(props: { vehicles: Trackday[]; user: any })
           }}
         >
           Maintenances
-          <Button type="primary">
-            Create new vehicle <PlusOutlined />
+          <Button
+            type="primary"
+            onClick={() => {
+              router.visit('/maintenances/create')
+            }}
+          >
+            {i18n.t('createMaintenance')} <PlusOutlined />
           </Button>
         </Title>
 
@@ -49,7 +55,7 @@ export default function Maintenances(props: { vehicles: Trackday[]; user: any })
                     width: 240,
                     padding: 10,
                   }}
-                  cover={<img alt="nogaro" src={"/resources/images/logo_moto.png"} />}
+                  cover={<img alt="nogaro" src={'/resources/images/logo_moto.png'} />}
                 >
                   <Meta title={`My bike ${i + 1}`} />
                 </Card>

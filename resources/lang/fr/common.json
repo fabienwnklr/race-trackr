@@ -104,5 +104,9 @@
   "sunny": "Ensoleillé",
   "cloudy": "Nuageux",
   "rainy": "Pluvieux",
-  "search": "Rechercher"
+  "search": "Rechercher",
+  "createMaintenance": "Créer une nouvelle maintenance",
+  "editMaintenance": "Modifier la maintenance",
+  "delete_confirm_maintenance": "Etes-vous sûr de vouloir supprimer cette maintenance ?",
+  "description": "Déscription"
 }

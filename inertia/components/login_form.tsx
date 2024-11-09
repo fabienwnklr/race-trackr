@@ -28,7 +28,7 @@ export default function Login() {
       name="login"
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 16 }}
-      initialValues={{ remember: true, email: 'admin@tdm.com', password: 'admin' }}
+      initialValues={{ remember: true, email: 'admin@hotmail.fr', password: 'admin' }}
       onFinish={async (values) => {
         await onLogin(values)
         setLoading(false)
