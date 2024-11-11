@@ -5,6 +5,7 @@ import '../css/app.css'
 import { hydrateRoot } from 'react-dom/client'
 import { createInertiaApp } from '@inertiajs/react'
 import { resolvePageComponent } from '@adonisjs/inertia/helpers'
+import { ConfigProvider } from 'antd'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Race-TrackR'
 
@@ -18,6 +19,11 @@ createInertiaApp({
   },
 
   setup({ el, App, props }) {
-    hydrateRoot(el, <App {...props} />)
+    hydrateRoot(
+      el,
+      <ConfigProvider theme={{ cssVar: true, hashed: false }}>
+        <App {...props} />
+      </ConfigProvider>
+    )
   },
 })

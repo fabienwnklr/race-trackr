@@ -57,6 +57,7 @@
     "pino-pretty": "^11.2.1",
     "playwright": "^1.47.0",
     "prettier": "^3.3.2",
+    "sass-embedded": "^1.80.6",
     "ts-node-maintained": "^10.9.4",
     "typescript": "^5.4.5",
     "vite": "^5.3.1"
@@ -76,6 +77,10 @@
     "@adonisjs/vite": "^3.0.0",
     "@ckeditor/ckeditor5-react": "^9.3.1",
     "@inertiajs/react": "^1.2.0",
+    "@tiptap/extension-color": "^2.9.1",
+    "@tiptap/pm": "^2.9.1",
+    "@tiptap/react": "^2.9.1",
+    "@tiptap/starter-kit": "^2.9.1",
     "@vinejs/vine": "^2.1.0",
     "antd": "^5.20.1",
     "chart.js": "^4.4.3",

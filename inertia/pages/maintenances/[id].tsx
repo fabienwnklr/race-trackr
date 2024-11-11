@@ -4,13 +4,15 @@ import { LeftOutlined, PlusOutlined } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import i18n from '#config/i18n_react'
 import FormLayout from '#components/layout/form'
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import { ClassicEditor, Bold, Essentials, Italic, Mention, Paragraph, Undo } from 'ckeditor5';
+import { EditorProvider, FloatingMenu, BubbleMenu } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 
-import 'ckeditor5/ckeditor5.css';
+// define your extension array
+const extensions = [StarterKit]
 
 import type { User } from '#types/user'
 import type { Maintenance } from '#types/maintenance'
+import TextEditor from '#components/TextEditor/TextEditor'
 
 const { Title } = Typography
 
@@ -97,7 +99,7 @@ export default function Maintenance(props: { maintenance: Maintenance; user: Use
           <Col span={24}>
             <Form.Item<Maintenance>
               labelCol={{
-               span: 2,
+                span: 2,
               }}
               wrapperCol={{
                 span: 22,
@@ -105,19 +107,7 @@ export default function Maintenance(props: { maintenance: Maintenance; user: Use
               name="details"
               label={i18n.t('details')}
             >
-              <CKEditor
-            editor={ ClassicEditor }
-            config={ {
-                toolbar: {
-                    items: [ 'undo', 'redo', '|', 'bold', 'italic' ],
-                },
-                plugins: [
-                    Bold, Essentials, Italic, Mention, Paragraph, Undo
-                ],
-                licenseKey: '<YOUR_LICENSE_KEY>',
-                initialData: '<p>Hello from CKEditor 5 in React!</p>',
-            } }
-        />
+              <TextEditor content={maintenance ? maintenance.details : ''} />
             </Form.Item>
           </Col>
         </Row>
