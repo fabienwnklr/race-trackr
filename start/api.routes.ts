@@ -9,3 +9,4 @@ router
     router.get('/tracks', [TrackController, 'read'])
   })
   .prefix('/api')
+  .middleware(middleware.guest())

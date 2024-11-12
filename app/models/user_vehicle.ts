@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, CamelCaseNamingStrategy, column } from '@adonisjs/lucid/orm'
+import { BaseModel, CamelCaseNamingStrategy, column, hasOne } from '@adonisjs/lucid/orm'
+import type { HasOne } from '@adonisjs/lucid/types/relations'
+import User from './user.js'
 
 BaseModel.namingStrategy = new CamelCaseNamingStrategy()
 
@@ -9,6 +11,9 @@ BaseModel.namingStrategy = new CamelCaseNamingStrategy()
 export default class UserVehicle extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
+
+  @hasOne(() => User)
+  declare userId: HasOne<typeof User>
 
   @column()
   declare name: string

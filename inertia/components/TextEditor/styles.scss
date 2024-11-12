@@ -11,6 +11,7 @@ button.is-active {
   min-height: 500px;
   max-height: 65vh;
   overflow: auto;
+  cursor: text;
 
   :first-child {
     margin-top: 0;

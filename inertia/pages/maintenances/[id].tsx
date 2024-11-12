@@ -1,5 +1,5 @@
 import Main from '#components/layout/main'
-import { Button, Col, Form, Input, Row, Typography } from 'antd'
+import { Button, Col, Form, Input, Row, Select, Typography } from 'antd'
 import { LeftOutlined, PlusOutlined } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import i18n from '#config/i18n_react'
@@ -63,12 +63,9 @@ export default function Maintenance(props: { maintenance: Maintenance; user: Use
           }}
         >
           <LeftOutlined style={{ marginRight: 5 }} />
-          Back
+          {i18n.t('back')}
         </Typography.Link>
-        {maintenance ? maintenance.name : 'New maintenance'}
-        <Button type="primary">
-          Create new maintenance <PlusOutlined />
-        </Button>
+        {maintenance ? maintenance.name : i18n.t('newMaintenance')}
       </Title>
 
       <FormLayout
@@ -84,6 +81,11 @@ export default function Maintenance(props: { maintenance: Maintenance; user: Use
         }}
       >
         <Row gutter={18}>
+        <Col span={12}>
+            <Form.Item<Maintenance> {...formItemLayout} name="vehiculeId" label={i18n.t('vehicule')}>
+              <Select />
+            </Form.Item>
+          </Col>
           <Col span={12}>
             <Form.Item<Maintenance> {...formItemLayout} name="name" label={i18n.t('name')}>
               <Input />
