@@ -9,7 +9,6 @@ export default class extends BaseSchema {
 
       table.string('name').notNullable().unique()
       table.string('slug').notNullable()
-      table.string('country')
       table.string('city')
       table.string('adress')
       table.string('turn')

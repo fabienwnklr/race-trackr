@@ -95,6 +95,20 @@ export default class extends BaseSeeder {
         timezone: 'America/New_York',
         capital: 'New York',
       },
+      {
+        name: 'Indonésie',
+        slug: 'indonesie',
+        iso: 'ID',
+        timezone: 'Asia/Jakarta',
+        capital: 'Jakarta',
+      },
+      {
+        name: 'Thaïlande',
+        slug: 'thailand',
+        iso: 'TH',
+        timezone: 'Asia/Bangkok',
+        capital: 'Bangkok',
+      },
     ])
   }
 }

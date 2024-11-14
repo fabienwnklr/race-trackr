@@ -201,7 +201,7 @@ export default class extends BaseSeeder {
       {
         name: 'Sachsenring',
         slug: 'sachsenring',
-        countryId: 18,
+        countryId: 4,
         city: 'Hohenstein-Ernstthal',
         adress: '',
         turn: '13 (10 à gauche, 3 à droite)',
@@ -231,7 +231,7 @@ export default class extends BaseSeeder {
       {
         name: 'Mandalika International Street Circuit',
         slug: 'mandalika-international-street-circuit',
-        countryId: 19,
+        countryId: 14,
         city: 'Kuta Mandalika',
         adress: '',
         turn: '17 (6 à gauche, 11 à droite)',
@@ -261,7 +261,7 @@ export default class extends BaseSeeder {
       {
         name: 'Chang International Circuit',
         slug: 'chang-international-circuit',
-        countryId: 20,
+        countryId: 15,
         city: 'Buriram',
         adress: '',
         turn: '12 (5 à gauche, 7 à droite)',
