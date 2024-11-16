@@ -1,6 +1,6 @@
 export type Maintenance = {
   id: number
-  vehiculeId: number
+  vehicleId: number
   name: string
   date: string
   details: string

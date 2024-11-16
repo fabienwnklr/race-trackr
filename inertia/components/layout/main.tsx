@@ -96,6 +96,7 @@ export default function Main(props: {
     getItem(i18n.t('dashboard'), '/dashboard', <DashboardOutlined />),
     getItem(i18n.t('trackdays'), '/trackdays', <CalendarOutlined />),
     getItem(i18n.t('maintenances'), '/maintenances', <ToolOutlined />),
+    getItem(i18n.t('userVehicles'), '/userVehicles', <ToolOutlined />),
     getItem(i18n.t('chronos'), '/chronos', <FieldTimeOutlined />),
   ]
 

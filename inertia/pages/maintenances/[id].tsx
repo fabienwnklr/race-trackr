@@ -1,5 +1,17 @@
 import Main from '#components/layout/main'
-import { Button, Col, Form, Input, Row, Select, Typography } from 'antd'
+import {
+  Button,
+  Col,
+  Flex,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Select,
+  Space,
+  Tooltip,
+  Typography,
+} from 'antd'
 import { LeftOutlined, PlusOutlined } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import i18n from '#config/i18n_react'
@@ -13,6 +25,8 @@ const extensions = [StarterKit]
 import type { User } from '#types/user'
 import type { Maintenance } from '#types/maintenance'
 import TextEditor from '#components/TextEditor/TextEditor'
+import { useState } from 'react'
+import { Vehicle } from '../../../@types/vehicle'
 
 const { Title } = Typography
 
@@ -31,6 +45,8 @@ const formItemLayout = {
  * Show unique trackday
  */
 export default function Maintenance(props: { maintenance: Maintenance; user: User }) {
+  const [modalCreateVehicleOpen, setModalCreateVehicleOpen] = useState(false)
+
   const { maintenance } = props
   const fields = [
     {
@@ -80,10 +96,60 @@ export default function Maintenance(props: { maintenance: Maintenance; user: Use
           date: maintenance ? maintenance.date : '',
         }}
       >
+        <Modal
+          title={i18n.t('createVehicle')}
+          maskClosable={false}
+          footer={null}
+          closable={false}
+          open={modalCreateVehicleOpen}
+          onOk={() => {}}
+          onCancel={() => {
+            setModalCreateVehicleOpen(false)
+          }}
+        >
+          <FormLayout
+            name="vehicle"
+            onFinish={() => {}}
+            onCancel={() => {
+              setModalCreateVehicleOpen(false)
+            }}
+          >
+            <Form.Item<Vehicle>
+              {...formItemLayout}
+              name="name"
+              label={i18n.t('name')}
+              rules={[{ required: true, message: i18n.t('required:nameRequired') }]}
+            >
+              <Input />
+            </Form.Item>
+          </FormLayout>
+        </Modal>
         <Row gutter={18}>
-        <Col span={12}>
-            <Form.Item<Maintenance> {...formItemLayout} name="vehiculeId" label={i18n.t('vehicule')}>
-              <Select />
+          <Col span={12}>
+            <Form.Item<Maintenance>
+              {...formItemLayout}
+              style={{ width: '100%' }}
+              label={i18n.t('vehicle')}
+            >
+              <Flex>
+                <Space.Compact style={{ flex: 'auto' }}>
+                  <Form.Item name="vehicleId" noStyle rules={[{ required: true }]}>
+                    <Select />
+                  </Form.Item>
+                  <Form.Item noStyle>
+                    <Tooltip title={i18n.t('createVehicle')}>
+                      <Button
+                        type="primary"
+                        icon={<PlusOutlined />}
+                        onClick={() => {
+                          // Open modal for create vehicle
+                          setModalCreateVehicleOpen(true)
+                        }}
+                      ></Button>
+                    </Tooltip>
+                  </Form.Item>
+                </Space.Compact>
+              </Flex>
             </Form.Item>
           </Col>
           <Col span={12}>
