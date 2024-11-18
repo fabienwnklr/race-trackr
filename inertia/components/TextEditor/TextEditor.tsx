@@ -5,9 +5,10 @@ import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
 import { EditorProvider, useCurrentEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import { Button, ColorPicker, Flex } from 'antd'
+import { Button, ColorPicker, Dropdown, Flex } from 'antd'
 import {
   BoldOutlined,
+  DownOutlined,
   ItalicOutlined,
   OrderedListOutlined,
   RedoOutlined,
@@ -25,16 +26,42 @@ import { HardBreakIcon } from '#components/icons/hard_break'
 
 const MenuBar = () => {
   const { editor } = useCurrentEditor()
+  const selectedHeadingLevel = []
 
   if (!editor) {
     return null
   }
 
+  if (editor.isActive('heading', { level: 1 })) {
+    selectedHeadingLevel.push('heading1')
+  } else if (editor.isActive('heading', { level: 2 })) {
+    selectedHeadingLevel.push('heading2')
+  } else if (editor.isActive('heading', { level: 3 })) {
+    selectedHeadingLevel.push('heading3')
+  } else if (editor.isActive('heading', { level: 4 })) {
+    selectedHeadingLevel.push('heading4')
+  }
+
   return (
     <Flex className="control-group">
-      <Flex className="Button-group" wrap gap="small">
+      <Flex className="toolbar" wrap flex={'100%'} gap="0.25rem">
         <Button
-          variant="text"
+          type="text"
+          onClick={() => editor.chain().focus().undo().run()}
+          disabled={!editor.can().chain().focus().undo().run()}
+        >
+          <UndoOutlined />
+        </Button>
+        <Button
+          type="text"
+          onClick={() => editor.chain().focus().redo().run()}
+          disabled={!editor.can().chain().focus().redo().run()}
+        >
+          <RedoOutlined />
+        </Button>
+
+        <Button
+          type="text"
           onClick={() => editor.chain().focus().toggleBold().run()}
           disabled={!editor.can().chain().focus().toggleBold().run()}
           className={editor.isActive('bold') ? 'is-active' : ''}
@@ -42,6 +69,7 @@ const MenuBar = () => {
           <BoldOutlined />
         </Button>
         <Button
+          type="text"
           onClick={() => editor.chain().focus().toggleItalic().run()}
           disabled={!editor.can().chain().focus().toggleItalic().run()}
           className={editor.isActive('italic') ? 'is-active' : ''}
@@ -49,6 +77,7 @@ const MenuBar = () => {
           <ItalicOutlined />
         </Button>
         <Button
+          type="text"
           onClick={() => editor.chain().focus().toggleStrike().run()}
           disabled={!editor.can().chain().focus().toggleStrike().run()}
           className={editor.isActive('strike') ? 'is-active' : ''}
@@ -56,88 +85,75 @@ const MenuBar = () => {
           <StrikethroughOutlined />
         </Button>
         <Button
+          type="text"
           onClick={() => editor.chain().focus().setParagraph().run()}
           className={editor.isActive('paragraph') ? 'is-active' : ''}
         >
           <ParagraphIcon size={16} />
         </Button>
-        <Button
-          onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-          className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
+        <Dropdown
+          trigger={['click']}
+          menu={{
+            selectedKeys: selectedHeadingLevel,
+            items: [
+              {
+                key: 'heading1',
+                label: 'Heading 1',
+                style: { fontSize: '1.4rem' },
+                onClick: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
+              },
+              {
+                key: 'heading2',
+                label: 'Heading 2',
+                style: { fontSize: '1.2rem' },
+                onClick: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
+              },
+              {
+                key: 'heading3',
+                label: 'Heading 3',
+                style: { fontSize: '1.1rem' },
+                onClick: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
+              },
+              {
+                key: 'heading4',
+                label: 'Heading 4',
+                style: { fontSize: '1rem' },
+                onClick: () => editor.chain().focus().toggleHeading({ level: 4 }).run(),
+              },
+            ],
+          }}
         >
-          <H1Icon size={16} />
-        </Button>
+          <Button type="text">
+            Heading
+            <DownOutlined />
+          </Button>
+        </Dropdown>
         <Button
-          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-          className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
-        >
-          <H2Icon size={16} />
-        </Button>
-        <Button
-          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-          className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}
-        >
-          H3
-        </Button>
-        <Button
-          onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-          className={editor.isActive('heading', { level: 4 }) ? 'is-active' : ''}
-        >
-          H4
-        </Button>
-        <Button
-          onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-          className={editor.isActive('heading', { level: 5 }) ? 'is-active' : ''}
-        >
-          H5
-        </Button>
-        <Button
-          onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-          className={editor.isActive('heading', { level: 6 }) ? 'is-active' : ''}
-        >
-          H6
-        </Button>
-        <Button
+          type="text"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={editor.isActive('bulletList') ? 'is-active' : ''}
         >
           <UnorderedListOutlined />
         </Button>
         <Button
+          type="text"
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           className={editor.isActive('orderedList') ? 'is-active' : ''}
         >
           <OrderedListOutlined />
         </Button>
         <Button
-          onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-          className={editor.isActive('codeBlock') ? 'is-active' : ''}
-        >
-          <CodeBlockIcon />
-        </Button>
-        <Button
+          type="text"
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
           className={editor.isActive('blockquote') ? 'is-active' : ''}
         >
           <BlockquoteIcon />
         </Button>
-        <Button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
+        <Button type="text" onClick={() => editor.chain().focus().setHorizontalRule().run()}>
           <HrIcon />
         </Button>
-        <Button onClick={() => editor.chain().focus().setHardBreak().run()}>
+        <Button type="text" onClick={() => editor.chain().focus().setHardBreak().run()}>
           <HardBreakIcon />
-        </Button>
-        <Button
-          onClick={() => editor.chain().focus().undo().run()}
-          disabled={!editor.can().chain().focus().undo().run()}
-        >
-          <UndoOutlined />
-        </Button>
-        <Button
-          onClick={() => editor.chain().focus().redo().run()}
-          disabled={!editor.can().chain().focus().redo().run()}
-        >
-          <RedoOutlined />
         </Button>
         <ColorPicker
           value={editor.getAttributes('textStyle').color || '#000000'}
@@ -150,7 +166,7 @@ const MenuBar = () => {
 
 const extensions = [
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
-  // TextStyle.configure({ types: [ListItem.name] }),
+  TextStyle.configure({ types: [ListItem.name] }),
   StarterKit.configure({
     bulletList: {
       keepMarks: true,

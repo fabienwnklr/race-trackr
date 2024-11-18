@@ -64,11 +64,12 @@ export default function Main(props: {
   route: string
   children: React.ReactNode | React.ReactNode[]
   user: User
+  title: string
   success?: string
   errors?: string
 }) {
   const [collapsed, _setCollapsed] = useState(false)
-  const { route, children, user, success, errors } = props
+  const { route, children, user, title, success, errors } = props
   const isAdmin = user.role === 'admin'
   let stateSubMenu = ['']
 
@@ -205,6 +206,17 @@ export default function Main(props: {
             flexDirection: 'column',
           }}
         >
+          <Typography.Title
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 34,
+            }}
+            level={3}
+          >
+            {title}
+          </Typography.Title>
           {children}
         </Content>
         <Footer style={{ textAlign: 'center' }}>

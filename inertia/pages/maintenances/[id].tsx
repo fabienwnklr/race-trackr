@@ -1,34 +1,15 @@
 import Main from '#components/layout/main'
-import {
-  Button,
-  Col,
-  Flex,
-  Form,
-  Input,
-  Modal,
-  Row,
-  Select,
-  Space,
-  Tooltip,
-  Typography,
-} from 'antd'
-import { LeftOutlined, PlusOutlined } from '@ant-design/icons'
+import { Button, Col, Flex, Form, Input, Modal, Row, Select, Space, Tooltip } from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import i18n from '#config/i18n_react'
 import FormLayout from '#components/layout/form'
-import { EditorProvider, FloatingMenu, BubbleMenu } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-
-// define your extension array
-const extensions = [StarterKit]
 
 import type { User } from '#types/user'
 import type { Maintenance } from '#types/maintenance'
 import TextEditor from '#components/TextEditor/TextEditor'
 import { useState } from 'react'
 import { Vehicle } from '../../../@types/vehicle'
-
-const { Title } = Typography
 
 const formItemLayout = {
   labelCol: {
@@ -48,42 +29,13 @@ export default function Maintenance(props: { maintenance: Maintenance; user: Use
   const [modalCreateVehicleOpen, setModalCreateVehicleOpen] = useState(false)
 
   const { maintenance } = props
-  const fields = [
-    {
-      name: 'name',
-      label: i18n.t('name'),
-      input: <Input />,
-    },
-    {
-      name: 'description',
-      label: i18n.t('description'),
-    },
-    {
-      name: 'date',
-      label: i18n.t('date'),
-    },
-  ]
 
   return (
-    <Main route="/maintenances" {...props}>
-      <Title
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <Typography.Link
-          onClick={() => {
-            router.visit('/maintenances')
-          }}
-        >
-          <LeftOutlined style={{ marginRight: 5 }} />
-          {i18n.t('back')}
-        </Typography.Link>
-        {maintenance ? maintenance.name : i18n.t('newMaintenance')}
-      </Title>
-
+    <Main
+      title={maintenance ? i18n.t('editMaintenance') : i18n.t('createMaintenance')}
+      route="/maintenances"
+      {...props}
+    >
       <FormLayout
         name="maintenance"
         onFinish={() => {}}
@@ -170,7 +122,7 @@ export default function Maintenance(props: { maintenance: Maintenance; user: Use
                 span: 2,
               }}
               wrapperCol={{
-                span: 22,
+                span: 20,
               }}
               name="details"
               label={i18n.t('details')}

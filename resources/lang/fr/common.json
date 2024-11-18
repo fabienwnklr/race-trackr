@@ -107,7 +107,10 @@
   "rainy": "Pluvieux",
   "search": "Rechercher",
   "createMaintenance": "Créer une nouvelle maintenance",
+  "newMaintenance": "Nouvelle maintenance",
   "editMaintenance": "Modifier la maintenance",
   "delete_confirm_maintenance": "Etes-vous sûr de vouloir supprimer cette maintenance ?",
-  "description": "Déscription"
+  "description": "Déscription",
+  "userVehicles": "Mes véhicules",
+  "userVehicle": "Véhicule"
 }
