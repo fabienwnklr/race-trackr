@@ -5,7 +5,7 @@ import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
 import { EditorProvider, useCurrentEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import { Button, ColorPicker, Dropdown, Flex } from 'antd'
+import { Button, ColorPicker, Divider, Dropdown, Flex } from 'antd'
 import {
   BoldOutlined,
   DownOutlined,
@@ -60,6 +60,8 @@ const MenuBar = () => {
           <RedoOutlined />
         </Button>
 
+        <Divider type="vertical" style={{  borderColor: '#c3c3c3', height: '100%' }} />
+
         <Button
           type="text"
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -91,6 +93,9 @@ const MenuBar = () => {
         >
           <ParagraphIcon size={16} />
         </Button>
+
+        <Divider type="vertical" style={{  borderColor: '#c3c3c3', height: '100%' }} />
+
         <Dropdown
           trigger={['click']}
           menu={{

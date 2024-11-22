@@ -13,14 +13,10 @@ export default class AuthController {
       return inertia.render('errors/unauthorized')
     }
     const { abilities, expiresIn, name } = params
-    const token = await User.accessTokens.create(
-      auth.user,
-      abilities,
-      {
-        expiresIn,
-        name
-      }
-    )
+    const token = await User.accessTokens.create(auth.user, abilities, {
+      expiresIn,
+      name,
+    })
 
     return {
       type: 'bearer',

@@ -13,7 +13,10 @@ export default class UserVehicle extends BaseModel {
   declare id: number
 
   @hasOne(() => User)
-  declare userId: HasOne<typeof User>
+  declare user: HasOne<typeof User>
+
+  @column({ columnName: 'userId' })
+  declare userId: number // Référence a l'utilisateur
 
   @column()
   declare name: string

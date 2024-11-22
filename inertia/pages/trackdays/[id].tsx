@@ -135,26 +135,6 @@ export default function CreateTrackDay(props: {
 
   return (
     <Main route="" {...props}>
-      <Title
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: 34,
-        }}
-        level={3}
-      >
-        {trackday
-          ? `${trackday.track.name} - ${dayjs(trackday.date).format(locale.DatePicker?.dateFormat)}`
-          : i18n.t('createTrackday')}
-
-        {trackday && (
-          <Button type="primary" onClick={onCancel} style={{ marginRight: 8 }} size="small">
-            {i18n.t('showTrackday')}
-          </Button>
-        )}
-      </Title>
-
       <Form
         name="createTrackday"
         form={form}

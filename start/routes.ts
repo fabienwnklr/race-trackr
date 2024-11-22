@@ -18,6 +18,7 @@ const TrackDaysController = () => import('#controllers/trackdays_controller')
 const MaintenancesController = () => import('#controllers/maintenances_controller')
 const ChronosController = () => import('#controllers/chronos_controller')
 const HealthChecksController = () => import('#controllers/health_checks_controller')
+const UserVehiclesController = () => import('#controllers/user_vehicles_controller')
 
 router.get('/health', [HealthChecksController]).use(({ request, response }, next) => {
   if (request.header('x-monitoring-secret') === 'some_secret_value') {
@@ -35,6 +36,7 @@ router
   .group(() => {
     // Views
     router.get('/dashboard', [DashboardController, 'index']).as('dashboard')
+
     // Trackdays
     router.get('/trackdays', [TrackDaysController, 'index'])
     router.get('/trackdays/create', [TrackDaysController, 'createOrEdit'])
@@ -43,11 +45,17 @@ router
     router.post('/trackdays/create', [TrackDaysController, 'create'])
     router.post('/trackdays/:id/update', [TrackDaysController, 'update'])
     router.delete('/trackdays/:id', [TrackDaysController, 'delete'])
+
     // Vehicle maintenance
     router.get('/maintenances', [MaintenancesController, 'index'])
     router.get('/maintenances/create', [MaintenancesController, 'createOrEdit'])
     router.get('/maintenances/:id/edit', [MaintenancesController, 'createOrEdit'])
     router.get('/maintenances/:slug', [MaintenancesController, 'showMaintenanceForVehicle'])
+
+    // User vehicles
+    router.get('/user-vehicles', [UserVehiclesController, 'index'])
+    router.post('/user-vehicles/create', [UserVehiclesController, 'create'])
+
     // Chronos
     router.get('/chronos', [ChronosController, 'index'])
     // Api key
@@ -82,31 +90,3 @@ router
     router.post('/logout', [AuthController, 'logout']).use(middleware.auth())
   })
   .prefix('/auth')
-
-// Api endpoint
-router
-  .group(() => {
-    // Track CRUD
-    router.post('/tracks/create', [TrackController, 'create'])
-    router.get('/tracks', [TrackController, 'read'])
-    router.get('/tracks/:slug', [TrackController, 'read'])
-    router.post('/tracks/:slug/update', [TrackController, 'update'])
-    router.delete('/tracks/:slug/delete', [TrackController, 'delete'])
-
-    // Trackday CRUD
-    router.post('/trackdays/create', [TrackDaysController, 'create'])
-    router.get('/trackdays/:user', [TrackDaysController, 'read'])
-    router.get('/trackdays/:user/:id', [TrackDaysController, 'read'])
-
-    // Vehicle CRUD
-    router.get('/vehicles/types', [VehiclesController, 'readVehicleType'])
-    router.get('/vehicles/:id/brands', [VehiclesController, 'readBrand'])
-    router.get('/vehicles/:id/models', [VehiclesController, 'readModels'])
-    router.get('/vehicles/:id/cylinders', [VehiclesController, 'readCylinders'])
-  })
-  .prefix('api')
-// .use(
-//   middleware.auth({
-//     guards: ['api'],
-//   })
-// )

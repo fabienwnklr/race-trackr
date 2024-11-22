@@ -105,7 +105,7 @@ export default class TrackDaysController {
 
         await Chrono.createMany(chronosData)
       }
-      console.log(trackDay)
+
       session.flash('success', i18n.t('success.trackdayCreated'))
       return response.redirect('/trackdays')
     } catch (error) {

@@ -6,5 +6,6 @@
   "track_required": "Le circuit est requis",
   "date_required": "La date est requise",
   "invalidCredentials": "Identifiants invalides",
-  "error": "Une erreur est survenue"
+  "error": "Une erreur est survenue",
+  "vehicleRequired": "Le véhicule est requis"
 }

@@ -8,14 +8,14 @@ export default class MaintenancesController {
   }
 
   async createOrEdit({ inertia, params }: HttpContext) {
-    const vehicles = await UserVehicle.all()
+    const userVehicles = await UserVehicle.all()
 
     if (params.id) {
       const maintenance = await Maintenance.query().where('id', params.id).firstOrFail()
 
-      return inertia.render('maintenances/[id]', { maintenance, vehicles })
+      return inertia.render('maintenances/[id]', { maintenance, userVehicles })
     }
-    return inertia.render('maintenances/[id]', { vehicles })
+    return inertia.render('maintenances/[id]', { userVehicles })
   }
 
   async showMaintenanceForVehicle({ inertia }: HttpContext) {

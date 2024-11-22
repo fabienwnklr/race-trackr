@@ -267,7 +267,9 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
                 marginBottom: 10,
               }}
             >
-              <p>{i18n.t('trackMap')}</p>
+              <p>
+                {trackday.track.name} - {i18n.t('trackMap')}
+              </p>
               <Button
                 onClick={() =>
                   Modal.info({

@@ -1,15 +1,15 @@
+import { useState } from 'react'
 import Main from '#components/layout/main'
-import { Button, Col, Flex, Form, Input, Modal, Row, Select, Space, Tooltip } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
+import { Button, Col, DatePicker, Flex, Form, Input, Modal, Row, Select, Space, Tooltip } from 'antd'
+import { InfoCircleFilled, PlusOutlined } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import i18n from '#config/i18n_react'
-import FormLayout from '#components/layout/form'
+import FormLayout from '#components/layout/form_layout'
+import TextEditor from '#components/TextEditor/TextEditor'
 
 import type { User } from '#types/user'
 import type { Maintenance } from '#types/maintenance'
-import TextEditor from '#components/TextEditor/TextEditor'
-import { useState } from 'react'
-import { Vehicle } from '../../../@types/vehicle'
+import type { Vehicle } from '#types/vehicle'
 
 const formItemLayout = {
   labelCol: {
@@ -25,10 +25,14 @@ const formItemLayout = {
 /**
  * Show unique trackday
  */
-export default function Maintenance(props: { maintenance: Maintenance; user: User }) {
+export default function Maintenance(props: {
+  maintenance: Maintenance
+  user: User
+  userVehicles: Vehicle[]
+}) {
   const [modalCreateVehicleOpen, setModalCreateVehicleOpen] = useState(false)
 
-  const { maintenance } = props
+  const { maintenance, userVehicles } = props
 
   return (
     <Main
@@ -54,14 +58,15 @@ export default function Maintenance(props: { maintenance: Maintenance; user: Use
           footer={null}
           closable={false}
           open={modalCreateVehicleOpen}
-          onOk={() => {}}
           onCancel={() => {
             setModalCreateVehicleOpen(false)
           }}
         >
           <FormLayout
             name="vehicle"
-            onFinish={() => {}}
+            onFinish={(fields) => {
+              router.post('/user-vehicles/create', fields)
+            }}
             onCancel={() => {
               setModalCreateVehicleOpen(false)
             }}
@@ -85,8 +90,17 @@ export default function Maintenance(props: { maintenance: Maintenance; user: Use
             >
               <Flex>
                 <Space.Compact style={{ flex: 'auto' }}>
-                  <Form.Item name="vehicleId" noStyle rules={[{ required: true }]}>
-                    <Select />
+                  <Form.Item
+                    name="userVehicles"
+                    noStyle
+                    rules={[{ required: true, message: i18n.t('validation:vehicleRequired') }]}
+                  >
+                    <Select
+                      options={userVehicles.map((vehicle) => ({
+                        label: vehicle.name,
+                        value: vehicle.id,
+                      }))}
+                    />
                   </Form.Item>
                   <Form.Item noStyle>
                     <Tooltip title={i18n.t('createVehicle')}>
@@ -112,7 +126,7 @@ export default function Maintenance(props: { maintenance: Maintenance; user: Use
 
           <Col span={12}>
             <Form.Item<Maintenance> {...formItemLayout} name="date" label={i18n.t('date')}>
-              <Input />
+              <DatePicker />
             </Form.Item>
           </Col>
 
