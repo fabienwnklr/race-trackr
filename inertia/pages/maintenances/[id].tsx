@@ -93,7 +93,8 @@ export default function Maintenance(props: {
         onFinish={(data) => {
           data.details = details
           router.post(
-            maintenance ? `/maintenances/${maintenance.id}/update` : '/maintenances/create'
+            maintenance ? `/maintenances/${maintenance.id}/update` : '/maintenances/create',
+            data
           )
         }}
         onCancel={() => {

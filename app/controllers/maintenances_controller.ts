@@ -30,13 +30,15 @@ export default class MaintenancesController {
   /**
    * Create maintenance and redirect to maintenances
    */
-  async create({ inertia, params, session, i18n, auth }: HttpContext) {
+  async create({ inertia, request, session, i18n, auth }: HttpContext) {
     try {
       if (!auth.user) {
         return inertia.render('errors/unauthorized')
       }
-      const data = params.all()
+      const data = request.all()
       data.userId = auth.user.id
+      data.date = new Date(data.date).toISOString()
+      console.log(data)
 
       await createMaintenanceValidator.validate(data)
 
@@ -44,8 +46,9 @@ export default class MaintenancesController {
       session.flash('success', i18n.t('success.maintenanceCreated'))
       return inertia.render('maintenances/maintenances')
     } catch (error) {
+      console.log(error)
       session.flash('error', i18n.t('error.creatingMaintenance', { error }))
-      return inertia.render('maintenances/maintenances')
+      return inertia.render('maintenances/create')
     }
   }
 
