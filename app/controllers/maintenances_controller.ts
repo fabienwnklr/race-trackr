@@ -14,9 +14,14 @@ export default class MaintenancesController {
     if (!user) {
       return inertia.render('errors/unauthorized')
     }
-
+    console.log('ii')
     const maintenances = await Maintenance.query().where('userId', user.id)
     return inertia.render('maintenances/maintenances', { maintenances })
+  }
+
+  async show({ inertia, params }: HttpContext) {
+    const maintenance = await Maintenance.query().where('id', params.id).firstOrFail()
+    return inertia.render('maintenances/maintenance', { maintenance })
   }
 
   /**
@@ -25,7 +30,6 @@ export default class MaintenancesController {
    */
   async createOrEdit({ inertia, params }: HttpContext) {
     const userVehicles = await UserVehicle.all()
-
     if (params.id) {
       const maintenance = await Maintenance.query().where('id', params.id).firstOrFail()
 
@@ -37,36 +41,53 @@ export default class MaintenancesController {
   /**
    * Create maintenance and redirect to maintenances
    */
-  async create({ inertia, request, session, i18n, auth }: HttpContext) {
+  async create({ response, request, session, i18n, auth }: HttpContext) {
     try {
       if (!auth.user) {
-        return inertia.render('errors/unauthorized')
+        return response.redirect('errors/unauthorized')
       }
       const data = request.all()
       data.userId = auth.user.id
       data.date = new Date(data.date).toISOString()
-      console.log(data)
 
       await createMaintenanceValidator.validate(data)
 
       await Maintenance.create(data)
       session.flash('success', i18n.t('success.maintenanceCreated'))
-      return inertia.render('maintenances/maintenances')
+      return response.redirect('/maintenances')
     } catch (error) {
-      console.log(error)
       session.flash('error', i18n.t('error.creatingMaintenance', { error }))
-      return inertia.render('maintenances/create')
+      return response.redirect('/maintenances/create')
     }
   }
 
-  async update({ inertia, params, session }: HttpContext) {
-    const maintenanceData = params.all()
-    const maintenance = await Maintenance.findByOrFail('id', maintenanceData.id)
+  async update({ response, request, session, i18n, params }: HttpContext) {
+    const maintenanceData = request.all()
+    const maintenance = await Maintenance.findByOrFail('id', params.id)
+    try {
+      maintenance.name = maintenanceData.name
+      maintenance.date = new Date(maintenanceData.date).toISOString()
+      maintenance.details = maintenanceData.details
+      maintenance.vehicleId = maintenanceData.vehicleId
+
+      await maintenance.save()
+
+      session.flash('success', i18n.t('success.maintenanceUpdated'))
+      return response.redirect(`/maintenances/${maintenance.id}/edit`)
+    } catch (error) {
+      console.log(error)
+      session.flash('error', i18n.t('error.update', { error }))
+      return response.redirect(`maintenances/${maintenance.id}/edit`)
+    }
   }
 
-  async showMaintenanceForVehicle({ inertia }: HttpContext) {
-    return inertia.render('maintenances/maintenance', {
-      name: 'test',
-    })
+  async delete({ response, params, session, i18n, auth }: HttpContext) {
+    if (!auth.user) {
+      return response.redirect('errors/unauthorized')
+    }
+    const maintenance = await Maintenance.findByOrFail('id', params.id)
+    await maintenance.delete()
+    session.flash('success', i18n.t('success.maintenanceDeleted'))
+    return response.redirect('/maintenances')
   }
 }

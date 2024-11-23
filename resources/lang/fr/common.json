@@ -24,6 +24,7 @@
   "view": "Visualiser",
   "edit": "Modifier",
   "delete": "Supprimer",
+  "deleteConfirm": "Etes-vous sûr de vouloir supprimer \"{{name}}\" ?",
   "cancel": "Annuler",
   "save": "Sauvegarder",
   "confirm": "Confirmer",

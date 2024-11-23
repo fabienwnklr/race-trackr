@@ -11,7 +11,10 @@ export default class Maintenance extends BaseModel {
   declare id: number
 
   @hasOne(() => UserVehicle)
-  declare vehicleId: HasOne<typeof UserVehicle>
+  declare vehicle: HasOne<typeof UserVehicle>
+
+  @column({ columnName: 'vehicleId' })
+  declare vehicleId: number
 
   @hasOne(() => User)
   declare user: HasOne<typeof User>
@@ -22,8 +25,8 @@ export default class Maintenance extends BaseModel {
   @column()
   declare name: string
 
-  @column.dateTime({ autoCreate: false })
-  declare date: DateTime
+  @column()
+  declare date: string
 
   @column()
   declare details: string

@@ -13,7 +13,7 @@ import {
   Space,
   Tooltip,
 } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
+import { EditOutlined, PlusOutlined } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import i18n from '#config/i18n_react'
 import FormLayout from '#components/layout/form_layout'
@@ -55,7 +55,7 @@ export default function Maintenance(props: {
   return (
     <Main
       title={maintenance ? i18n.t('editMaintenance') : i18n.t('createMaintenance')}
-      route="/maintenances"
+      route=""
       {...props}
     >
       <Modal
@@ -101,6 +101,7 @@ export default function Maintenance(props: {
           router.visit('/maintenances')
         }}
         initialValues={{
+          vehicleId: maintenance ? maintenance.vehicleId : '',
           name: maintenance ? maintenance.name : '',
           details: maintenance ? maintenance.details : '',
           date: maintenance
@@ -123,12 +124,25 @@ export default function Maintenance(props: {
                     rules={[{ required: true, message: i18n.t('validation:vehicleRequired') }]}
                   >
                     <Select
+                      allowClear
                       options={userVehicles.map((vehicle) => ({
                         label: vehicle.name,
                         value: vehicle.id,
                       }))}
                     />
                   </Form.Item>
+                  {/* <Form.Item noStyle>
+                    <Tooltip title={i18n.t('editVehicle')}>
+                      <Button
+                        type="primary"
+                        icon={<EditOutlined />}
+                        onClick={() => {
+                          // Open modal for create vehicle
+                          setModalCreateVehicleOpen(true)
+                        }}
+                      ></Button>
+                    </Tooltip>
+                  </Form.Item> */}
                   <Form.Item noStyle>
                     <Tooltip title={i18n.t('createVehicle')}>
                       <Button

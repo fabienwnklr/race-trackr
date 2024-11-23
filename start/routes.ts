@@ -47,12 +47,16 @@ router
     router.delete('/trackdays/:id', [TrackDaysController, 'delete'])
 
     // Vehicle maintenance
+    // GET
     router.get('/maintenances', [MaintenancesController, 'index'])
     router.get('/maintenances/create', [MaintenancesController, 'createOrEdit'])
+    router.get('/maintenances/:id', [MaintenancesController, 'show'])
     router.get('/maintenances/:id/edit', [MaintenancesController, 'createOrEdit'])
-    router.get('/maintenances/:slug', [MaintenancesController, 'showMaintenanceForVehicle'])
+    // POST
     router.post('/maintenances/create', [MaintenancesController, 'create'])
-    router.post('/maintenances/:id/edit', [MaintenancesController, 'update'])
+    router.post('/maintenances/:id/update', [MaintenancesController, 'update'])
+    // DELETE
+    router.delete('/maintenances/:id', [MaintenancesController, 'delete'])
 
     // User vehicles
     router.get('/user-vehicles', [UserVehiclesController, 'index'])

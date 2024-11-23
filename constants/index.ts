@@ -4,11 +4,11 @@ import type { ModalFuncProps } from 'antd'
 // Create constant for assign a default value if data is null
 export const defaultData = 'N/R'
 
-export function modalConfigDelete(i18n: typeof locale): Partial<ModalFuncProps> {
+export function modalConfigDelete(i18n: typeof locale, toDelete = ''): Partial<ModalFuncProps> {
   return {
     ...modalConfig(i18n),
-    title: i18n.t('deleteTrackday'),
-    content: i18n.t('deleteTrackdayConfirm'),
+    title: i18n.t('delete'),
+    content: i18n.t('deleteConfirm', { name: toDelete }),
     okText: i18n.t('delete'),
     okButtonProps: {
       danger: true,
