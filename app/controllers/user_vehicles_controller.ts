@@ -12,14 +12,16 @@ export default class UserVehiclesController {
     })
   }
 
-  public async create({ request, response, auth, inertia }: HttpContext) {
+  public async create({ request, response, auth, inertia, session, i18n }: HttpContext) {
     try {
       const data = request.all()
       data.userId = auth.user!.id
       data.slug = slugify(data.name)
       await UserVehicle.create(data)
-      const userVehicles = await UserVehicle.query().where('userId', auth.user!.id)
-      return inertia.render('user_vehicles/user_vehicles', userVehicles)
+
+      session.flash('success', i18n.t('success.vehicleCreated'))
+
+      return inertia.render('user_vehicles/user_vehicles')
     } catch (error) {
       console.log(error)
       if (error instanceof errors.E_VALIDATION_ERROR) {
