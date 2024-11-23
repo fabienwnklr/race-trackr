@@ -8,8 +8,15 @@ export default class MaintenancesController {
    * @view
    * Show all maintenances
    */
-  async index({ inertia }: HttpContext) {
-    return inertia.render('maintenances/maintenances')
+  async index({ inertia, auth }: HttpContext) {
+    const user = auth.user
+
+    if (!user) {
+      return inertia.render('errors/unauthorized')
+    }
+
+    const maintenances = await Maintenance.query().where('userId', user.id)
+    return inertia.render('maintenances/maintenances', { maintenances })
   }
 
   /**

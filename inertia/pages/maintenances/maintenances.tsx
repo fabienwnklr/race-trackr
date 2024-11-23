@@ -9,12 +9,14 @@ import { router } from '@inertiajs/react'
 import { useState } from 'react'
 import NoDataFound from '#components/no_data_found'
 import i18n from '#config/i18n_react'
+import { Maintenance } from '../../../@types/maintenance'
 
 const { Meta } = Card
 const { Title } = Typography
 
-export default function Maintenances(props: { vehicles: Trackday[]; user: any }) {
-  const vehicles = [] as Trackday[]
+export default function Maintenances(props: { user: any, maintenances: Maintenance[] }) {
+  const { maintenances } = props
+
   return (
     <>
       <Main route="/maintenances" {...props}>
@@ -36,9 +38,9 @@ export default function Maintenances(props: { vehicles: Trackday[]; user: any })
           </Button>
         </Title>
 
-        {vehicles.length ? (
+        {maintenances.length ? (
           <Row gutter={30}>
-            {vehicles.map((td, i) => (
+            {maintenances.map((maintenance, i) => (
               <Col
                 span={6}
                 style={{
@@ -55,9 +57,8 @@ export default function Maintenances(props: { vehicles: Trackday[]; user: any })
                     width: 240,
                     padding: 10,
                   }}
-                  cover={<img alt="nogaro" src={'/resources/images/logo_moto.png'} />}
                 >
-                  <Meta title={`My bike ${i + 1}`} />
+                  <Meta title={maintenance.name} />
                 </Card>
               </Col>
             ))}
