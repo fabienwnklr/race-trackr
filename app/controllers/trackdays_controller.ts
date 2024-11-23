@@ -79,6 +79,7 @@ export default class TrackDaysController {
       await createTrackdayValidator.validate({
         date: trackDayData.date,
         trackId: track.id,
+        userId: user.id,
       })
 
       // Créer le TrackDay
