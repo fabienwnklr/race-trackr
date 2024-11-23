@@ -1,11 +1,25 @@
 import { useState } from 'react'
 import Main from '#components/layout/main'
-import { Button, Col, DatePicker, Flex, Form, Input, Modal, Row, Select, Space, Tooltip } from 'antd'
-import { InfoCircleFilled, PlusOutlined } from '@ant-design/icons'
+import {
+  Button,
+  Col,
+  DatePicker,
+  Flex,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Select,
+  Space,
+  Tooltip,
+} from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import i18n from '#config/i18n_react'
 import FormLayout from '#components/layout/form_layout'
 import TextEditor from '#components/TextEditor/TextEditor'
+import dayjs from 'dayjs'
+import fr from 'antd/locale/fr_FR'
 
 import type { User } from '#types/user'
 import type { Maintenance } from '#types/maintenance'
@@ -26,13 +40,17 @@ const formItemLayout = {
  * Show unique trackday
  */
 export default function Maintenance(props: {
-  maintenance: Maintenance
+  maintenance?: Maintenance
   user: User
   userVehicles: Vehicle[]
 }) {
-  const [modalCreateVehicleOpen, setModalCreateVehicleOpen] = useState(false)
-
   const { maintenance, userVehicles } = props
+  const [modalCreateVehicleOpen, setModalCreateVehicleOpen] = useState(false)
+  const [details, setDetails] = useState(maintenance?.details || '')
+
+  const onChangeContent = (content: string) => {
+    setDetails(content)
+  }
 
   return (
     <Main
@@ -40,47 +58,55 @@ export default function Maintenance(props: {
       route="/maintenances"
       {...props}
     >
+      <Modal
+        title={i18n.t('createVehicle')}
+        maskClosable={false}
+        footer={null}
+        closable={false}
+        open={modalCreateVehicleOpen}
+        onCancel={() => {
+          setModalCreateVehicleOpen(false)
+        }}
+      >
+        <FormLayout
+          name="vehicle"
+          onFinish={(fields) => {
+            router.post('/user-vehicles/create', fields)
+          }}
+          onCancel={() => {
+            setModalCreateVehicleOpen(false)
+          }}
+        >
+          <Form.Item<Vehicle>
+            {...formItemLayout}
+            name="name"
+            label={i18n.t('name')}
+            rules={[{ required: true, message: i18n.t('required:nameRequired') }]}
+          >
+            <Input />
+          </Form.Item>
+        </FormLayout>
+      </Modal>
+
       <FormLayout
         name="maintenance"
-        onFinish={() => {}}
+        onFinish={(data) => {
+          data.details = details
+          router.post(
+            maintenance ? `/maintenances/${maintenance.id}/update` : '/maintenances/create'
+          )
+        }}
         onCancel={() => {
           router.visit('/maintenances')
         }}
         initialValues={{
           name: maintenance ? maintenance.name : '',
           details: maintenance ? maintenance.details : '',
-          date: maintenance ? maintenance.date : '',
+          date: maintenance
+            ? dayjs(maintenance.date).valueOf()
+            : dayjs(new Date().toISOString()).valueOf(),
         }}
       >
-        <Modal
-          title={i18n.t('createVehicle')}
-          maskClosable={false}
-          footer={null}
-          closable={false}
-          open={modalCreateVehicleOpen}
-          onCancel={() => {
-            setModalCreateVehicleOpen(false)
-          }}
-        >
-          <FormLayout
-            name="vehicle"
-            onFinish={(fields) => {
-              router.post('/user-vehicles/create', fields)
-            }}
-            onCancel={() => {
-              setModalCreateVehicleOpen(false)
-            }}
-          >
-            <Form.Item<Vehicle>
-              {...formItemLayout}
-              name="name"
-              label={i18n.t('name')}
-              rules={[{ required: true, message: i18n.t('required:nameRequired') }]}
-            >
-              <Input />
-            </Form.Item>
-          </FormLayout>
-        </Modal>
         <Row gutter={18}>
           <Col span={12}>
             <Form.Item<Maintenance>
@@ -90,8 +116,8 @@ export default function Maintenance(props: {
             >
               <Flex>
                 <Space.Compact style={{ flex: 'auto' }}>
-                  <Form.Item
-                    name="userVehicles"
+                  <Form.Item<Maintenance>
+                    name="vehicleId"
                     noStyle
                     rules={[{ required: true, message: i18n.t('validation:vehicleRequired') }]}
                   >
@@ -125,8 +151,13 @@ export default function Maintenance(props: {
           </Col>
 
           <Col span={12}>
-            <Form.Item<Maintenance> {...formItemLayout} name="date" label={i18n.t('date')}>
-              <DatePicker />
+            <Form.Item<Maintenance>
+              {...formItemLayout}
+              name="date"
+              label={i18n.t('date')}
+              getValueProps={(value) => ({ value: value && dayjs(Number(value)) })}
+            >
+              <DatePicker format={fr.DatePicker?.lang.dateFormat} locale={fr.DatePicker} />
             </Form.Item>
           </Col>
 
@@ -141,7 +172,7 @@ export default function Maintenance(props: {
               name="details"
               label={i18n.t('details')}
             >
-              <TextEditor content={maintenance ? maintenance.details : ''} />
+              <TextEditor content={details} onUpdate={onChangeContent} />
             </Form.Item>
           </Col>
         </Row>

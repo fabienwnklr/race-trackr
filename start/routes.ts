@@ -51,6 +51,8 @@ router
     router.get('/maintenances/create', [MaintenancesController, 'createOrEdit'])
     router.get('/maintenances/:id/edit', [MaintenancesController, 'createOrEdit'])
     router.get('/maintenances/:slug', [MaintenancesController, 'showMaintenanceForVehicle'])
+    router.post('/maintenances/create', [MaintenancesController, 'create'])
+    router.post('/maintenances/:id/edit', [MaintenancesController, 'update'])
 
     // User vehicles
     router.get('/user-vehicles', [UserVehiclesController, 'index'])
