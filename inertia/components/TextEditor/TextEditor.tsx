@@ -3,7 +3,7 @@ import './styles.scss'
 import { Color } from '@tiptap/extension-color'
 import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
-import { EditorProvider, useCurrentEditor } from '@tiptap/react'
+import { type Editor, EditorProvider, useCurrentEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { Button, ColorPicker, Divider, Dropdown, Flex } from 'antd'
 import {
@@ -17,9 +17,6 @@ import {
   UnorderedListOutlined,
 } from '@ant-design/icons'
 import { ParagraphIcon } from '#components/icons/paragraphe'
-import H1Icon from '#components/icons/h1'
-import H2Icon from '#components/icons/h2'
-import CodeBlockIcon from '#components/icons/code_block'
 import BlockquoteIcon from '#components/icons/blockquote'
 import HrIcon from '#components/icons/hr'
 import { HardBreakIcon } from '#components/icons/hard_break'
@@ -60,7 +57,7 @@ const MenuBar = () => {
           <RedoOutlined />
         </Button>
 
-        <Divider type="vertical" style={{  borderColor: '#c3c3c3', height: '100%' }} />
+        <Divider type="vertical" style={{ borderColor: '#c3c3c3', height: '100%' }} />
 
         <Button
           type="text"
@@ -94,7 +91,7 @@ const MenuBar = () => {
           <ParagraphIcon size={16} />
         </Button>
 
-        <Divider type="vertical" style={{  borderColor: '#c3c3c3', height: '100%' }} />
+        <Divider type="vertical" style={{ borderColor: '#c3c3c3', height: '100%' }} />
 
         <Dropdown
           trigger={['click']}
@@ -184,14 +181,20 @@ const extensions = [
   }),
 ]
 
-export default function TextEditor(props: { content: string }) {
-  const { content } = props
+export default function TextEditor(props: {
+  content: string
+  onUpdate: ((content: string) => void) | undefined
+}) {
+  const { content, onUpdate } = props
   return (
     <EditorProvider
       slotBefore={<MenuBar />}
       extensions={extensions}
       content={content}
       immediatelyRender={false}
+      onUpdate={({ editor }) => {
+        onUpdate?.(editor.getHTML())
+      }}
     ></EditorProvider>
   )
 }

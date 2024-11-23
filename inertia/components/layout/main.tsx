@@ -28,6 +28,7 @@ import { useState } from 'react'
 
 import type { MenuItem } from '#types/menu'
 import type { User } from '#types/user'
+import { VehiclesIcon } from '#components/icons/vehicles'
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -97,7 +98,7 @@ export default function Main(props: {
     getItem(i18n.t('dashboard'), '/dashboard', <DashboardOutlined />),
     getItem(i18n.t('trackdays'), '/trackdays', <CalendarOutlined />),
     getItem(i18n.t('maintenances'), '/maintenances', <ToolOutlined />),
-    getItem(i18n.t('userVehicles'), '/user-vehicles', <ToolOutlined />),
+    getItem(i18n.t('userVehicles'), '/user-vehicles', <VehiclesIcon />),
     getItem(i18n.t('chronos'), '/chronos', <FieldTimeOutlined />),
   ]
 
@@ -109,15 +110,15 @@ export default function Main(props: {
   ])
 
   const userDropdownItems: MenuItem[] = [
-    getItem(i18n.t('account_settings'), '/settings/account', <UserOutlined />),
-    getItem(<Typography.Link>{i18n.t('app_settings')}</Typography.Link>, '', <SettingOutlined />),
-    getItem(
-      <Typography.Link onClick={() => router.visit('/api_key')}>
-        {i18n.t('apiKeys')}
-      </Typography.Link>,
-      '/api_key',
-      <KeyOutlined />
-    ),
+    getItem(i18n.t('myAccount'), '/settings/account', <UserOutlined />),
+    // getItem(<Typography.Link>{i18n.t('app_settings')}</Typography.Link>, '', <SettingOutlined />),
+    // getItem(
+    //   <Typography.Link onClick={() => router.visit('/api_key')}>
+    //     {i18n.t('apiKeys')}
+    //   </Typography.Link>,
+    //   '/api_key',
+    //   <KeyOutlined />
+    // ),
     getItem(
       <Typography.Link onClick={() => router.post('/auth/logout')}>
         {i18n.t('logout')}
@@ -180,7 +181,7 @@ export default function Main(props: {
               }}
               options={[
                 { value: 'fr', label: 'FR - Français' },
-                { value: 'en', label: 'EN - English' },
+                // { value: 'en', label: 'EN - English' },
               ]}
             />
             <Dropdown menu={{ items: userDropdownItems }} trigger={['click']}>

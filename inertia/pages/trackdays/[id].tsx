@@ -42,62 +42,6 @@ const formItemLayoutWithOutLabel = {
   },
 }
 
-locale.DatePicker = {
-  lang: {
-    locale: 'fr_FR',
-    placeholder: 'Sélectionner une date',
-    rangePlaceholder: ['Date de début', 'Date de fin'],
-    today: "Aujourd'hui",
-    now: 'Maintenant',
-    backToToday: "Retour à aujourd'hui",
-    ok: 'OK',
-    clear: 'Effacer',
-    month: 'Mois',
-    year: 'Année',
-    timeSelect: "Sélectionner l'heure",
-    dateSelect: 'Sélectionner une date',
-    monthSelect: 'Choisir un mois',
-    yearSelect: 'Choisir une année',
-    decadeSelect: 'Choisir une décennie',
-    yearFormat: 'YYYY',
-    dateFormat: 'JJ/MM/YYYY',
-    dayFormat: 'D',
-    dateTimeFormat: 'JJ/MM/YYYY HH:mm:ss',
-    monthFormat: 'MMMM',
-    monthBeforeYear: true,
-    previousMonth: 'Mois précédent (PageUp)',
-    nextMonth: 'Mois suivant (PageDown)',
-    previousYear: 'Année dernière (Control + gauche)',
-    nextYear: 'Année prochaine (Control + droite)',
-    previousDecade: 'Décennie précédente',
-    nextDecade: 'Décennie suivante',
-    previousCentury: 'Siècle dernier',
-    nextCentury: 'Siècle suivant',
-    shortWeekDays: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
-    shortMonths: [
-      'Jan',
-      'Fév',
-      'Mar',
-      'Avr',
-      'Mai',
-      'Juin',
-      'Juil',
-      'Aoû',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Déc',
-    ],
-  },
-  timePickerLocale: {
-    placeholder: "Sélectionner l'heure",
-  },
-  dateFormat: 'DD/MM/YYYY',
-  dateTimeFormat: 'DD/MM/YYYY HH:mm:ss',
-  weekFormat: 'wo/YYYY',
-  monthFormat: 'MM/YYYY',
-}
-
 export default function CreateTrackDay(props: {
   user: User
   trackday?: Trackday
@@ -172,7 +116,7 @@ export default function CreateTrackDay(props: {
             >
               <DatePicker
                 style={{ width: '100%' }}
-                format={locale.DatePicker?.dateFormat}
+                format={locale.DatePicker?.lang.dateFormat}
                 locale={locale.DatePicker}
               />
             </Form.Item>
