@@ -13,7 +13,7 @@ export default function FormLayout(props: {
   const { name, onFinish, onCancel, initialValues, children } = props
   const [form] = Form.useForm()
   return (
-    <Form name={name} form={form} labelWrap onFinish={onFinish} initialValues={{ initialValues }}>
+    <Form name={name} form={form} labelWrap onFinish={onFinish} initialValues={ initialValues }>
       {children}
 
       <div style={buttonsStyle}>
