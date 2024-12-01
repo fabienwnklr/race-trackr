@@ -15,7 +15,7 @@ export default class MaintenancesController {
       return inertia.render('errors/unauthorized')
     }
     console.log('ii')
-    const maintenances = await Maintenance.query().where('userId', user.id)
+    const maintenances = await Maintenance.query().where('userId', user.id).preload('vehicle')
     return inertia.render('maintenances/maintenances', { maintenances })
   }
 

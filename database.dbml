@@ -1,0 +1,50 @@
+Project "Race TrackR" {
+  database_type: 'PostgreSQL'
+  Note: 'Race Trackr consists of being able to create track days, manage the maintenance of your vehicles (motorcycle, car, others) in order to keep track and have a better overview'
+}
+
+Table users {
+  id int [pk, increment]
+  full_name varchar
+  country_code int
+  created_at datetime [default: `now()`, note: "created time"]
+  updated_at datetime [default: `now()`, note: "updated time"]
+  note: "table 'users' contains user information"
+}
+
+Table trackdays {
+  id int [pk, increment]
+  "date" char
+  weather char
+  tirePressureFront char
+  tirePressureBack char
+  details text
+  userId int [pk]
+  trackId int [pk]
+  bestChrono char
+  regulChrono char
+  created_at datetime [default: `now()`, note: "created time"]
+  updated_at datetime [default: `now()`, note: "updated time"]
+}
+
+Table countries {
+  id int [pk, increment]
+  name varchar
+  slug varchar
+  capital varchar
+  timezone varchar
+  iso varchar
+  created_at datetime [default: `now()`, note: "created time"]
+  updated_at datetime [default: `now()`, note: "updated time"]
+}
+
+Table chronos {
+  id int [pk, increment]
+  trackdayId int [pk]
+  lapTime varchar
+  created_at datetime [default: `now()`, note: "created time"]
+  updated_at datetime [default: `now()`, note: "updated time"]
+}
+
+Ref: chronos.trackdayId > trackdays.id
+Ref: trackdays.userId > users.id
