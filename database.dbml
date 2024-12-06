@@ -33,7 +33,7 @@ Table countries {
   slug varchar
   capital varchar
   timezone varchar
-  iso varchar
+  iso varchar [note: "Country ISO code"]
   created_at datetime [default: `now()`, note: "created time"]
   updated_at datetime [default: `now()`, note: "updated time"]
 }
