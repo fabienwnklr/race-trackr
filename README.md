@@ -5,3 +5,20 @@
 1. Create `race-trackr` database
 2. Run `node ace migration:run`
 3. Run `node ace db:seed`
+
+## Run
+
+Project use [redis]()
+
+first run redis on ubuntu for windows
+
+```bash
+sudo service redis-server start
+```
+enter ur password setup for ubuntu unix
+
+then run project
+
+```bash
+yarn dev
+```

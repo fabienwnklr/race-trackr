@@ -2,6 +2,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import { createRegisterValidator, createLoginValidator } from '#validators/auth_validator'
 import User from '#models/user'
 import { errors } from '@vinejs/vine'
+import redis from '@adonisjs/redis/services/main'
 
 export default class AuthController {
   async index({ inertia }: HttpContext) {
@@ -43,6 +44,7 @@ export default class AuthController {
       await auth.use('web').login(user)
 
       response.json({ error: false })
+      await redis.set('user', JSON.stringify(user), 'EX', 60 * 60 * 24)
       return response.redirect().toRoute('dashboard')
     } catch (error) {
       if (error instanceof errors.E_VALIDATION_ERROR) {
@@ -62,7 +64,7 @@ export default class AuthController {
       const user = await User.verifyCredentials(email, password)
 
       await auth.use('web').login(user)
-
+      await redis.set('user', JSON.stringify(user))
       session.flash('success', i18n.t('success.login', { name: user.fullName }))
 
       return response.redirect('/dashboard')

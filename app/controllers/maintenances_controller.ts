@@ -2,7 +2,9 @@ import Maintenance from '#models/maintenance'
 import UserVehicle from '#models/user_vehicle'
 import { createMaintenanceValidator } from '#validators/maintenance_validators'
 import type { HttpContext } from '@adonisjs/core/http'
-
+import redis from '@adonisjs/redis/services/main'
+import type { Maintenance as MaintenanceType } from '#types/maintenance'
+import { CACHE_DURATION } from '#config/cache'
 export default class MaintenancesController {
   /**
    * @view
@@ -14,8 +16,17 @@ export default class MaintenancesController {
     if (!user) {
       return inertia.render('errors/unauthorized')
     }
-    console.log('ii')
+    // Get maintenances from cache
+    let cachedMaintenances = await redis.get('maintenances')
+    if (cachedMaintenances) {
+      const maintenances = JSON.parse(cachedMaintenances) as MaintenanceType
+      return inertia.render('maintenances/maintenances', {
+        maintenances,
+      })
+    }
     const maintenances = await Maintenance.query().where('userId', user.id).preload('vehicle')
+    // Set cached maintenances during 120 seconds (cf: config/cache.ts)
+    await redis.set('maintenances', JSON.stringify(maintenances), 'EX', CACHE_DURATION)
     return inertia.render('maintenances/maintenances', { maintenances })
   }
 
