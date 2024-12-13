@@ -99,6 +99,12 @@ export default class extends BaseSeeder {
       {
         name: 'Dijon',
         slug: 'dijon',
+        countryId: 1,
+        city: 'Dijon',
+        adress: '',
+        turn: '16 (6 à gauche, 10 à droite)',
+        length: 5250,
+        width: 14,
       },
       {
         name: 'Misano',
@@ -121,12 +127,24 @@ export default class extends BaseSeeder {
         width: 14,
       },
       {
-        name: ' Magny Cours',
+        name: 'Magny Cours',
         slug: 'magny-cours',
+        countryId: 1,
+        city: 'Magny Cours',
+        adress: '',
+        turn: '16 (6 à gauche, 10 à droite)',
+        length: 5250,
+        width: 14,
       },
       {
         name: 'Ales',
         slug: 'ales',
+        countryId: 1,
+        city: 'Ales',
+        adress: '',
+        turn: '15 (6 à gauche, 9 à droite)',
+        length: 4250,
+        width: 12,
       },
       {
         name: 'Lusail International Circuit',
