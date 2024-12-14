@@ -4,7 +4,6 @@ import type { HttpContext } from '@adonisjs/core/http'
 export default class TrackController {
   async read({ response, request }: HttpContext) {
     const params = request.qs()
-    console.log(params)
     if (params.slug) {
       const track = await Track.findByOrFail('slug', params.slug)
       return response.json(track)
@@ -15,32 +14,28 @@ export default class TrackController {
     const search = params.search?.replace(/[\[\]]/g, ' ') ?? ''
 
     if (search) {
-      if (search.includes('=')) {
-        const column = search.split('=')[0]
-        const value = search.split('=')[1]
+      // if (search.includes('=')) {
+      //   const column = search.split('=')[0]
+      //   const value = search.split('=')[1]
 
-        if (!column || !value) {
-          return response.json({ error: 'Invalid search parameter' })
-        }
+      //   if (!column || !value) {
+      //     return response.json({ error: 'Invalid search parameter' })
+      //   }
 
-        const tracks = await Track.query()
-          .orderBy('name', 'asc')
-          .where(column.trim(), '=', value.trim())
-          .paginate(page, limit)
-        return response.json(tracks)
-      } else {
-        const tracks = await Track.query()
-          .orderBy('name', 'asc')
-          .where('name', 'like', `%${search}%`)
+      //   const tracks = await Track.query()
+      //     .orderBy('name', 'asc')
+      //     .where(column.trim(), '=', value.trim())
+      //     .paginate(page, limit)
+      //   return response.json(tracks)
+      // } else {
+      // = equal or ilike, != | <> different, >= greater or equal  > greater than, <= less or equal, < less than
+      const tracks = await Track.query().where('name', 'ilike', `${search}%`).orderBy('name', 'asc')
 
-        return response.json(tracks)
-      }
+      return response.json(tracks)
+      // }
     }
 
-    const tracks = await Track.query()
-      .orderBy('name', 'asc')
-      .where('name', 'like', `%${search}%`)
-      .paginate(page, limit)
+    const tracks = await Track.query().orderBy('name', 'asc').paginate(page, limit)
 
     return response.json(tracks)
   }
