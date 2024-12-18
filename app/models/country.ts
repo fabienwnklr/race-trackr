@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import Track from './track.js'
 
 export default class Country extends BaseModel {
   @column({ isPrimary: true })
@@ -19,6 +21,9 @@ export default class Country extends BaseModel {
 
   @column()
   declare capital: string
+
+  @column({ columnName: 'flagUrl' })
+  declare flagUrl: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

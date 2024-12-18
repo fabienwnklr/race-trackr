@@ -18,8 +18,10 @@ export default class extends BaseSchema {
       table.string('bestLapTime')
       table.string('bestLapTimePilote')
       table.text('infos')
-      table.integer('countryId').unsigned().references('countries.id').onDelete('CASCADE') // Relation avec Counntry
-
+      table.string('urlLogo')
+      table.string('urlTrackThumbnail')
+      table.string('urlTrack')
+      table.integer('countryId').unsigned().references('countries.id').onDelete('CASCADE')
       table.timestamp('createdAt')
       table.timestamp('updatedAt')
     })

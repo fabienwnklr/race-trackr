@@ -35,7 +35,10 @@ export default class TrackController {
       // }
     }
 
-    const tracks = await Track.query().orderBy('name', 'asc').paginate(page, limit)
+    const tracks = await Track.query()
+      .orderBy('name', 'asc')
+      .preload('country')
+      .paginate(page, limit)
 
     return response.json(tracks)
   }

@@ -17,6 +17,9 @@ export default class extends BaseSeeder {
         width: 9.5,
         maxDb: 102,
         infos: '6600 m2 de bâtiments couverts',
+        urlLogo: 'resources/images/tracks/logos/nogaro-logo.png',
+        urlTrackThumbnail: 'resources/images/tracks/thumbnails/nogaro-thumbnail.png',
+        urlTrack: 'resources/images/tracks/layout/nogaro-track.png',
       },
       {
         name: 'Pau Arnos',
