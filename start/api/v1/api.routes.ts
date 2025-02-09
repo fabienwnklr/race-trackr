@@ -9,4 +9,3 @@ router
     router.get('/tracks', [APITrackController, 'read'])
   })
   .prefix('/api/v1')
-  .middleware(middleware.guest())
