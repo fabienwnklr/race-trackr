@@ -54,6 +54,7 @@ export default function AdminTracks(
   }
 
   const { columns, data } = props
+
   const aditionnalCols: ColumnType<Track>[] = [
     {
       title: i18n.t('actions'),
@@ -94,6 +95,12 @@ export default function AdminTracks(
       },
     },
   ]
+
+  columns.forEach((col) => {
+    col.sorter = (a, b) => a.name.length - b.name.length
+    col.sortDirections = ['ascend']
+    col.ellipsis = true
+  })
 
   return (
     <Main route="/admin/tracks" {...props}>

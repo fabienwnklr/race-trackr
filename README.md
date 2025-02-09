@@ -8,7 +8,7 @@
 
 ## Run
 
-Project use [redis]()
+Project use [iosredis (redis)](https://github.com/redis/ioredis)
 
 first run redis on ubuntu for windows
 

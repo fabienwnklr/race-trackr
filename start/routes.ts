@@ -65,7 +65,6 @@ router
     // Chronos
     router.get('/chronos', [ChronosController, 'index'])
     // Api key
-    // Api key
     router.get('/tokens', [AuthController, 'readTokens'])
     router.post('/tokens/create', [AuthController, 'createToken'])
 

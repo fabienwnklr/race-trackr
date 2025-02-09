@@ -13,7 +13,7 @@ export default class TrackController {
   }
 
   async indexAdmin({ inertia, i18n }: HttpContext) {
-    const tracks = await Track.query().orderBy('name', 'asc').paginate(1, 10)
+    const tracks = await Track.query().orderBy('name', 'asc').paginate(1, 1000)
 
     if (!tracks) {
       return inertia.render('admin/tracks/index')
