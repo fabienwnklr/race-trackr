@@ -10,7 +10,9 @@ export default class Maintenance extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
-  @belongsTo(() => UserVehicle)
+  @belongsTo(() => UserVehicle, {
+    foreignKey: 'vehicleId', // Indique explicitement que la clé étrangère est "vehicleId"
+  })
   declare vehicle: BelongsTo<typeof UserVehicle>
 
   @column({ columnName: 'vehicleId' })

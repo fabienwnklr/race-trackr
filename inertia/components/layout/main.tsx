@@ -1,7 +1,6 @@
 import i18n from '#config/i18n_react'
 import {
   ToolOutlined,
-  SettingOutlined,
   DashboardOutlined,
   UserOutlined,
   LogoutOutlined,
@@ -10,7 +9,6 @@ import {
   PropertySafetyOutlined,
   CarOutlined,
   FlagOutlined,
-  KeyOutlined,
 } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import {

@@ -78,8 +78,12 @@ export default function Maintenances(props: { user: any; maintenances: Maintenan
                   padding: 10,
                 }}
               >
+                <Meta title={i18n.t('vehicle') + ' : ' + maintenance.vehicle.name} />
                 <Meta
-                  title={maintenance.name + ' - ' + dayjs(maintenance.date).format('DD/MM/YYYY')}
+                  title={i18n.t('date') + ' : ' + dayjs(maintenance.date).format('DD/MM/YYYY')}
+                />
+                <Meta
+                  title={i18n.t('maintenance') + ' : ' + maintenance.name}
                 />
               </Card>
             </Col>

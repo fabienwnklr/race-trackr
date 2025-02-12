@@ -8,6 +8,6 @@ export type Maintenance = {
   details: string
   userId: number
   vehicleId: number
-  vehicle?: Vehicle
+  vehicle: Vehicle
   user?: User
 }
