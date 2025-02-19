@@ -36,7 +36,8 @@
     "#components/*": "./inertia/components/*.js",
     "#pages/*": "./inertia/pages/*.js",
     "#types/*": "./@types/*.d.js",
-    "#utils/*": "./utils/*.js"
+    "#utils/*": "./utils/*.js",
+    "#constants/*": "./constants/index.js"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^7.8.2",
