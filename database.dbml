@@ -16,8 +16,6 @@ Table trackdays {
   id int [pk, increment]
   "date" char
   weather char
-  tirePressureFront char
-  tirePressureBack char
   details text
   userId int [pk]
   trackId int [pk]
