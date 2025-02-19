@@ -18,9 +18,6 @@ export default class Trackday extends BaseModel {
   @column()
   declare weather: Weather | null
 
-  @column({ columnName: 'tirePressureFront' })
-  declare tirePressureFront: string | null
-
   @column({ columnName: 'tirePressureBack' })
   declare tirePressureBack: string | null
 

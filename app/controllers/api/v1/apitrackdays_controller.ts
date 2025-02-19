@@ -37,8 +37,6 @@ export default class TrackDaysController {
             date: trackDayData.date,
             trackId: track.id,
             weather: trackDayData.weather,
-            tirePressureFront: trackDayData.tirePressureFront,
-            tirePressureBack: trackDayData.tirePressureBack,
             details: trackDayData.details,
             userId: user.id,
           }).filter(([_key, value]) => value !== null && value !== undefined && value !== '') // Filtrer les valeurs nulles ou undefined
@@ -109,14 +107,6 @@ export default class TrackDaysController {
 
       if (trackDayData.weather) {
         trackDay.weather = trackDayData.weather
-      }
-
-      if (trackDayData.tirePressureFront) {
-        trackDay.tirePressureFront = trackDayData.tirePressureFront
-      }
-
-      if (trackDayData.tirePressureBack) {
-        trackDay.tirePressureBack = trackDayData.tirePressureBack
       }
 
       if (trackDayData.details) {

@@ -55,7 +55,7 @@ export default function Maintenance(props: {
   return (
     <Main
       title={maintenance ? i18n.t('editMaintenance') : i18n.t('createMaintenance')}
-      route="/maintenances"
+      route=""
       {...props}
     >
       <Modal

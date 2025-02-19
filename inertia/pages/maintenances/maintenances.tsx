@@ -9,8 +9,7 @@ import i18n from '#config/i18n_react'
 import dayjs from 'dayjs'
 
 import type { Maintenance } from '#types/maintenance'
-import { useState } from 'react'
-import { modalConfigDelete } from '../../../constants'
+import { modalConfigDelete } from '#constants/index'
 
 const { Meta } = Card
 const { Title } = Typography
@@ -74,7 +73,6 @@ export default function Maintenances(props: { user: any; maintenances: Maintenan
                   />,
                 ]}
                 style={{
-                  width: 350,
                   padding: 10,
                 }}
               >

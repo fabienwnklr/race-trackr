@@ -20,6 +20,7 @@ const ChronosController = () => import('#controllers/chronos_controller')
 const HealthChecksController = () => import('#controllers/health_checks_controller')
 const UserVehiclesController = () => import('#controllers/user_vehicles_controller')
 
+// router.get('/404', [ErrorController])
 router.get('/health', [HealthChecksController]).use(({ request, response }, next) => {
   if (request.header('x-monitoring-secret') === 'some_secret_value') {
     return next()

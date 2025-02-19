@@ -13,8 +13,6 @@ export type Trackday = {
   id: number
   date: string
   weather: Weather
-  tirePressureFront: string
-  tirePressureBack: string
   details: string
   track: Track
   trackId: number

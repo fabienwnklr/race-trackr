@@ -175,36 +175,6 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
             )}
           </Card>
         </Col>
-        {/* Tire pressure */}
-        <Col span={12} xs={24} sm={6}>
-          <Card
-            styles={{
-              title: {
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              },
-              body: {
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-              },
-            }}
-            title={
-              <>
-                {i18n.t('tire_pressure')}
-                <TirePressureIcon size={30} />
-              </>
-            }
-            bordered={false}
-            style={{ height: '100%' }}
-          >
-            <TirePressureIcon size={100} />
-            <p>{i18n.t('front') + ' : ' + cleanFalsyValues(trackday.tirePressureFront)}</p>
-            <p>{i18n.t('back') + ' : ' + cleanFalsyValues(trackday.tirePressureBack)}</p>
-          </Card>
-        </Col>
         {/* Best chrono */}
         <Col span={12} xs={24} sm={6}>
           <Card

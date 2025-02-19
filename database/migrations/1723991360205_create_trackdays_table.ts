@@ -9,8 +9,6 @@ export default class extends BaseSchema {
 
       table.date('date').notNullable()
       table.string('weather').nullable()
-      table.string('tirePressureFront').nullable()
-      table.string('tirePressureBack').nullable()
       table.string('bestChrono').nullable()
       table.string('regulChrono').nullable()
       table.text('details').nullable()

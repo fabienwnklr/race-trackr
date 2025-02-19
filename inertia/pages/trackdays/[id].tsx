@@ -88,8 +88,6 @@ export default function CreateTrackDay(props: {
           trackId: trackday?.trackId,
           date: trackday?.date ? dayjs(trackday?.date).valueOf() : undefined,
           weather: trackday?.weather,
-          tirePressureFront: trackday?.tirePressureFront,
-          tirePressureBack: trackday?.tirePressureBack,
           details: trackday?.details,
           chronos: trackday?.chronos.map((chrono) => chrono.lapTime),
         }}
@@ -125,23 +123,6 @@ export default function CreateTrackDay(props: {
           <Col span={12}>
             <Form.Item<Trackday> {...formItemLayout} label={i18n.t('weather')} name="weather">
               <Select options={weatherOptions} />
-            </Form.Item>
-          </Col>
-
-          <Col span={12}>
-            <Form.Item<Trackday> {...formItemLayout} label={i18n.t('tire_pressure')}>
-              <Form.Item
-                name="tirePressureFront"
-                style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
-              >
-                <Input placeholder="Avant" type="number" step={0.1} />
-              </Form.Item>
-              <Form.Item
-                name="tirePressureBack"
-                style={{ display: 'inline-block', width: 'calc(50%)', marginLeft: '8px' }}
-              >
-                <Input placeholder="Arrière" type="number" step={0.1} />
-              </Form.Item>
             </Form.Item>
           </Col>
 
