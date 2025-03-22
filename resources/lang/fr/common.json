@@ -113,5 +113,10 @@
   "delete_confirm_maintenance": "Etes-vous sûr de vouloir supprimer cette maintenance ?",
   "description": "Déscription",
   "userVehicles": "Mes véhicules",
-  "userVehicle": "Véhicule"
+  "userVehicle": "Véhicule",
+  "login_form_description": "Entrez votre adresse mail ci-dessous pour vous connecter à votre compte",
+  "forgot_password": "Mot de passe oublié ?",
+  "login_with_google": "Connexion avec Google",
+  "dont_have_account": "Pas de compte ?",
+  "sign_up": "S'inscrire"
 }

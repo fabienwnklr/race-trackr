@@ -30,6 +30,7 @@ router.get('/health', [HealthChecksController]).use(({ request, response }, next
 
 router.group(() => {
   router.get('/', [AuthController, 'index']).use(middleware.guest())
+  router.get('/login', [AuthController, 'index']).use(middleware.guest())
 })
 
 // Logged access

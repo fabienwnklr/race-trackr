@@ -6,7 +6,7 @@ import redis from '@adonisjs/redis/services/main'
 
 export default class AuthController {
   async index({ inertia }: HttpContext) {
-    return inertia.render('home')
+    return inertia.render('login')
   }
 
   async createToken({ inertia, auth, params }: HttpContext) {
