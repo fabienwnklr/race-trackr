@@ -29,8 +29,9 @@ router.get('/health', [HealthChecksController]).use(({ request, response }, next
 })
 
 router.group(() => {
-  router.get('/', [AuthController, 'index']).use(middleware.guest())
-  router.get('/login', [AuthController, 'index']).use(middleware.guest())
+  router.get('/', [AuthController, 'viewLogin']).use(middleware.guest())
+  router.get('/login', [AuthController, 'viewLogin']).use(middleware.guest())
+  router.get('/register', [AuthController, 'viewRegister']).use(middleware.guest())
 })
 
 // Logged access

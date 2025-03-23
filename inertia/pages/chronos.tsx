@@ -1,9 +1,5 @@
-import { Button, Space, Table, Typography } from 'antd'
-import type { TableColumnsType, TableProps } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
-import Main from '#components/layout/main'
+import Layout from '#components/layout'
 
-const { Title } = Typography
 
 interface DataType {
   key: React.Key
@@ -12,7 +8,7 @@ interface DataType {
   date: string
 }
 
-const columns: TableColumnsType<DataType> = [
+const columns = [
   {
     title: 'Track',
     dataIndex: 'track',
@@ -104,7 +100,7 @@ const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter,
 
 export default function Chronos(props: any) {
   return (
-    <Main route="/chronos" {...props}>
+    <Layout {...props}>
       <Title
         style={{
           display: 'flex',
@@ -118,6 +114,6 @@ export default function Chronos(props: any) {
         </Button>
       </Title>
       <Table columns={columns} dataSource={data} onChange={onChange} />
-    </Main>
+    </Layout>
   )
 }

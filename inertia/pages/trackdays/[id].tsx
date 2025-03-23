@@ -1,26 +1,10 @@
-import Main from '#components/layout/main'
-import {
-  Button,
-  Form,
-  Input,
-  Typography,
-  Select,
-  Row,
-  Col,
-  Space,
-  DatePicker,
-} from 'antd'
-import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons'
+import Layout from '#components/layout'
 import { router } from '@inertiajs/react'
 import i18n from '#config/i18n_react'
-import locale from 'antd/locale/fr_FR'
-
 import type { User } from '#types/user'
 import type { Trackday } from '#types/trackday'
 import type { Track } from '#types/track'
 import dayjs from 'dayjs'
-
-const { Title } = Typography
 
 const buttonsStyle = { display: 'flex', width: '100%', justifyContent: 'flex-end', marginTop: 24 }
 
@@ -78,7 +62,7 @@ export default function CreateTrackDay(props: {
   }
 
   return (
-    <Main route="" {...props}>
+    <Layout {...props}>
       <Form
         name="createTrackday"
         form={form}
@@ -216,6 +200,6 @@ export default function CreateTrackDay(props: {
           </Space>
         </div>
       </Form>
-    </Main>
+    </Layout>
   )
 }

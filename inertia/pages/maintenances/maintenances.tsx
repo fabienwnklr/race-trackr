@@ -1,7 +1,4 @@
-import Main from '#components/layout/main'
-import { Button, Col, Modal, Row, Typography } from 'antd'
-import { DeleteOutlined, EditOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons'
-import { Card } from 'antd'
+import Layout from '#components/layout'
 
 import { router } from '@inertiajs/react'
 import NoDataFound from '#components/no_data_found'
@@ -9,10 +6,6 @@ import i18n from '#config/i18n_react'
 import dayjs from 'dayjs'
 
 import type { Maintenance } from '#types/maintenance'
-import { modalConfigDelete } from '#constants/index'
-
-const { Meta } = Card
-const { Title } = Typography
 
 export default function Maintenances(props: { user: any; maintenances: Maintenance[] }) {
   const { maintenances } = props
@@ -27,7 +20,7 @@ export default function Maintenances(props: { user: any; maintenances: Maintenan
   }
 
   return (
-    <Main route="/maintenances" {...props}>
+    <Layout {...props}>
       <Title
         style={{
           display: 'flex',
@@ -90,6 +83,6 @@ export default function Maintenances(props: { user: any; maintenances: Maintenan
       ) : (
         <NoDataFound />
       )}
-    </Main>
+    </Layout>
   )
 }

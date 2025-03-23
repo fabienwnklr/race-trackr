@@ -1,17 +1,15 @@
-import { Button, Descriptions, Modal, Space, Table, Typography } from 'antd'
-import type { TableProps } from 'antd'
-import { PlusOutlined, EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons'
-import Main from '#components/layout/main'
+import Layout from '#components/layout'
 import { router } from '@inertiajs/react'
 
 import type { Track } from '#types/track'
-import type { ColumnType } from 'antd/es/table'
 import { useState, type PropsWithChildren } from 'react'
 
 import type { User } from '#types/user'
 import i18n from '#config/i18n_react'
-
-const { Title } = Typography
+import { Dialog } from '#components/ui/dialog'
+import { Table, TableHeader } from '#components/ui/table'
+import { Button } from '#components/ui/button'
+import { Space } from 'lucide-react'
 
 const onChange: TableProps<Track>['onChange'] = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra)
@@ -55,7 +53,7 @@ export default function AdminTracks(
 
   const { columns, data } = props
 
-  const aditionnalCols: ColumnType<Track>[] = [
+  const aditionnalCols = [
     {
       title: i18n.t('actions'),
       dataIndex: 'actions',
@@ -103,45 +101,14 @@ export default function AdminTracks(
   })
 
   return (
-    <Main route="/admin/tracks" {...props}>
-      <Title
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-        level={3}
-      >
-        Admin - {i18n.t('tracks')}
-        <Button type="primary" onClick={() => router.visit('/admin/tracks/create')}>
-          {i18n.t('createTrack')} <PlusOutlined />
-        </Button>
-      </Title>
-
-      <Modal
-        width="max-content"
-        centered
-        title={`${i18n.t('track')}: ${modalData?.name}`}
-        open={isModalOpen}
-        footer={null}
-        onOk={() => {
-          hideModal()
-        }}
-        onCancel={() => {
-          hideModal()
-        }}
-      >
-        <Descriptions bordered size="middle" layout="vertical">
-          {Object.keys(modalData || {}).map((key) => {
-            return (
-              <Descriptions.Item key={key} label={i18n.t(key)}>
-                {modalData?.[key as keyof Track]}
-              </Descriptions.Item>
-            )
-          })}
-        </Descriptions>
-      </Modal>
-      <Table columns={[...columns, ...aditionnalCols]} dataSource={data} onChange={onChange} />
-    </Main>
+    <Layout {...props}>
+      <Table>
+        <TableHeader>
+          <TableTitle>
+            {i18n.t('tracks')}
+          </TableTitle>
+        </TableHeader>
+      </Table>
+    </Layout>
   )
 }

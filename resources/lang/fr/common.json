@@ -118,5 +118,19 @@
   "forgot_password": "Mot de passe oublié ?",
   "login_with_google": "Connexion avec Google",
   "dont_have_account": "Pas de compte ?",
-  "sign_up": "S'inscrire"
+  "sign_up": "S'inscrire",
+  "register_form_description": "Entrez vos informations ci-dessous pour créer un compte",
+  "already_have_account": "Déjà un compte ?",
+  "first_name": "Prénom",
+  "last_name": "Nom",
+  "phone": "Téléphone",
+  "birthday": "Date de naissance",
+  "gender": "Sexe",
+  "gender_male": "Homme",
+  "gender_female": "Femme",
+  "address": "Adresse",
+  "zip_code": "Code postal",
+  "phone_number": "Numéro de téléphone",
+  "confirm_password": "Confirmer le mot de passe",
+  "confirm_password_error": "Les mots de passe ne correspondent pas"
 }

@@ -1,8 +1,5 @@
-import Main from '#components/layout/main'
+import Layout from '#components/layout'
 import i18n from '#config/i18n_react'
-import { Button, Table, Typography } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
-import type { TableColumnsType } from 'antd'
 import { router } from '@inertiajs/react'
 
 interface DataType {
@@ -78,7 +75,7 @@ const data = [
 
 export default function ApiKey(props: any) {
   return (
-    <Main route="/api-key" {...props}>
+    <Layout {...props}>
       <Typography.Title
         style={{
           display: 'flex',
@@ -93,6 +90,6 @@ export default function ApiKey(props: any) {
         </Button>
       </Typography.Title>
       <Table columns={columns} dataSource={data} />
-    </Main>
+    </Layout>
   )
 }

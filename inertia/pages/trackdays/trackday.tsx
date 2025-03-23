@@ -1,24 +1,4 @@
-import Main from '#components/layout/main'
-import {
-  Button,
-  Typography,
-  Row,
-  Col,
-  Card,
-  theme,
-  Image,
-  Dropdown,
-  MenuProps,
-  Space,
-  Modal,
-} from 'antd'
-import {
-  LeftOutlined,
-  EditOutlined,
-  InfoCircleOutlined,
-  DeleteOutlined,
-  CloudDownloadOutlined,
-} from '@ant-design/icons'
+import Layout from '#components/layout'
 import SunnyIcon from '#components/icons/sunny'
 import { router } from '@inertiajs/react'
 import type { User } from '#types/user'
@@ -43,11 +23,9 @@ import {
   BarElement,
   ArcElement,
 } from 'chart.js'
-import TirePressureIcon from '#components/icons/tire_pressure'
 import { Line } from 'react-chartjs-2'
 import type { Chrono } from '#types/chrono'
-import type { ItemType } from 'antd/es/menu/interface'
-import { defaultData, modalConfig, modalConfigDelete } from '../../../constants'
+import { defaultData } from '../../../constants'
 import { NoWeatherIcon } from '#components/icons/no_weather'
 
 ChartJS.register(
@@ -64,12 +42,10 @@ ChartJS.register(
   ArcElement
 )
 
-const { Title } = Typography
 /**
  * Show unique trackday
  */
 export default function Trackday(props: { user: User; trackday: Trackday }) {
-  const { token } = theme.useToken()
   const { trackday } = props
 
   if (!trackday.bestChrono && trackday.chronos.length > 0) {
@@ -95,11 +71,11 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
     trackday.regulChrono = averageChrono
   }
 
-  const onMenuClick: MenuProps['onClick'] = (e) => {
+  const onMenuClick = (e: any) => {
     console.log('click', e)
   }
 
-  const dropdownItems: ItemType[] = [
+  const dropdownItems = [
     {
       key: 'delete',
       label: i18n.t('deleteTrackday'),
@@ -125,7 +101,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
   ]
 
   return (
-    <Main route="" {...props}>
+    <Layout {...props}>
       <Title
         style={{
           display: 'flex',
@@ -267,7 +243,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
           </Card>
         </Col>
       </Row>
-    </Main>
+    </Layout>
   )
 }
 

@@ -1,26 +1,4 @@
-import Main from '#components/layout/main'
-import {
-  Button,
-  Col,
-  Dropdown,
-  Flex,
-  Input,
-  MenuProps,
-  Pagination,
-  Radio,
-  Row,
-  theme,
-  Tooltip,
-  Typography,
-} from 'antd'
-import {
-  PlusOutlined,
-  LayoutOutlined,
-  UnorderedListOutlined,
-  FilterOutlined,
-} from '@ant-design/icons'
-import { SortIcon } from '#components/icons/sort'
-import { Card } from 'antd'
+import Layout from '#components/layout'
 import dayjs from 'dayjs'
 
 import type { Trackday } from '#types/trackday'
@@ -29,8 +7,6 @@ import NoDataFound from '#components/no_data_found'
 import i18n from '#config/i18n_react'
 import { slugify } from '#utils/index'
 
-const { Meta } = Card
-const { Title } = Typography
 
 export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
   const { token } = theme.useToken()
@@ -54,7 +30,7 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
   ]
   return (
     <>
-      <Main route="/trackdays" {...props}>
+      <Layout {...props}>
         <Title
           style={{
             display: 'flex',
@@ -150,7 +126,7 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
         ) : (
           <NoDataFound />
         )}
-      </Main>
+      </Layout>
     </>
   )
 }

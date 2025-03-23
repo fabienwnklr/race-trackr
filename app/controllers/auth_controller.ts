@@ -5,8 +5,12 @@ import { errors } from '@vinejs/vine'
 import redis from '@adonisjs/redis/services/main'
 
 export default class AuthController {
-  async index({ inertia }: HttpContext) {
+  async viewLogin({ inertia }: HttpContext) {
     return inertia.render('login')
+  }
+
+  async viewRegister({ inertia }: HttpContext) {
+    return inertia.render('register')
   }
 
   async createToken({ inertia, auth, params }: HttpContext) {

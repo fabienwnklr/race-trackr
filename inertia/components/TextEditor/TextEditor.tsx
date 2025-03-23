@@ -5,17 +5,6 @@ import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
 import { type Editor, EditorProvider, useCurrentEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import { Button, ColorPicker, Divider, Dropdown, Flex } from 'antd'
-import {
-  BoldOutlined,
-  DownOutlined,
-  ItalicOutlined,
-  OrderedListOutlined,
-  RedoOutlined,
-  StrikethroughOutlined,
-  UndoOutlined,
-  UnorderedListOutlined,
-} from '@ant-design/icons'
 import { ParagraphIcon } from '#components/icons/paragraphe'
 import BlockquoteIcon from '#components/icons/blockquote'
 import HrIcon from '#components/icons/hr'

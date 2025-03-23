@@ -1,13 +1,13 @@
-import Main from '#components/layout/main'
+import Layout from '#components/layout'
 
 export default function NotFound(props: any) {
   return (
-    <Main route="" {...props}>
+    <Layout {...props}>
       <div className="container">
         <div className="title">Page not found</div>
 
         <span>This page does not exist.</span>
       </div>
-    </Main>
+    </Layout>
   )
 }

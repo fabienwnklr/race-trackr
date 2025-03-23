@@ -3,7 +3,6 @@ import { createTrackValidator } from '#validators/track_validators'
 import { errors } from '@vinejs/vine'
 import { slugify } from '../../utils/index.js'
 
-import type { ColumnType } from 'antd/es/table'
 import type { HttpContext } from '@adonisjs/core/http'
 import { defaultData } from '../../constants/index.js'
 
@@ -32,7 +31,7 @@ export default class TrackController {
         'infos',
       ],
     })
-    const columns: ColumnType<Track>[] = Object.keys(paginationJSON.data[0]).map((key) => {
+    const columns = Object.keys(paginationJSON.data[0]).map((key) => {
       return {
         title: i18n.t(`common.${key}`),
         dataIndex: key,

@@ -1,11 +1,9 @@
-import Main from '#components/layout/main'
+import Layout from '#components/layout'
 import NoDataFound from '#components/no_data_found'
 import i18n from '#config/i18n_react'
 import type { UserVehicle } from '#types/user_vehicle'
 import { router } from '@inertiajs/react'
-import { Col, Row, Card, Modal, Typography, Button } from 'antd'
-import { DeleteOutlined, EditOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons'
-import { modalConfigDelete } from '#constants/index'
+import { Delete, Edit, Eye, Plus } from 'lucide-react'
 
 export default function UserVehicles(props: { user: any; userVehicles: UserVehicle[] }) {
   const { userVehicles } = props
@@ -20,7 +18,7 @@ export default function UserVehicles(props: { user: any; userVehicles: UserVehic
   }
 
   return (
-    <Main route="/user-vehicles" {...props}>
+    <Layout {...props}>
       <Typography.Title
         style={{
           display: 'flex',
@@ -35,7 +33,7 @@ export default function UserVehicles(props: { user: any; userVehicles: UserVehic
             router.visit('/user-vehicles/create')
           }}
         >
-          {i18n.t('createVehicle')} <PlusOutlined />
+          {i18n.t('createVehicle')} <Plus />
         </Button>
       </Typography.Title>
 
@@ -51,15 +49,15 @@ export default function UserVehicles(props: { user: any; userVehicles: UserVehic
             >
               <Card
                 actions={[
-                  <EyeOutlined
+                  <Eye
                     onClick={() => router.visit(`/user-vehicles/${userVehicle.id}`)}
                     key="show"
                   />,
-                  <EditOutlined
+                  <Edit
                     onClick={() => router.visit(`/user-vehicles/${userVehicle.id}/edit`)}
                     key="edit"
                   />,
-                  <DeleteOutlined
+                  <Delete
                     style={{ color: 'red' }}
                     onClick={() => deleteUserVehicle(userVehicle)}
                     key="delete"
@@ -77,6 +75,6 @@ export default function UserVehicles(props: { user: any; userVehicles: UserVehic
       ) : (
         <NoDataFound />
       )}
-    </Main>
+    </Layout>
   )
 }

@@ -1,25 +1,9 @@
+import Layout from '#components/layout'
 import { useState } from 'react'
-import Main from '#components/layout/main'
-import {
-  Button,
-  Col,
-  DatePicker,
-  Flex,
-  Form,
-  Input,
-  Modal,
-  Row,
-  Select,
-  Space,
-  Tooltip,
-} from 'antd'
-import { EditOutlined, PlusOutlined } from '@ant-design/icons'
 import { router } from '@inertiajs/react'
 import i18n from '#config/i18n_react'
-import FormLayout from '#components/layout/form_layout'
 import TextEditor from '#components/TextEditor/TextEditor'
 import dayjs from 'dayjs'
-import fr from 'antd/locale/fr_FR'
 
 import type { User } from '#types/user'
 import type { Maintenance } from '#types/maintenance'
@@ -53,10 +37,7 @@ export default function Maintenance(props: {
   }
 
   return (
-    <Main
-      title={maintenance ? i18n.t('editMaintenance') : i18n.t('createMaintenance')}
-      route=""
-      {...props}
+    <Layout {...props}
     >
       <Modal
         title={i18n.t('createVehicle')}
@@ -192,6 +173,6 @@ export default function Maintenance(props: {
           </Col>
         </Row>
       </FormLayout>
-    </Main>
+    </Layout>
   )
 }
