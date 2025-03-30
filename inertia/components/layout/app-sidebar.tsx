@@ -2,10 +2,8 @@ import i18n from '#config/i18n_react'
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -18,17 +16,15 @@ import { Home, Calendar, Wrench, Car, Clock, Flag, ShieldUser, ChevronRight } fr
 import type { User } from '#types/user'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { toast } from 'sonner'
-import { SearchForm } from './search-form'
 
 export function AppSidebar(
   props: React.ComponentProps<typeof Sidebar> & {
     user: User
-    title?: string
     success?: string
     errors?: string
   }
 ) {
-  const { user, title, success, errors } = props
+  const { user, success, errors } = props
   const isAdmin = user.role === 'admin'
 
   // get current route
@@ -86,10 +82,9 @@ export function AppSidebar(
   ]
 
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        <SearchForm />
-      </SidebarHeader>
+    <Sidebar collapsible="icon" variant='floating' {...props}>
+      {/* <SidebarHeader>
+      </SidebarHeader> */}
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
@@ -115,7 +110,7 @@ export function AppSidebar(
                         <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                       </SidebarMenuButton>
                     </CollapsibleTrigger>
-                    <CollapsibleContent>
+                    <CollapsibleContent className='animate-in fade-in-0 slide-in-top-10 duration-300'>
                       <SidebarMenuSub>
                         {adminMenuItems.map((item) => (
                           <SidebarMenuSubItem key={item.title}>
@@ -136,31 +131,6 @@ export function AppSidebar(
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            {/* <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton>
-                  <User2 /> Username
-                  <ChevronUp className="ml-auto" />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent side="top" className="w-[--radix-popper-anchor-width]">
-                <DropdownMenuItem>
-                  <span>Account</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <span>Billing</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <span>Sign out</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu> */}
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
     </Sidebar>
   )
 }

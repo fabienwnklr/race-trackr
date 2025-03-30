@@ -1,4 +1,4 @@
-import Layout from '#components/layout'
+import Main from '#components/layout/main'
 import SunnyIcon from '#components/icons/sunny'
 import { router } from '@inertiajs/react'
 import type { User } from '#types/user'
@@ -101,7 +101,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
   ]
 
   return (
-    <Layout {...props}>
+    <Main {...props}>
       <Title
         style={{
           display: 'flex',
@@ -243,7 +243,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
           </Card>
         </Col>
       </Row>
-    </Layout>
+    </Main>
   )
 }
 

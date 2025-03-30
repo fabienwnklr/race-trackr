@@ -1,6 +1,6 @@
-import Layout from '#components/layout'
+import Main from '#components/layout/main'
 
 export default function Maintenance(props: any) {
   const { maintenance } = props
-  return <Layout {...props}></Layout>
+  return <Main {...props}> </Main>
 }

@@ -1,4 +1,4 @@
-import Layout from '#components/layout'
+import Main from '#components/layout/main'
 import { router } from '@inertiajs/react'
 
 import type { Track } from '#types/track'
@@ -101,7 +101,7 @@ export default function AdminTracks(
   })
 
   return (
-    <Layout {...props}>
+    <Main {...props}>
       <Table>
         <TableHeader>
           <TableTitle>
@@ -109,6 +109,6 @@ export default function AdminTracks(
           </TableTitle>
         </TableHeader>
       </Table>
-    </Layout>
+    </Main>
   )
 }

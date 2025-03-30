@@ -1,4 +1,4 @@
-import Layout from '#components/layout'
+import Main from '#components/layout/main'
 import dayjs from 'dayjs'
 
 import type { Trackday } from '#types/trackday'
@@ -30,7 +30,7 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
   ]
   return (
     <>
-      <Layout {...props}>
+      <Main {...props}>
         <Title
           style={{
             display: 'flex',
@@ -58,7 +58,7 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
                 <Radio.Group defaultValue="a">
                   <Tooltip title="Grid view">
                     <Radio.Button value="a">
-                      <LayoutOutlined />
+                      <MainOutlined />
                     </Radio.Button>
                   </Tooltip>
                   <Tooltip title="List view">
@@ -126,7 +126,7 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
         ) : (
           <NoDataFound />
         )}
-      </Layout>
+      </Main>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import Layout from '#components/layout'
+import Main from '#components/layout/main'
 import { router } from '@inertiajs/react'
 
 import type { Track } from '#types/track'
@@ -80,7 +80,7 @@ export default function CreateAdminTrack(
   }
 
   return (
-    <Layout {...props}>
+    <Main {...props}>
       <h1 className="text-2xl font-bold flex justify-between items-center">
         Admin - {track ? i18n.t('editTrack') : i18n.t('createTrack')}
       </h1>
@@ -211,6 +211,6 @@ export default function CreateAdminTrack(
           </div>
         </form>
       </Form>
-    </Layout>
+    </Main>
   )
 }

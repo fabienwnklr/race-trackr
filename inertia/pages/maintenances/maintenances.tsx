@@ -1,4 +1,4 @@
-import Layout from '#components/layout'
+import Main from '#components/layout/main'
 
 import { router } from '@inertiajs/react'
 import NoDataFound from '#components/no_data_found'
@@ -20,7 +20,7 @@ export default function Maintenances(props: { user: any; maintenances: Maintenan
   }
 
   return (
-    <Layout {...props}>
+    <Main {...props}>
       <Title
         style={{
           display: 'flex',
@@ -83,6 +83,6 @@ export default function Maintenances(props: { user: any; maintenances: Maintenan
       ) : (
         <NoDataFound />
       )}
-    </Layout>
+    </Main>
   )
 }

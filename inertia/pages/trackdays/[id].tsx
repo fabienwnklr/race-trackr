@@ -1,4 +1,4 @@
-import Layout from '#components/layout'
+import Main from '#components/layout/main'
 import { router } from '@inertiajs/react'
 import i18n from '#config/i18n_react'
 import type { User } from '#types/user'
@@ -62,7 +62,7 @@ export default function CreateTrackDay(props: {
   }
 
   return (
-    <Layout {...props}>
+    <Main {...props}>
       <Form
         name="createTrackday"
         form={form}
@@ -200,6 +200,6 @@ export default function CreateTrackDay(props: {
           </Space>
         </div>
       </Form>
-    </Layout>
+    </Main>
   )
 }

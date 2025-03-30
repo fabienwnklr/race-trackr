@@ -1,4 +1,4 @@
-import Layout from '#components/layout'
+import Main from '#components/layout/main'
 import i18n from '#config/i18n_react'
 import { router } from '@inertiajs/react'
 
@@ -75,7 +75,7 @@ const data = [
 
 export default function ApiKey(props: any) {
   return (
-    <Layout {...props}>
+    <Main {...props}>
       <Typography.Title
         style={{
           display: 'flex',
@@ -90,6 +90,6 @@ export default function ApiKey(props: any) {
         </Button>
       </Typography.Title>
       <Table columns={columns} dataSource={data} />
-    </Layout>
+    </Main>
   )
 }

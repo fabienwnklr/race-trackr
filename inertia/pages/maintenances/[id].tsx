@@ -1,8 +1,8 @@
-import Layout from '#components/layout'
+import Main from '#components/layout/main'
 import { useState } from 'react'
 import { router } from '@inertiajs/react'
 import i18n from '#config/i18n_react'
-import TextEditor from '#components/TextEditor/TextEditor'
+import { Editor } from '@/components/blocks/editor-00/editor'
 import dayjs from 'dayjs'
 
 import type { User } from '#types/user'
@@ -37,7 +37,7 @@ export default function Maintenance(props: {
   }
 
   return (
-    <Layout {...props}
+    <Main {...props}
     >
       <Modal
         title={i18n.t('createVehicle')}
@@ -168,11 +168,11 @@ export default function Maintenance(props: {
               name="details"
               label={i18n.t('details')}
             >
-              <TextEditor content={details} onUpdate={onChangeContent} />
+              <Editor content={details} onUpdate={onChangeContent} />
             </Form.Item>
           </Col>
         </Row>
       </FormLayout>
-    </Layout>
+    </Main>
   )
 }

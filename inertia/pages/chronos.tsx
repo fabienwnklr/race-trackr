@@ -1,4 +1,4 @@
-import Layout from '#components/layout'
+import Main from '#components/layout/main'
 
 
 interface DataType {
@@ -100,7 +100,7 @@ const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter,
 
 export default function Chronos(props: any) {
   return (
-    <Layout {...props}>
+    <Main {...props}>
       <Title
         style={{
           display: 'flex',
@@ -114,6 +114,6 @@ export default function Chronos(props: any) {
         </Button>
       </Title>
       <Table columns={columns} dataSource={data} onChange={onChange} />
-    </Layout>
+    </Main>
   )
 }
