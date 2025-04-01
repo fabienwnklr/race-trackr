@@ -1,8 +1,10 @@
 import { createContext, useContext, useState, useEffect } from 'react'
+import i18n from '#config/i18n_react'
 
 type LocaleContextType = {
   locale: string
   setLocale: (locale: string) => void
+  key: number
 }
 
 const LocaleContext = createContext<LocaleContextType | undefined>(undefined)
@@ -10,18 +12,46 @@ const LocaleContext = createContext<LocaleContextType | undefined>(undefined)
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocale] = useState(() => {
     if (typeof window === 'undefined') return 'fr'
-    return navigator.language.split('-')[0] || 'fr'
+
+    // Vérifier d'abord la configuration i18n
+    const configuredLocale = i18n.language
+    if (configuredLocale && ['fr', 'en'].includes(configuredLocale)) {
+      return configuredLocale
+    }
+
+    // Si aucune configuration, utiliser la langue du navigateur
+    const browserLocale = navigator.language.split('-')[0]
+    if (browserLocale && ['fr', 'en'].includes(browserLocale)) {
+      return browserLocale
+    }
+
+    return 'fr'
   })
+  const [key, setKey] = useState(0)
 
   useEffect(() => {
+    // Vérifier d'abord la configuration i18n
+    const configuredLocale = i18n.language
+    if (configuredLocale && ['fr', 'en'].includes(configuredLocale)) {
+      setLocale(configuredLocale)
+      return
+    }
+
+    // Si aucune configuration, utiliser la langue du navigateur
     const browserLocale = navigator.language.split('-')[0]
     if (browserLocale && ['fr', 'en'].includes(browserLocale)) {
       setLocale(browserLocale)
     }
   }, [])
 
+  const handleSetLocale = (newLocale: string) => {
+    setLocale(newLocale)
+    i18n.changeLanguage(newLocale)
+    setKey(prev => prev + 1) // Force le re-rendu
+  }
+
   return (
-    <LocaleContext.Provider value={{ locale, setLocale }}>
+    <LocaleContext.Provider value={{ locale, setLocale: handleSetLocale, key }}>
       {children}
     </LocaleContext.Provider>
   )

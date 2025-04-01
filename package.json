@@ -37,7 +37,8 @@
     "#pages/*": "./inertia/pages/*.js",
     "#types/*": "./@types/*.d.js",
     "#utils/*": "./utils/*.js",
-    "#constants/*": "./constants/*.js"
+    "#constants/*": "./constants/*.js",
+    "#resources/*": "./resources/*.js"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^7.8.2",
@@ -117,7 +118,6 @@
     "edge.js": "^6.2.0",
     "i18next": "^23.16.8",
     "i18next-browser-languagedetector": "^8.0.2",
-    "i18next-http-backend": "^2.7.1",
     "lexical": "^0.29.0",
     "lucide-react": "^0.483.0",
     "luxon": "^3.5.0",

@@ -78,5 +78,6 @@
   "deleted_by": "Deleted by",
   "member_of_team": "Member of team",
   "no_data_found": "No data found",
-  "select_city": "Select city"
+  "select_city": "Select city",
+  "userVehicles": "Vehicles"
 }

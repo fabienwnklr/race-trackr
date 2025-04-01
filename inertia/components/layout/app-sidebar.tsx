@@ -16,6 +16,7 @@ import { Home, Calendar, Wrench, Car, Clock, Flag, ShieldUser, ChevronRight } fr
 import type { User } from '#types/user'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { toast } from 'sonner'
+import { useLocale } from '@/context/locale-context'
 
 export function AppSidebar(
   props: React.ComponentProps<typeof Sidebar> & {
@@ -26,6 +27,7 @@ export function AppSidebar(
 ) {
   const { user, success, errors } = props
   const isAdmin = user.role === 'admin'
+  const { key } = useLocale()
 
   // get current route
   const currentRoute = usePage().url

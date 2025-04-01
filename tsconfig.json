@@ -6,7 +6,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./inertia/*"]
-    }
+    },
+    "resolveJsonModule": true,
+    "moduleResolution": "bundler",
+    "module": "ESNext"
   },
   "exclude": ["./inertia/**/*", "node_modules", "build"]
 }
