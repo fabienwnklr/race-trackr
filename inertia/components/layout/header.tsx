@@ -2,10 +2,11 @@ import React from 'react'
 import { Search } from '@/components/search'
 import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
-import { ThemeSwitch } from '#components/theme-switch'
-import { ProfileDropdown } from '#components/profile-dropdown'
+import { ThemeSwitch } from '@/components/theme-switch'
+import { ProfileDropdown } from '@/components/profile-dropdown'
 import type { User } from '#types/user'
 import { cn } from '@/lib/utils'
+import { LanguageSwitch } from '#components/language-switch'
 
 export function Header(props: { title: string; user: User, className?: string }) {
   const { title, user, className } = props
@@ -41,6 +42,7 @@ export function Header(props: { title: string; user: User, className?: string })
       <div className="flex items-center gap-2">
         <Search />
         {/* <ThemeSwitch /> */}
+        <LanguageSwitch />
         <ProfileDropdown user={user} />
       </div>
     </header>

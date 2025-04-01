@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react'
+import { Link, router } from '@inertiajs/react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
@@ -13,7 +13,6 @@ import {
 import type { User } from '#types/user'
 
 export function ProfileDropdown({ user }: { user: User }) {
-  console.log(user)
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger>
@@ -54,7 +53,11 @@ export function ProfileDropdown({ user }: { user: User }) {
           <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            router.post('/auth/logout')
+          }}
+        >
           Log out
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>

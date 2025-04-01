@@ -134,5 +134,7 @@
   "confirm_password": "Confirmer le mot de passe",
   "confirm_password_error": "Les mots de passe ne correspondent pas",
   "command_menu": "Tapez pour rechercher...",
-  "toggle_theme": "Changer le thème"
+  "toggle_theme": "Changer le thème",
+  "english": "Anglais",
+  "french": "Français"
 }

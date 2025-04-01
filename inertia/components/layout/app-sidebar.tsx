@@ -82,7 +82,7 @@ export function AppSidebar(
   ]
 
   return (
-    <Sidebar collapsible="icon" variant='floating' {...props}>
+    <Sidebar collapsible="icon" variant='floating'>
       {/* <SidebarHeader>
       </SidebarHeader> */}
       <SidebarContent>
