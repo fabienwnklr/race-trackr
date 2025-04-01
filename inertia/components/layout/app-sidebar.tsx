@@ -84,7 +84,7 @@ export function AppSidebar(
   ]
 
   return (
-    <Sidebar collapsible="icon" variant='floating'>
+    <Sidebar collapsible="icon" variant="floating">
       {/* <SidebarHeader>
       </SidebarHeader> */}
       <SidebarContent>
@@ -108,19 +108,19 @@ export function AppSidebar(
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton tooltip={i18n.t('admin')}>
                         <ShieldUser />
-                        <span className="ml-2">{i18n.t('admin')}</span>
+                        {i18n.t('admin')}
                         <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                       </SidebarMenuButton>
                     </CollapsibleTrigger>
-                    <CollapsibleContent className='animate-in fade-in-0 slide-in-top-10 duration-300'>
+                    <CollapsibleContent className="animate-in fade-in-0 slide-in-top-10 duration-300">
                       <SidebarMenuSub>
                         {adminMenuItems.map((item) => (
                           <SidebarMenuSubItem key={item.title}>
                             <SidebarMenuSubButton asChild>
-                              <a href={item.url}>
+                              <Link href={item.url}>
                                 <item.icon />
                                 {item.title}
-                              </a>
+                              </Link>
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
                         ))}
