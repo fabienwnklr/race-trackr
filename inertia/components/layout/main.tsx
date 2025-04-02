@@ -9,18 +9,26 @@ import { cn } from '@/lib/utils'
 import { SearchProvider } from '@/context/search-context'
 import { getCookie } from '@/lib/cookie'
 import { LocaleProvider } from '@/context/locale-context'
+import { useEffect } from 'react'
 export default function Main(props: {
   children: React.ReactNode
   user: User
   title: string
   errors?: string
   success?: string
-  fixed?: boolean
 }) {
   const defaultOpen = getCookie('sidebar_state') === 'true'
-  const { errors, success, fixed } = props
-  if (errors) toast.error(errors)
-  if (success) toast.success(success)
+  const { errors, success } = props
+
+  useEffect(() => {
+    if (errors) toast.error(errors)
+    if (success)
+      toast.success(success, {
+        style: {
+          background: 'var(--color-success-light)',
+        },
+      })
+  })
   return (
     <SearchProvider user={props.user}>
       <LocaleProvider>

@@ -19,14 +19,14 @@ export function ProfileDropdown({ user }: { user: User }) {
         <div className="inline-flex items-center justify-center rounded-full text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 w-8 cursor-pointer ">
           <Avatar className="h-8 w-8">
             {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
-            <AvatarFallback>{user.fullName?.charAt(0).toUpperCase() || '?'}</AvatarFallback>
+            <AvatarFallback>{user.lastName?.charAt(0).toUpperCase() || '?'}</AvatarFallback>
           </Avatar>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user.fullName || '?'}</p>
+            <p className="text-sm font-medium leading-none">{user.lastName || '?'}</p>
             <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
           </div>
         </DropdownMenuLabel>

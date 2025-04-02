@@ -8,5 +8,6 @@ export type User = {
   premium: boolean
   createdAt: string
   updatedAt: string
-  fullName: string
+  firstName: string
+  lastName: string
 }

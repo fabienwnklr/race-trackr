@@ -19,6 +19,6 @@
   "chronoUpdated": "Chrono mis à jour",
   "passwordUpdated": "Mot de passe mis à jour",
   "passwordSuccess": "Mot de passe modifié avec succès",
-  "login": "Bienvenue {{name}} :)",
+  "login": "Bienvenue {lastName} !",
   "maintenanceUpdated": "Maintenance mise à jour"
 }
