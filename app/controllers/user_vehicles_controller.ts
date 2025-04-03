@@ -23,7 +23,7 @@ export default class UserVehiclesController {
 
       return inertia.render('user_vehicles/user_vehicles')
     } catch (error) {
-      console.log(error)
+      console.error(error)
       if (error instanceof errors.E_VALIDATION_ERROR) {
         return response.json({ error: error.messages[0] })
       } else {

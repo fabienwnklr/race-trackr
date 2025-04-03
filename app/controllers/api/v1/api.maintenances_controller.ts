@@ -67,7 +67,7 @@ export default class MaintenancesController {
       session.flash('success', i18n.t('success.maintenanceUpdated'))
       return response.redirect(`/maintenances/${maintenance.id}/edit`)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       session.flash('error', i18n.t('error.update', { error }))
       return response.redirect(`maintenances/${maintenance.id}/edit`)
     }

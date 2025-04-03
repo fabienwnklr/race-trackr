@@ -60,7 +60,7 @@ export default class VehiclesController {
       const vehicleModels = await VehicleModel.findByOrFail({ vehicleBrandId: params.id })
       return response.ok(vehicleModels)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       return response.badRequest({ message: 'vehicleModels not found', error })
     }
   }

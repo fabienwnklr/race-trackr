@@ -16,18 +16,48 @@ export default function Main(props: {
   title: string
   errors?: string
   success?: string
+  infos?: string
+  neutral?: string
 }) {
   const defaultOpen = getCookie('sidebar_state') === 'true'
-  const { errors, success } = props
+  const { errors, success, infos, neutral } = props
 
   useEffect(() => {
-    if (errors) toast.error(errors)
-    if (success)
+    if (errors) {
+      toast.error(errors, {
+        position: 'top-right',
+        closeButton: true,
+        style: {
+          background: 'var(--color-error-light)',
+        },
+      })
+    }
+    if (success) {
       toast.success(success, {
+        position: 'top-right',
+        closeButton: true,
         style: {
           background: 'var(--color-success-light)',
         },
       })
+    }
+
+    if (infos) {
+      toast.info(infos, {
+        position: 'top-right',
+        closeButton: true,
+        style: {
+          background: 'var(--color-info-light)',
+        },
+      })
+    }
+
+    if (neutral) {
+      toast(neutral, {
+        position: 'top-right',
+        closeButton: true,
+      })
+    }
   })
   return (
     <SearchProvider user={props.user}>

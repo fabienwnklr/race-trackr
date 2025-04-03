@@ -13,6 +13,8 @@ const inertiaConfig = defineConfig({
   sharedData: {
     errors: (ctx) => ctx.session.flashMessages.get('error'),
     success: (ctx) => ctx.session.flashMessages.get('success'),
+    infos: (ctx) => ctx.session.flashMessages.get('infos'),
+    neutral: (ctx) => ctx.session.flashMessages.get('neutral'),
     user: (ctx) => ctx.auth.user,
     locale: (ctx) => ctx.request.header('accept-language')?.split(',')[0] || 'fr',
   },

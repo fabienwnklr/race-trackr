@@ -108,7 +108,7 @@ export default class TrackDaysController {
       session.flash('success', i18n.t('success.trackdayCreated'))
       return response.redirect('/trackdays')
     } catch (error) {
-      console.log(error)
+      console.error(error)
       session.flash('error', `Error creating TrackDay $`)
       return response.redirect('/trackdays/create')
     }

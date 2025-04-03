@@ -56,7 +56,7 @@ export default class TrackDaysController {
       session.flash('success', i18n.t('success.trackdayCreated'))
       return response.json(trackDay)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       session.flash('error', `Error creating TrackDay $`)
       return response.status(500).json({ error: error })
     }

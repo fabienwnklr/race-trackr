@@ -69,8 +69,7 @@ export default class AuthController {
 
       await auth.use('web').login(user)
       await redis.set('user', JSON.stringify(user))
-      console.log(user)
-      session.flash('success', i18n.t('success.login', { lastName: user.lastName }))
+      session.flash('infos', i18n.t('success.login', { lastName: user.lastName }))
 
       return response.redirect('/dashboard')
     } catch (error) {
