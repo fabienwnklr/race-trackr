@@ -1,9 +1,17 @@
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import i18n from '#config/i18n_react'
 import { Link, router } from '@inertiajs/react'
+import { Form, FormControl, FormField, FormItem, FormLabel } from './ui/form'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+const formSchema = z.object({
+  email: z.string(),
+  password: z.string(),
+})
 
 const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault()
@@ -14,7 +22,16 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   })
 }
 
+
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: 'admin@hotmail.fr',
+      password: 'admin',
+    },
+  })
+
   return (
     <div className={cn('flex h-screen', className)} {...props}>
       {/* Illustration */}
@@ -28,36 +45,47 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
 
       {/* Formulaire */}
       <div className="w-full md:w-1/2 flex items-center justify-center p-8">
-        <div className="w-full p-6 ">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Label htmlFor="email">{i18n.t('email')}</Label>
-              <Input
-                id="email"
-                type="email"
+        <div className="w-full p-6">
+          <Form {...form}>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <FormField
+                control={form.control}
                 name="email"
-                defaultValue="admin@hotmail.fr"
-                placeholder="m@example.com"
-                required
-              />
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{i18n.t('email')}</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="email" required placeholder={i18n.t('name')} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              ></FormField>
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{i18n.t('password')}</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="password" required placeholder={i18n.t('password')} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              ></FormField>
+              <Button type="submit" className="w-full">
+                {i18n.t('login')}
+              </Button>
+              <Button type="button" variant="outline" className="w-full">
+                {i18n.t('login_with_google')}
+              </Button>
+            </form>
+            <div className="mt-4 text-center text-sm">
+              {i18n.t('dont_have_account')}
+              <Link href="/register" className="underline underline-offset-4 ml-2">
+                {i18n.t('sign_up')}
+              </Link>
             </div>
-            <div>
-              <Label htmlFor="password">{i18n.t('password')}</Label>
-              <Input id="password" type="password" name="password" defaultValue="admin" required />
-            </div>
-            <Button type="submit" className="w-full">
-              {i18n.t('login')}
-            </Button>
-            <Button type="button" variant="outline" className="w-full">
-             {i18n.t('login_with_google')}
-            </Button>
-          </form>
-          <div className="mt-4 text-center text-sm">
-            {i18n.t('dont_have_account')}
-            <Link href="/register" className="underline underline-offset-4 ml-2">
-              {i18n.t('sign_up')}
-            </Link>
-          </div>
+          </Form>
         </div>
       </div>
     </div>

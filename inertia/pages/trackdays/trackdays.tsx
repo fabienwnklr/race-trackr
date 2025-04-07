@@ -6,12 +6,19 @@ import { router } from '@inertiajs/react'
 import NoDataFound from '#components/no_data_found'
 import i18n from '#config/i18n_react'
 import { slugify } from '#utils/index'
-
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '#components/ui/card'
+import { Button } from '#components/ui/button'
 
 export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
-  const { token } = theme.useToken()
   const { trackdays } = props
-  const items: MenuProps['items'] = [
+  const items = [
     {
       label: <a href="https://www.antgroup.com">1st menu item</a>,
       key: '0',
@@ -29,31 +36,10 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
     },
   ]
   return (
-    <>
-      <Main {...props}>
-        <Title
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-          level={3}
-          ellipsis
-        >
-          {i18n.t('trackdays')}
-          <Button
-            type="primary"
-            onClick={() => {
-              router.visit('/trackdays/create')
-            }}
-          >
-            {i18n.t('createTrackday')} <PlusOutlined />
-          </Button>
-        </Title>
-
-        {trackdays.length ? (
-          <>
-            {/* <Flex style={{ marginBottom: 20 }} justify="space-between">
+    <Main title={i18n.t('trackdays')} {...props}>
+      {trackdays.length ? (
+        <>
+          {/* <Flex style={{ marginBottom: 20 }} justify="space-between">
               <Flex>
                 <Radio.Group defaultValue="a">
                   <Tooltip title="Grid view">
@@ -83,38 +69,36 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
                 </Dropdown>
               </Flex>
             </Flex> */}
-            <Row gutter={30}>
-              {trackdays.map((td, i) => (
-                <Col
-                  key={i}
-                  span={8}
-                  xs={24}
-                  sm={12}
-                  md={8}
-                  style={{
-                    marginBottom: 20,
-                  }}
-                >
-                  <Card
-                    onClick={() => {
-                      router.get(`/trackdays/${td.id}`)
-                    }}
-                    hoverable
-                    style={{ width: '100%', padding: 10 }}
-                    cover={
-                      <img
-                        alt={td.track.name}
-                        style={{ width: '100%', height: '70px' }}
-                        src={`resources/images/tracks/logo/${slugify(td.track.name)}.png`}
-                      />
-                    }
-                  >
-                    <Meta title={td.track.name} description={dayjs(td.date).format('DD/MM/YYYY')} />
-                  </Card>
-                </Col>
-              ))}
-            </Row>
-            {/* <Pagination
+          <div className="grid sm:grid-cols-3 grid-cols-2 gap-4">
+            {trackdays.map((td, _i) => (
+              <div>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{td.track.name}</CardTitle>
+                    <CardDescription>{dayjs(td.date).format('DD/MM/YYYY')}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <img
+                      alt={td.track.name}
+                      style={{ width: '100%', height: '70px' }}
+                      src={`resources/images/tracks/logo/${slugify(td.track.name)}.png`}
+                    />
+                  </CardContent>
+                  <CardFooter>
+                    <Button
+                      className="w-full"
+                      onClick={() => {
+                        router.get(`/trackdays/${td.id}`)
+                      }}
+                    >
+                      {i18n.t('view')}
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </div>
+            ))}
+          </div>
+          {/* <Pagination
               align="center"
               total={trackdays.length}
               showSizeChanger
@@ -122,11 +106,10 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
               defaultPageSize={50}
               showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
             /> */}
-          </>
-        ) : (
-          <NoDataFound />
-        )}
-      </Main>
-    </>
+        </>
+      ) : (
+        <NoDataFound />
+      )}
+    </Main>
   )
 }

@@ -1,10 +1,8 @@
 import Main from '#components/layout/main'
 import { router } from '@inertiajs/react'
-
 import type { Track } from '#types/track'
 import { PropsWithChildren } from 'react'
 import i18n from '#config/i18n_react'
-import { toast } from 'sonner'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '#components/ui/form'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -19,6 +17,7 @@ import {
   SelectValue,
 } from '#components/ui/select'
 import { Textarea } from '#components/ui/textarea'
+
 const formSchema = z.object({
   name: z.string().min(2, {
     message: 'name must be at least 2 characters.',
@@ -49,15 +48,7 @@ const formSchema = z.object({
 export default function CreateAdminTrack(
   props: PropsWithChildren & { user: any; track: Track | null; errors?: string; success?: string }
 ) {
-  const { track, errors, success } = props
-
-  if (errors) {
-    toast.error(errors)
-  }
-
-  if (success) {
-    toast.success(success)
-  }
+  const { track} = props
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -80,7 +71,7 @@ export default function CreateAdminTrack(
   }
 
   return (
-    <Main {...props}>
+    <Main title={i18n.t('adminTracks')} {...props}>
       <h1 className="text-2xl font-bold flex justify-between items-center">
         Admin - {track ? i18n.t('editTrack') : i18n.t('createTrack')}
       </h1>

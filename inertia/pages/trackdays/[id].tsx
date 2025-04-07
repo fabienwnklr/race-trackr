@@ -5,26 +5,20 @@ import type { User } from '#types/user'
 import type { Trackday } from '#types/trackday'
 import type { Track } from '#types/track'
 import dayjs from 'dayjs'
+import { Form, FormControl, FormField, FormItem, FormLabel } from './ui/form'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-const buttonsStyle = { display: 'flex', width: '100%', justifyContent: 'flex-end', marginTop: 24 }
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 3 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 20 },
-  },
-}
-
-const formItemLayoutWithOutLabel = {
-  wrapperCol: {
-    xs: { span: 24, offset: 0 },
-    sm: { span: 20, offset: 3 },
-  },
-}
+const formSchema = z.object({
+  trackId: z.number(),
+  date: z.string(),
+  weather: z.string(),
+  details: z.string(),
+  chronos: z.array(z.string()),
+  bestChrono: z.string(),
+  regulChrono: z.string(),
+})
 
 export default function CreateTrackDay(props: {
   user: User
@@ -32,7 +26,10 @@ export default function CreateTrackDay(props: {
   tracks: Track[]
 }) {
   const { trackday, tracks } = props
-  const [form] = Form.useForm()
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {},
+  })
 
   const weatherOptions = [
     { value: 'sunny', label: i18n.t('sunny') },
@@ -53,31 +50,22 @@ export default function CreateTrackDay(props: {
     }
   }
 
-  const onSubmit = (values: Trackday) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const trackday = new FormData(e.target as HTMLFormElement) as unknown as Trackday
     if (trackday) {
-      router.post(`/trackdays/${trackday.id}/update`, values)
+      router.post(`/trackdays/${trackday.id}/update`, trackday)
     } else {
-      router.post('/trackdays/create', values)
+      router.post('/trackdays/create', trackday)
     }
   }
 
   return (
-    <Main {...props}>
-      <Form
-        name="createTrackday"
-        form={form}
-        labelWrap
-        onFinish={onSubmit}
-        initialValues={{
-          trackId: trackday?.trackId,
-          date: trackday?.date ? dayjs(trackday?.date).valueOf() : undefined,
-          weather: trackday?.weather,
-          details: trackday?.details,
-          chronos: trackday?.chronos.map((chrono) => chrono.lapTime),
-        }}
-      >
-        <Row gutter={18}>
-          <Col span={12}>
+    <Main title={trackday ? i18n.t('editTrackday') : i18n.t('createTrackday')} {...props}>
+      <Form {...form}></Form>
+      <form name="createTrackday" onSubmit={onSubmit}>
+        <div>
+          <div>
             <Form.Item<Trackday>
               {...formItemLayout}
               label={i18n.t('track')}
@@ -86,7 +74,7 @@ export default function CreateTrackDay(props: {
             >
               <Select showSearch optionFilterProp="label" options={trackOptions} />
             </Form.Item>
-          </Col>
+          </div>
 
           <Col span={12}>
             <Form.Item<Trackday>
@@ -199,7 +187,7 @@ export default function CreateTrackDay(props: {
             </Button>
           </Space>
         </div>
-      </Form>
+      </form>
     </Main>
   )
 }

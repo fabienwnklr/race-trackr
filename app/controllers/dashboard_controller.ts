@@ -1,7 +1,11 @@
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class DashboardController {
-  async index({ inertia }: HttpContext) {
-    return inertia.render('dashboard')
+  async index({ inertia, bouncer }: HttpContext) {
+    if (await bouncer.allows('readDashboard')) {
+      return inertia.render('dashboard')
+    } else {
+      // redirect to unhautorized
+    }
   }
 }
