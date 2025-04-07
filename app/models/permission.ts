@@ -14,7 +14,7 @@ export default class Permission extends BaseModel {
     serialize: (value: PermissionType): PermissionType => value,
     consume: (value: PermissionType): PermissionType => value,
   })
-  declare description: PermissionType
+  declare permissions: PermissionType
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

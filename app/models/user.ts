@@ -79,7 +79,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
     }
 
     this.permissions.forEach((permission) => {
-      const description = permission.description as Record<ResourceList, Record<Action, boolean>>
+      const description = permission.permissions as Record<ResourceList, Record<Action, boolean>>
 
       // Parcourir chaque ressource dans la description
       Object.keys(description).forEach((resource) => {
