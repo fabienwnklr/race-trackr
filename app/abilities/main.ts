@@ -2,7 +2,7 @@ import Maintenance from '#models/maintenance'
 import Track from '#models/track'
 import Trackday from '#models/trackday'
 import User from '#models/user'
-import { can } from '#utils/permissions'
+// import { can } from '#utils/permissions'
 import { Bouncer } from '@adonisjs/bouncer'
 
 export const editTrackday = Bouncer.ability((user: User, trackday: Trackday) => {
@@ -10,7 +10,7 @@ export const editTrackday = Bouncer.ability((user: User, trackday: Trackday) => 
 })
 
 export const editTrack = Bouncer.ability((user: User, _track: Track) => {
-  return user.role.name === 'admin'
+  return user.role === 'admin'
 })
 
 export const editUser = Bouncer.ability((user: User, _user: User) => {
@@ -21,8 +21,8 @@ export const editMaintenance = Bouncer.ability((user: User, maintenance: Mainten
   return user.id === maintenance.userId
 })
 
-export const readDashboard = Bouncer.ability((user: User) => {
-  user.load('roles', (query) => query.preload('permissions'))
-  const permissions = user.transformedPermissions
-  return can(permissions, 'dashboard', 'view')
-})
+// export const readDashboard = Bouncer.ability((user: User) => {
+//   user.load('roles', (query) => query.preload('permissions'))
+//   const permissions = user.transformedPermissions
+//   return can(permissions, 'dashboard', 'view')
+// })

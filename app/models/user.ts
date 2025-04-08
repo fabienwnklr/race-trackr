@@ -44,8 +44,10 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare country: string
 
-  @belongsTo(() => Role)
-  declare role: BelongsTo<typeof Role>
+  @column()
+  declare role: string
+  // @belongsTo(() => Role)
+  // declare role: BelongsTo<typeof Role>
 
   @manyToMany(() => Permission, {
     pivotTable: 'role_user', // La table pivot entre `users` et `roles`
@@ -67,32 +69,32 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare updatedAt: DateTime | null
 
   // Méthode pour transformer les permissions en un objet avec des ressources et des actions
-  public get transformedPermissions() {
-    const permissionsObj: PermissionType = {
-      dashboard: { view: false, edit: false, create: false, delete: false },
-      trackday: { view: false, edit: false, create: false, delete: false },
-      healthcheck: { view: false, edit: false, create: false, delete: false },
-      track: { view: false, edit: false, create: false, delete: false },
-      user_vehicle: { view: false, edit: false, create: false, delete: false },
-      vehicle: { view: false, edit: false, create: false, delete: false },
-      maintenance: { view: false, edit: false, create: false, delete: false },
-    }
+  // public get transformedPermissions() {
+  //   const permissionsObj: PermissionType = {
+  //     dashboard: { view: false, edit: false, create: false, delete: false },
+  //     trackday: { view: false, edit: false, create: false, delete: false },
+  //     healthcheck: { view: false, edit: false, create: false, delete: false },
+  //     track: { view: false, edit: false, create: false, delete: false },
+  //     user_vehicle: { view: false, edit: false, create: false, delete: false },
+  //     vehicle: { view: false, edit: false, create: false, delete: false },
+  //     maintenance: { view: false, edit: false, create: false, delete: false },
+  //   }
 
-    this.permissions.forEach((permission) => {
-      const description = permission.permissions as Record<ResourceList, Record<Action, boolean>>
+  //   this.permissions.forEach((permission) => {
+  //     const description = permission.permissions as Record<ResourceList, Record<Action, boolean>>
 
-      // Parcourir chaque ressource dans la description
-      Object.keys(description).forEach((resource) => {
-        const resourceKey = resource as keyof PermissionType
-        if (permissionsObj[resourceKey]) {
-          Object.keys(description[resourceKey]).forEach((action) => {
-            const actionKey = action as keyof PermissionObject
-            permissionsObj[resourceKey][actionKey] = description[resourceKey][actionKey]
-          })
-        }
-      })
-    })
+  //     // Parcourir chaque ressource dans la description
+  //     Object.keys(description).forEach((resource) => {
+  //       const resourceKey = resource as keyof PermissionType
+  //       if (permissionsObj[resourceKey]) {
+  //         Object.keys(description[resourceKey]).forEach((action) => {
+  //           const actionKey = action as keyof PermissionObject
+  //           permissionsObj[resourceKey][actionKey] = description[resourceKey][actionKey]
+  //         })
+  //       }
+  //     })
+  //   })
 
-    return permissionsObj
-  }
+  //   return permissionsObj
+  // }
 }
