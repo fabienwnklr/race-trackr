@@ -22,7 +22,6 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   })
 }
 
-
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -59,7 +58,7 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                     </FormControl>
                   </FormItem>
                 )}
-              ></FormField>
+              />
               <FormField
                 control={form.control}
                 name="password"
@@ -71,7 +70,7 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                     </FormControl>
                   </FormItem>
                 )}
-              ></FormField>
+              />
               <Button type="submit" className="w-full">
                 {i18n.t('login')}
               </Button>

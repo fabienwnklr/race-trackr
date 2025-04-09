@@ -8,7 +8,7 @@ import dayjs from 'dayjs'
 import RainyIcon from '#components/icons/rainy'
 import CloudyIcon from '#components/icons/cloudy'
 import ChronoIcon from '#components/icons/chrono'
-import { cleanFalsyValues, convertToChronoFormat, convertToMilliseconds } from '#utils/index'
+import { convertToChronoFormat, convertToMilliseconds } from '#utils/index'
 import {
   Chart as ChartJS,
   CategoryScale,

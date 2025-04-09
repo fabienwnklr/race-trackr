@@ -1,14 +1,34 @@
+import * as React from 'react'
 import Main from '#components/layout/main'
 import { router } from '@inertiajs/react'
 import i18n from '#config/i18n_react'
 import type { User } from '#types/user'
 import type { Trackday } from '#types/trackday'
 import type { Track } from '#types/track'
-import dayjs from 'dayjs'
-import { Form, FormControl, FormField, FormItem, FormLabel } from './ui/form'
+import { format } from 'date-fns'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { CalendarIcon } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Popover, PopoverContent, PopoverTrigger } from '#components/ui/popover'
+import { Calendar } from '#components/ui/calendar'
+import { cn } from '@/lib/utils'
 
 const formSchema = z.object({
   trackId: z.number(),
@@ -26,9 +46,13 @@ export default function CreateTrackDay(props: {
   tracks: Track[]
 }) {
   const { trackday, tracks } = props
+  const [date, setDate] = React.useState<Date>()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues: {
+      trackId: trackday?.id ?? 0,
+      date: trackday?.date ?? '',
+    },
   })
 
   const weatherOptions = [
@@ -50,61 +74,82 @@ export default function CreateTrackDay(props: {
     }
   }
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const trackday = new FormData(e.target as HTMLFormElement) as unknown as Trackday
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
     if (trackday) {
-      router.post(`/trackdays/${trackday.id}/update`, trackday)
+      router.post(`/trackdays/${trackday.id}/update`, data)
     } else {
-      router.post('/trackdays/create', trackday)
+      router.post('/trackdays/create', data)
     }
   }
 
   return (
     <Main title={trackday ? i18n.t('editTrackday') : i18n.t('createTrackday')} {...props}>
-      <Form {...form}></Form>
-      <form name="createTrackday" onSubmit={onSubmit}>
-        <div>
-          <div>
-            <Form.Item<Trackday>
-              {...formItemLayout}
-              label={i18n.t('track')}
-              name="trackId"
-              rules={[{ required: true, message: i18n.t('validation:track_required') }]}
-            >
-              <Select showSearch optionFilterProp="label" options={trackOptions} />
-            </Form.Item>
-          </div>
+      <Form {...form}>
+        <form name="createTrackday" onSubmit={form.handleSubmit(onSubmit)}>
+          {/* <FormField
+            control={form.control}
+            name="trackId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{i18n.t('track')}</FormLabel>
+                <Select required defaultValue={field.value?.toString()}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder={i18n.t('track')} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {trackOptions.map((track, index) => (
+                      <SelectItem key={index} value={track.value?.toString()}>
+                        {track.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormItem>
+            )}
+          /> */}
 
-          <Col span={12}>
-            <Form.Item<Trackday>
-              {...formItemLayout}
-              label={i18n.t('date')}
-              name="date"
-              rules={[{ required: true, message: i18n.t('validation:date_required') }]}
-              getValueProps={(value) => ({ value: value && dayjs(Number(value)) })}
-            >
-              <DatePicker
-                style={{ width: '100%' }}
-                format={locale.DatePicker?.lang.dateFormat}
-                locale={locale.DatePicker}
-              />
-            </Form.Item>
-          </Col>
+          <FormField
+            control={form.control}
+            name="date"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>{i18n.t('trackdayDate')}</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={'outline'}
+                        className={cn(
+                          'w-[240px] pl-3 text-left font-normal',
+                          !field.value && 'text-muted-foreground'
+                        )}
+                      >
+                        <CalendarIcon />
+                        {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+                  </PopoverContent>
+                </Popover>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-          <Col span={12}>
-            <Form.Item<Trackday> {...formItemLayout} label={i18n.t('weather')} name="weather">
+          {/* <Form.Item<Trackday> {...formItemLayout} label={i18n.t('weather')} name="weather">
               <Select options={weatherOptions} />
             </Form.Item>
-          </Col>
 
-          <Col span={12}>
+
             <Form.Item<Trackday> {...formItemLayout} label={i18n.t('details')} name="details">
               <Input.TextArea />
             </Form.Item>
-          </Col>
 
-          <Col span={12}>
             <Form.List name="chronos">
               {(fields, { add, remove }, { errors }) => (
                 <>
@@ -169,25 +214,21 @@ export default function CreateTrackDay(props: {
                   </Form.Item>
                 </>
               )}
-            </Form.List>
-          </Col>
-        </Row>
+            </Form.List> */}
 
-        <div style={buttonsStyle}>
-          <Space>
-            <Button htmlType="button" onClick={onCancel}>
+          <div className="grid grid-cols-8 gap-4 mt-5">
+            <Button type="button" variant="outline" onClick={onCancel}>
               {i18n.t('cancel')}
             </Button>
             <Button
-              type="primary"
-              htmlType="submit"
-              disabled={!!form.getFieldsError().filter(({ errors }) => errors.length).length}
+              type="submit"
+              // disabled
             >
               {i18n.t('save')}
             </Button>
-          </Space>
-        </div>
-      </form>
+          </div>
+        </form>
+      </Form>
     </Main>
   )
 }
