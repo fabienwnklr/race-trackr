@@ -27,7 +27,6 @@ export function AppSidebar(
 ) {
   const { user, success, errors } = props
   const isAdmin = user.role === 'admin'
-  const { key } = useLocale()
 
   // get current route
   const currentRoute = usePage().url

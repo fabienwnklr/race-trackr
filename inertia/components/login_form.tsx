@@ -26,7 +26,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
   useEffect(() => {
-    const bikeAnimation = animate('.live .bike', {
+    animate('.live .bike', {
       ease: 'linear',
       duration: 5000,
       loop: true,
@@ -52,6 +52,7 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
     <div className={cn('flex h-screen', className)} {...props}>
       {/* Illustration */}
       <div className="w-1/2 hidden md:flex bg-gray-100 relative">
+
         <div className="absolute flex flex-col items-center justify-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full live">
           <svg viewBox="0 0 304 112" className="track h-full w-full text-primary">
             <title>Suzuka</title>

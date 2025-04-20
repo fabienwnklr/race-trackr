@@ -8,7 +8,7 @@ import { Header } from '#components/layout/header'
 import { cn } from '@/lib/utils'
 import { SearchProvider } from '@/context/search-context'
 import { getCookie } from '@/lib/cookie'
-import { LocaleProvider } from '@/context/locale-context'
+import { useLocale } from '@/context/locale-context'
 import { useEffect } from 'react'
 export default function Main(props: {
   children: React.ReactNode
@@ -21,6 +21,7 @@ export default function Main(props: {
 }) {
   const defaultOpen = getCookie('sidebar_state') === 'true'
   const { errors, success, infos, neutral } = props
+  const { key } = useLocale()
 
   useEffect(() => {
     if (errors) {
@@ -61,23 +62,22 @@ export default function Main(props: {
   })
   return (
     <SearchProvider user={props.user}>
-      <LocaleProvider>
-        <SidebarProvider defaultOpen={defaultOpen}>
-          <AppSidebar {...props} />
-          <SidebarInset>
-            <Header title={props.title} user={props.user} />
-            <Toaster />
-            <main
-              className={cn(
-                // 'peer-[.header-sticky]/header:mt-15',
-                'px-4 py-6',
-                'fixed-main flex flex-grow flex-col overflow-hidden'
-              )}
-              {...props}
-            />
-          </SidebarInset>
-        </SidebarProvider>
-      </LocaleProvider>
+      <SidebarProvider defaultOpen={defaultOpen}>
+        <AppSidebar {...props} />
+        <SidebarInset>
+          <Header title={props.title} user={props.user} />
+          <Toaster />
+          <main
+            className={cn(
+              // 'peer-[.header-sticky]/header:mt-15',
+              'px-4 py-6',
+              'fixed-main flex flex-grow flex-col overflow-hidden'
+            )}
+            {...props}
+            key={key} // Add the key prop here to force re-render on locale change
+          />
+        </SidebarInset>
+      </SidebarProvider>
     </SearchProvider>
   )
 }

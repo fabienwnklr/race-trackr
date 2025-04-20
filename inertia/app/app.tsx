@@ -5,6 +5,7 @@ import '../css/app.css'
 import { createRoot } from 'react-dom/client'
 import { createInertiaApp } from '@inertiajs/react'
 import { resolvePageComponent } from '@adonisjs/inertia/helpers'
+import { LocaleProvider } from '@/context/locale-context'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Race-TrackR'
 
@@ -18,6 +19,10 @@ createInertiaApp({
   },
 
   setup({ el, App, props }) {
-    createRoot(el).render(<App {...props} />)
+    createRoot(el).render(
+      <LocaleProvider>
+        <App {...props} />
+      </LocaleProvider>
+    )
   },
 })

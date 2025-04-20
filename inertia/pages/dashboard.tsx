@@ -11,7 +11,6 @@ import {
   BarElement,
   ArcElement,
 } from 'chart.js'
-import { Line, Bar, Doughnut } from 'react-chartjs-2'
 import { TriangleAlert } from 'lucide-react'
 import i18n from '#config/i18n_react'
 import type { DefaultProps } from '#types/props'

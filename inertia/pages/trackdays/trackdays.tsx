@@ -18,23 +18,6 @@ import { Button } from '#components/ui/button'
 
 export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
   const { trackdays } = props
-  const items = [
-    {
-      label: <a href="https://www.antgroup.com">1st menu item</a>,
-      key: '0',
-    },
-    {
-      label: <a href="https://www.aliyun.com">2nd menu item</a>,
-      key: '1',
-    },
-    {
-      type: 'divider',
-    },
-    {
-      label: '3rd menu item',
-      key: '3',
-    },
-  ]
   return (
     <Main title={i18n.t('trackdays')} {...props}>
       {trackdays.length ? (
@@ -70,8 +53,8 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
               </Flex>
             </Flex> */}
           <div className="grid sm:grid-cols-3 grid-cols-2 gap-4">
-            {trackdays.map((td, _i) => (
-              <div>
+            {trackdays.map((td, i) => (
+              <div key={i}>
                 <Card>
                   <CardHeader>
                     <CardTitle>{td.track.name}</CardTitle>
