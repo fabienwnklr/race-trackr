@@ -1,7 +1,6 @@
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import i18n from '#config/i18n_react'
 import { Link, router } from '@inertiajs/react'
 import { Form, FormControl, FormField, FormItem, FormLabel } from './ui/form'
 import { useForm } from 'react-hook-form'
@@ -9,6 +8,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { animate, svg } from 'animejs'
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const formSchema = z.object({
   email: z.string(),
@@ -25,6 +25,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 }
 
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+    const { i18n } = useTranslation()
   useEffect(() => {
     animate('.live .bike', {
       ease: 'linear',

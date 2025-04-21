@@ -9,8 +9,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import i18n from '#config/i18n_react'
+import { useTranslation } from 'react-i18next'
+
 export function ThemeSwitch() {
+  const { i18n } = useTranslation()
   const { theme, setTheme } = useTheme()
 
   /* Update theme-color meta tag
@@ -31,10 +33,12 @@ export function ThemeSwitch() {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" side="bottom" sideOffset={5}>
-        <DropdownMenuItem onClick={() => {
-          console.log('light')
-          setTheme('light')
-        }}>
+        <DropdownMenuItem
+          onClick={() => {
+            console.log('light')
+            setTheme('light')
+          }}
+        >
           Light <Check size={14} className={cn('ml-auto', theme !== 'light' && 'hidden')} />
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('dark')}>

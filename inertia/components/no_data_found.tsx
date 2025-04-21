@@ -1,6 +1,3 @@
-import { Inbox } from 'lucide-react'
-import i18n from '#config/i18n_react'
-
 export default function NoDataFound() {
   return (
     <div className="w-full flex items-center flex-wrap justify-center gap-10">

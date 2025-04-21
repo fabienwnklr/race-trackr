@@ -15,9 +15,10 @@ import { menuItems, adminMenuItems } from './layout/data/sidebar_data'
 import { ScrollArea } from './ui/scroll-area'
 import { router } from '@inertiajs/react'
 import type { User } from '#types/user'
-import i18n from '#config/i18n_react'
+import { useTranslation } from 'react-i18next'
 
 export function CommandMenu({ user }: { user: User }) {
+  const { i18n } = useTranslation()
   const { setTheme } = useTheme()
   const { open, setOpen } = useSearch()
   const isAdmin = user.role === 'admin'

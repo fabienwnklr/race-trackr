@@ -1,7 +1,6 @@
 import * as React from 'react'
 import Main from '#components/layout/main'
 import { router } from '@inertiajs/react'
-import i18n from '#config/i18n_react'
 import type { User } from '#types/user'
 import type { Trackday } from '#types/trackday'
 import type { Track } from '#types/track'
@@ -29,6 +28,7 @@ import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '#components/ui/popover'
 import { Calendar } from '#components/ui/calendar'
 import { cn } from '@/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 const formSchema = z.object({
   trackId: z.number(),
@@ -45,6 +45,7 @@ export default function CreateTrackDay(props: {
   trackday?: Trackday
   tracks: Track[]
 }) {
+  const { i18n } = useTranslation()
   const { trackday, tracks } = props
   const [date, setDate] = React.useState<Date>()
   const form = useForm<z.infer<typeof formSchema>>({
@@ -86,7 +87,7 @@ export default function CreateTrackDay(props: {
     <Main title={trackday ? i18n.t('editTrackday') : i18n.t('createTrackday')} {...props}>
       <Form {...form}>
         <form name="createTrackday" onSubmit={form.handleSubmit(onSubmit)}>
-          {/* <FormField
+          <FormField
             control={form.control}
             name="trackId"
             render={({ field }) => (
@@ -108,7 +109,7 @@ export default function CreateTrackDay(props: {
                 </Select>
               </FormItem>
             )}
-          /> */}
+          />
 
           <FormField
             control={form.control}

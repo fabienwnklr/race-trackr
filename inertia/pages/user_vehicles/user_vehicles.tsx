@@ -1,11 +1,12 @@
 import Main from '#components/layout/main'
 import NoDataFound from '#components/no_data_found'
-import i18n from '#config/i18n_react'
 import type { UserVehicle } from '#types/user_vehicle'
 import { router } from '@inertiajs/react'
 import { Delete, Edit, Eye, Plus } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export default function UserVehicles(props: { user: any; userVehicles: UserVehicle[] }) {
+  const { i18n } = useTranslation()
   const { userVehicles } = props
 
   const deleteUserVehicle = (userVehicle: UserVehicle) => {

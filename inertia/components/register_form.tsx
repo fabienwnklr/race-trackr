@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Link, router } from '@inertiajs/react'
-import i18n from '#config/i18n_react'
+import { useTranslation } from 'react-i18next'
 
 const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault()
@@ -18,6 +18,8 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 }
 
 export function RegisterForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+  const { i18n } = useTranslation()
+
   return (
     <div className={cn('flex h-screen', className)} {...props}>
       {/* Illustration */}
@@ -35,40 +37,19 @@ export function RegisterForm({ className, ...props }: React.ComponentPropsWithou
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <Label htmlFor="first_name">{i18n.t('first_name')}</Label>
-              <Input
-                id="first_name"
-                type="text"
-                name="first_name"
-                required
-              />
+              <Input id="first_name" type="text" name="first_name" required />
             </div>
             <div>
               <Label htmlFor="last_name">{i18n.t('last_name')}</Label>
-              <Input
-                id="last_name"
-                type="text"
-                name="last_name"
-                required
-              />
+              <Input id="last_name" type="text" name="last_name" required />
             </div>
             <div>
               <Label htmlFor="email">{i18n.t('email')}</Label>
-              <Input
-                id="email"
-                type="email"
-                name="email"
-                placeholder="m@example.com"
-                required
-              />
+              <Input id="email" type="email" name="email" placeholder="m@example.com" required />
             </div>
             <div>
               <Label htmlFor="password">{i18n.t('password')}</Label>
-              <Input
-                id="password"
-                type="password"
-                name="password"
-                required
-              />
+              <Input id="password" type="password" name="password" required />
             </div>
             <div>
               <Label htmlFor="password_confirmation">{i18n.t('confirm_password')}</Label>

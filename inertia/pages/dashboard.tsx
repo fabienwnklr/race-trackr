@@ -12,7 +12,6 @@ import {
   ArcElement,
 } from 'chart.js'
 import { TriangleAlert } from 'lucide-react'
-import i18n from '#config/i18n_react'
 import type { DefaultProps } from '#types/props'
 import { Head } from '@inertiajs/react'
 import { Card, CardContent } from '#components/ui/card'
@@ -20,6 +19,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '#components/ui/avatar'
 import { ChronoChart } from '#components/charts/chrono-chart'
 import { TrackdayChart } from '#components/charts/trackday-chart'
 import { TrackChart } from '#components/charts/track-chart'
+import { useTranslation } from 'react-i18next'
 
 ChartJS.register(
   CategoryScale,
@@ -34,6 +34,7 @@ ChartJS.register(
 )
 
 export default function Dashboard(props: DefaultProps) {
+  const { i18n } = useTranslation()
   return (
     <>
       <Head title="Homepage" />

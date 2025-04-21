@@ -2,7 +2,6 @@ import Main from '#components/layout/main'
 import { router } from '@inertiajs/react'
 import type { Track } from '#types/track'
 import { PropsWithChildren } from 'react'
-import i18n from '#config/i18n_react'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '#components/ui/form'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -17,6 +16,7 @@ import {
   SelectValue,
 } from '#components/ui/select'
 import { Textarea } from '#components/ui/textarea'
+import { useTranslation } from 'react-i18next'
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -48,7 +48,8 @@ const formSchema = z.object({
 export default function CreateAdminTrack(
   props: PropsWithChildren & { user: any; track: Track | null; errors?: string; success?: string }
 ) {
-  const { track} = props
+  const { i18n } = useTranslation()
+  const { track } = props
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

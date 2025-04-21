@@ -1,13 +1,13 @@
 import Main from '#components/layout/main'
 import { useState } from 'react'
 import { router } from '@inertiajs/react'
-import i18n from '#config/i18n_react'
 import { Editor } from '@/components/blocks/editor-00/editor'
 import dayjs from 'dayjs'
 
 import type { User } from '#types/user'
 import type { Maintenance } from '#types/maintenance'
 import type { Vehicle } from '#types/vehicle'
+import { useTranslation } from 'react-i18next'
 
 const formItemLayout = {
   labelCol: {
@@ -28,6 +28,7 @@ export default function Maintenance(props: {
   user: User
   userVehicles: Vehicle[]
 }) {
+  const { i18n } = useTranslation()
   const { maintenance, userVehicles } = props
   const [modalCreateVehicleOpen, setModalCreateVehicleOpen] = useState(false)
   const [details, setDetails] = useState(maintenance?.details || '')

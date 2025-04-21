@@ -4,7 +4,6 @@ import i18n from '#config/i18n_react'
 type LocaleContextType = {
   locale: string
   setLocale: (locale: string) => void
-  key: number
 }
 
 const LocaleContext = createContext<LocaleContextType | undefined>(undefined)
@@ -27,7 +26,6 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
 
     return 'fr'
   })
-  const [key, setKey] = useState(0)
 
   useEffect(() => {
     // Vérifier d'abord la configuration i18n
@@ -47,11 +45,10 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
   const handleSetLocale = (newLocale: string) => {
     setLocale(newLocale)
     i18n.changeLanguage(newLocale)
-    setKey(prev => prev + 1) // Force le re-rendu
   }
 
   return (
-    <LocaleContext.Provider value={{ locale, setLocale: handleSetLocale, key }}>
+    <LocaleContext.Provider value={{ locale, setLocale: handleSetLocale }}>
       {children}
     </LocaleContext.Provider>
   )

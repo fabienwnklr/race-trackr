@@ -1,6 +1,6 @@
 import Main from '#components/layout/main'
-import i18n from '#config/i18n_react'
 import { router } from '@inertiajs/react'
+import { useTranslation } from 'react-i18next'
 
 interface DataType {
   key: React.Key
@@ -74,6 +74,7 @@ const data = [
 ]
 
 export default function ApiKey(props: any) {
+  const { i18n } = useTranslation()
   return (
     <Main {...props}>
       <Typography.Title

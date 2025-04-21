@@ -3,7 +3,6 @@ import SunnyIcon from '#components/icons/sunny'
 import { router } from '@inertiajs/react'
 import { format } from 'date-fns'
 
-import i18n from '#config/i18n_react'
 import RainyIcon from '#components/icons/rainy'
 import CloudyIcon from '#components/icons/cloudy'
 import ChronoIcon from '#components/icons/chrono'
@@ -39,6 +38,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '#components/ui/dropdown-menu'
+import { useTranslation } from 'react-i18next'
 
 ChartJS.register(
   CategoryScale,
@@ -58,6 +58,7 @@ ChartJS.register(
  * Show unique trackday
  */
 export default function Trackday(props: { user: User; trackday: Trackday }) {
+  const { i18n } = useTranslation()
   const { trackday } = props
 
   if (!trackday.bestChrono && trackday.chronos.length > 0) {
@@ -223,6 +224,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
 }
 
 function ChronosChart({ chronos }: { chronos: Chrono[] }) {
+  const { i18n } = useTranslation()
   const options = {
     responsive: true,
     plugins: {

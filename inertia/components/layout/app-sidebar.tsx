@@ -1,4 +1,3 @@
-import i18n from '#config/i18n_react'
 import {
   Sidebar,
   SidebarContent,
@@ -16,7 +15,7 @@ import { Home, Calendar, Wrench, Car, Clock, Flag, ShieldUser, ChevronRight } fr
 import type { User } from '#types/user'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { toast } from 'sonner'
-import { useLocale } from '@/context/locale-context'
+import { useTranslation } from 'react-i18next'
 
 export function AppSidebar(
   props: React.ComponentProps<typeof Sidebar> & {
@@ -25,6 +24,7 @@ export function AppSidebar(
     errors?: string
   }
 ) {
+  const { i18n } = useTranslation()
   const { user, success, errors } = props
   const isAdmin = user.role === 'admin'
 

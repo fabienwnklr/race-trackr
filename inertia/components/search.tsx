@@ -2,7 +2,7 @@ import { SearchIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useSearch } from '@/context/search-context'
 import { Button } from './ui/button'
-import i18n from '#config/i18n_react'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   className?: string
@@ -11,6 +11,7 @@ interface Props {
 }
 
 export function Search({ className = '', placeholder = '' }: Props) {
+  const { i18n } = useTranslation()
   const { setOpen } = useSearch()
   return (
     <Button

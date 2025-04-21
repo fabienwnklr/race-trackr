@@ -8,7 +8,6 @@ import { Header } from '#components/layout/header'
 import { cn } from '@/lib/utils'
 import { SearchProvider } from '@/context/search-context'
 import { getCookie } from '@/lib/cookie'
-import { useLocale } from '@/context/locale-context'
 import { useEffect } from 'react'
 export default function Main(props: {
   children: React.ReactNode
@@ -21,7 +20,6 @@ export default function Main(props: {
 }) {
   const defaultOpen = getCookie('sidebar_state') === 'true'
   const { errors, success, infos, neutral } = props
-  const { key } = useLocale()
 
   useEffect(() => {
     if (errors) {
@@ -74,7 +72,6 @@ export default function Main(props: {
               'fixed-main flex flex-grow flex-col overflow-hidden'
             )}
             {...props}
-            key={key} // Add the key prop here to force re-render on locale change
           />
         </SidebarInset>
       </SidebarProvider>

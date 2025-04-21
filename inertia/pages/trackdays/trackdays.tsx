@@ -4,7 +4,6 @@ import dayjs from 'dayjs'
 import type { Trackday } from '#types/trackday'
 import { router } from '@inertiajs/react'
 import NoDataFound from '#components/no_data_found'
-import i18n from '#config/i18n_react'
 import { slugify } from '#utils/index'
 import {
   Card,
@@ -15,8 +14,10 @@ import {
   CardTitle,
 } from '#components/ui/card'
 import { Button } from '#components/ui/button'
+import { useTranslation } from 'react-i18next'
 
 export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
+  const { i18n } = useTranslation()
   const { trackdays } = props
   return (
     <Main title={i18n.t('trackdays')} {...props}>

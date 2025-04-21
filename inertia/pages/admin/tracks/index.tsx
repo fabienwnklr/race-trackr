@@ -5,11 +5,11 @@ import type { Track } from '#types/track'
 import { useState, type PropsWithChildren } from 'react'
 
 import type { User } from '#types/user'
-import i18n from '#config/i18n_react'
 import { Dialog } from '#components/ui/dialog'
 import { Table, TableHeader } from '#components/ui/table'
 import { Button } from '#components/ui/button'
 import { Space } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 const onChange: TableProps<Track>['onChange'] = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra)
@@ -22,6 +22,7 @@ export default function AdminTracks(
     user: User
   }
 ) {
+  const { i18n } = useTranslation()
   // Modal for view track
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalData, setModalData] = useState<Track | null>(null)

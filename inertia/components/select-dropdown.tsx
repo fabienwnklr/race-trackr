@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import i18n from '#config/i18n_react'
+import { useTranslation } from 'react-i18next'
 
 interface SelectDropdownProps {
   onValueChange?: (value: string) => void
@@ -31,6 +31,7 @@ export function SelectDropdown({
   className = '',
   isControlled = false,
 }: SelectDropdownProps) {
+  const { i18n } = useTranslation()
   const defaultState = isControlled
     ? { value: defaultValue, onValueChange }
     : { defaultValue, onValueChange }

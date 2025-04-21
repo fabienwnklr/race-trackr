@@ -1,6 +1,5 @@
 import Main from '#components/layout/main'
 
-
 interface DataType {
   key: React.Key
   track: string
