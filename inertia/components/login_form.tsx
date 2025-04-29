@@ -25,7 +25,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 }
 
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
-    const { i18n } = useTranslation()
+  const { i18n } = useTranslation()
   useEffect(() => {
     animate('.live .bike', {
       ease: 'linear',
@@ -53,7 +53,6 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
     <div className={cn('flex h-screen', className)} {...props}>
       {/* Illustration */}
       <div className="w-1/2 hidden md:flex bg-gray-100 relative">
-
         <div className="absolute flex flex-col items-center justify-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full live">
           <svg viewBox="0 0 304 112" className="track h-full w-full text-primary">
             <title>Suzuka</title>
@@ -113,7 +112,8 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
       </div>
 
       {/* Formulaire */}
-      <div className="w-full md:w-1/2 flex items-center justify-center p-8">
+      <div className="w-full md:w-1/2 flex items-center justify-center p-8 flex-col">
+        <h1 className='text-3xl font-bold mb-10'>{i18n.t('login')}</h1>
         <div className="w-full p-6">
           <Form {...form}>
             <form onSubmit={handleSubmit} className="space-y-4">

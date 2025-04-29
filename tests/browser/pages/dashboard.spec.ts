@@ -5,7 +5,8 @@ test.group('Pages dashboard', () => {
   test('example test', async ({ browserContext, visit }) => {
     const user = await User.create({
       password: 'secret',
-      fullName: 'John Doe',
+      lastName: 'John',
+      firstName: 'Doe',
       country: 'france',
       email: 'pC0gQ@example.com',
     })

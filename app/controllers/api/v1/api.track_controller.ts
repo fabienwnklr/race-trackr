@@ -2,7 +2,7 @@ import Track from '#models/track'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class TrackController {
-  async read({ response, request }: HttpContext) {
+  async get({ response, request }: HttpContext) {
     const params = request.qs()
     if (params.slug) {
       const track = await Track.findByOrFail('slug', params.slug)

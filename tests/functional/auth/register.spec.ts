@@ -6,7 +6,8 @@ test.group('Auth', () => {
   test('create new user', async ({ assert }) => {
     const user = await User.create({
       password: 'secret',
-      fullName: 'John Doe',
+      lastName: 'John',
+      firstName: 'Doe',
       country: 'france',
       email: 'pC0gQ@example.com',
     })
@@ -20,7 +21,8 @@ test.group('Auth', () => {
   test('create new user as admin', async ({ assert }) => {
     const user = new User()
     user.password = 'secret'
-    user.fullName = 'John Doe'
+    user.lastName = 'John'
+    user.firstName = 'Doe'
     user.country = 'france'
     user.email = 'pC0gQ@example.com'
     user.role = 'admin'
