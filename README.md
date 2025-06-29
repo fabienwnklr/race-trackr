@@ -15,7 +15,6 @@ first run redis on ubuntu for windows
 ```bash
 sudo service redis-server start
 ```
-enter password setup for ubuntu unix
 
 then run project
 

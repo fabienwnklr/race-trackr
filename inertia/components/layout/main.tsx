@@ -18,7 +18,8 @@ export default function Main(props: {
   infos?: string
   neutral?: string
 }) {
-  const defaultOpen = getCookie('sidebar_state') === 'true'
+  const defaultOpen =
+    getCookie('sidebar_state') === null ? true : getCookie('sidebar_state') === 'true'
   const { errors, success, infos, neutral } = props
 
   useEffect(() => {

@@ -31,7 +31,7 @@ import type { User } from '#types/user'
 import type { Trackday } from '#types/trackday'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
-import { Card } from '#components/ui/card'
+import { Card, CardContent } from '#components/ui/card'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -39,6 +39,17 @@ import {
   DropdownMenuTrigger,
 } from '#components/ui/dropdown-menu'
 import { useTranslation } from 'react-i18next'
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from '#components/ui/alert-dialog'
+import { AlertDialogHeader, AlertDialogFooter } from '#components/ui/alert-dialog'
+import { useState } from 'react'
 
 ChartJS.register(
   CategoryScale,
@@ -58,6 +69,7 @@ ChartJS.register(
  * Show unique trackday
  */
 export default function Trackday(props: { user: User; trackday: Trackday }) {
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const { i18n } = useTranslation()
   const { trackday } = props
 
@@ -88,7 +100,12 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
     {
       key: 'delete',
       label: i18n.t('deleteTrackday'),
-      icon: <Trash2Icon className="text-red-500" />,
+      content: (
+        <>
+          <Trash2Icon className="text-red-500" />
+          {i18n.t('deleteTrackday')}
+        </>
+      ),
       danger: true,
       onClick: () => {
         // Modal.confirm({
@@ -97,12 +114,13 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
         //     router.delete('/trackdays/' + trackday.id)
         //   },
         // })
+        setDeleteDialogOpen(true)
       },
     },
     {
       key: 'export',
       label: i18n.t('exportTrackday'),
-      icon: <DownloadIcon />,
+      content: <DownloadIcon />,
       onClick: () => {
         router.get('/trackdays/' + trackday.id + '/export')
       },
@@ -111,6 +129,24 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
 
   return (
     <Main title={i18n.t('trackday')} {...props}>
+      {/* Delete trackday alert dialog */}
+      <AlertDialog open={deleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{i18n.t('deleteTrackday')}</AlertDialogTitle>
+            <AlertDialogDescription>{i18n.t('deleteTrackdayConfirm')}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setDeleteDialogOpen(false)}>
+              {i18n.t('cancel')}
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={() => router.delete('/trackdays/' + trackday.id)}>
+              {i18n.t('delete')}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       <div className="flex justify-between items-center mb-4">
         <h1>{i18n.t('trackday_of', { date: format(trackday.date, 'dd/MM/yyyy') })}</h1>
 
@@ -135,8 +171,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
                   onClick={item.onClick}
                   className={item.danger ? 'text-red-500' : ''}
                 >
-                  {item.icon}
-                  <span className="ml-2">{item.label}</span>
+                  {item.content}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
@@ -147,76 +182,88 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
         {/* Weather */}
 
         <Card className="">
-          {trackday.weather === 'sunny' ? (
-            <SunnyIcon size={100} />
-          ) : trackday.weather === 'cloudy' ? (
-            <CloudyIcon size={100} />
-          ) : trackday.weather === 'rainy' ? (
-            <RainyIcon size={100} />
-          ) : (
-            <NoWeatherIcon size={100} />
-          )}
+          <CardContent>
+            {trackday.weather === 'sunny' ? (
+              <SunnyIcon size={100} />
+            ) : trackday.weather === 'cloudy' ? (
+              <CloudyIcon size={100} />
+            ) : trackday.weather === 'rainy' ? (
+              <RainyIcon size={100} />
+            ) : (
+              <NoWeatherIcon size={100} />
+            )}
+          </CardContent>
         </Card>
         {/* Best chrono */}
         <Card>
-          <ChronoIcon size={100} />
-          <p>{i18n.t('bestLapTime') + ' ' + (trackday.bestChrono ?? defaultData)}</p>
-          <Button
-            style={{
-              marginTop: 20,
-            }}
-          >
-            {i18n.t('showMyChronos')}
-          </Button>
+          <CardContent>
+            <ChronoIcon size={100} />
+            <p>{i18n.t('bestLapTime') + ' ' + (trackday.bestChrono ?? defaultData)}</p>
+            <Button
+              style={{
+                marginTop: 20,
+              }}
+            >
+              {i18n.t('showMyChronos')}
+            </Button>
+          </CardContent>
         </Card>
 
         {/* Chrono regul */}
         <Card>
-          <p>{trackday.regulChrono ?? defaultData}</p>
+          <CardContent>
+            <p>{trackday.regulChrono ?? defaultData}</p>
+          </CardContent>
         </Card>
 
         {/* Details */}
         <Card className="col-span-3">
-          <p>{i18n.t('details')}</p>
-          {trackday.details}
+          <CardContent>
+            <p>{i18n.t('details')}</p>
+            {trackday.details}
+          </CardContent>
         </Card>
         {/* Track map */}
         <Card className="col-span-3">
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: 10,
-            }}
-          >
-            <p>
-              {trackday.track.name} - {i18n.t('trackMap')}
-            </p>
-            <Button
-            // onClick={() =>
-            // Modal.info({
-            //   ...modalConfig(i18n),
-            //   title: trackday.track.name,
-            // })
-            // }
+          <CardContent>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: 10,
+              }}
             >
-              {i18n.t('trackInfos')}
-              <InfoIcon />
-            </Button>
-          </div>
-          <Zoom>
-            <img
-              src={`/resources/images/tracks/layout/${trackday.track.slug}.svg`}
-              alt={trackday.track.name}
-              className="w-full h-auto"
-            />
-          </Zoom>
+              <p>
+                {trackday.track.name} - {i18n.t('trackMap')}
+              </p>
+              <Button
+              // onClick={() =>
+              // Modal.info({
+              //   ...modalConfig(i18n),
+              //   title: trackday.track.name,
+              // })
+              // }
+              >
+                {i18n.t('trackInfos')}
+                <InfoIcon />
+              </Button>
+            </div>
+            <Zoom>
+              <img
+                src={`/resources/images/tracks/layout/${trackday.track.slug}.svg`}
+                alt={trackday.track.name}
+                className="w-full h-auto"
+              />
+            </Zoom>
+          </CardContent>
         </Card>
 
         {/* Chronos chart */}
         <Card className="col-span-3">
-          <ChronosChart chronos={trackday.chronos} />
+          <CardContent>
+            <ChronosChart chronos={trackday.chronos} />
+          </CardContent>
         </Card>
       </div>
     </Main>
