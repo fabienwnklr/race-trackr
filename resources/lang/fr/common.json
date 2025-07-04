@@ -21,7 +21,7 @@
   "deleteTrackday": "Supprimer le trackday",
   "deleteTrackdayConfirm": "Etes-vous sûr de vouloir supprimer le trackday ?",
   "exportTrackday": "Exporter le trackday",
-  "view": "Visualiser",
+  "view": "Voir",
   "edit": "Modifier",
   "delete": "Supprimer",
   "deleteConfirm": "Etes-vous sûr de vouloir supprimer \"{{name}}\" ?",

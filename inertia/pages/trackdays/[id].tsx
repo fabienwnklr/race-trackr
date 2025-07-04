@@ -4,7 +4,8 @@ import { router } from '@inertiajs/react'
 import type { User } from '#types/user'
 import type { Trackday } from '#types/trackday'
 import type { Track } from '#types/track'
-import { format } from 'date-fns'
+import { format, set, setDefaultOptions } from 'date-fns'
+import { fr } from 'date-fns/locale'
 import {
   Form,
   FormControl,
@@ -23,12 +24,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { CalendarIcon } from 'lucide-react'
+import { CalendarIcon, CheckIcon, ChevronsUpDownIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '#components/ui/popover'
 import { Calendar } from '#components/ui/calendar'
 import { cn } from '@/lib/utils'
 import { useTranslation } from 'react-i18next'
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '#components/ui/command'
 
 const formSchema = z.object({
   trackId: z.number(),
@@ -45,6 +54,8 @@ export default function CreateTrackDay(props: {
   trackday?: Trackday
   tracks: Track[]
 }) {
+  const [trackPopoverOpen, setTrackPopoverOpen] = React.useState(false)
+  const [trackValue, setTrackValue] = React.useState<string | null>(null)
   const { i18n } = useTranslation()
   const { trackday, tracks } = props
   const [date, setDate] = React.useState<Date>()
@@ -56,16 +67,13 @@ export default function CreateTrackDay(props: {
     },
   })
 
+  setDefaultOptions({ locale: fr })
+
   const weatherOptions = [
     { value: 'sunny', label: i18n.t('sunny') },
     { value: 'cloudy', label: i18n.t('cloudy') },
     { value: 'rainy', label: i18n.t('rainy') },
   ]
-
-  const trackOptions = tracks.map((track) => ({
-    value: track.id,
-    label: track.name,
-  }))
 
   const onCancel = () => {
     if (trackday) {
@@ -87,27 +95,58 @@ export default function CreateTrackDay(props: {
     <Main title={trackday ? i18n.t('editTrackday') : i18n.t('createTrackday')} {...props}>
       <Form {...form}>
         <form name="createTrackday" onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-6 gap-2">
+          <div className="grid">
             <FormField
               control={form.control}
               name="trackId"
               render={({ field }) => (
                 <FormItem className="">
                   <FormLabel>{i18n.t('track')}</FormLabel>
-                  <Select required defaultValue={field.value?.toString()}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder={i18n.t('track')} />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {trackOptions.map((track, index) => (
-                        <SelectItem key={index} value={track.value?.toString()}>
-                          {track.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <Popover open={trackPopoverOpen} onOpenChange={setTrackPopoverOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={trackPopoverOpen}
+                        className="w-[300px] justify-between"
+                      >
+                        {trackValue
+                          ? tracks.find((track) => track.name === trackValue)?.name
+                          : i18n.t('selectTrack')}
+                        <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[200px] p-0">
+                      <Command>
+                        <CommandInput placeholder={i18n.t('search')} />
+                        <CommandList>
+                          <CommandEmpty>{i18n.t('noTracks')}</CommandEmpty>
+                          <CommandGroup>
+                            {tracks.map((track) => (
+                              <CommandItem
+                                key={track.id}
+                                value={track.name}
+                                onSelect={(currentValue) => {
+                                  setTrackValue(
+                                    tracks.find((track) => track.name === currentValue)?.name || null
+                                  )
+                                  setTrackPopoverOpen(false)
+                                }}
+                              >
+                                <CheckIcon
+                                  className={cn(
+                                    'mr-2 h-4 w-4',
+                                    trackValue === track.name ? 'opacity-100' : 'opacity-0'
+                                  )}
+                                />
+                                {track.name}
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                 </FormItem>
               )}
             />
@@ -129,13 +168,17 @@ export default function CreateTrackDay(props: {
                           )}
                         >
                           <CalendarIcon />
-                          {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
+                          {field.value ? (
+                            format(field.value, 'PPP')
+                          ) : (
+                            <span>{i18n.t('pickDate')}</span>
+                          )}
                           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
                       </PopoverTrigger>
                     </FormControl>
                     <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+                      <Calendar mode="single" selected={date} onSelect={setDate} locale={fr} />
                     </PopoverContent>
                   </Popover>
                 </FormItem>
