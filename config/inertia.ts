@@ -17,6 +17,7 @@ const inertiaConfig = defineConfig({
     neutral: (ctx) => ctx.session.flashMessages.get('neutral'),
     user: (ctx) => ctx.auth.user,
     locale: (ctx) => ctx.request.header('accept-language')?.split(',')[0] || 'fr',
+    route: (ctx) => ctx.route?.pattern,
   },
 
   /**

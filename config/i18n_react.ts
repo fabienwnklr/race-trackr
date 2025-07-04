@@ -2,11 +2,13 @@ import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
 import frCommon from '../resources/lang/fr/common.json' assert { type: 'json' }
+import frError from '../resources/lang/fr/error.json' assert { type: 'json' }
 import enCommon from '../resources/lang/en/common.json' assert { type: 'json' }
 
 const resources = {
   fr: {
     common: frCommon,
+    error: frError,
   },
   en: {
     common: enCommon,

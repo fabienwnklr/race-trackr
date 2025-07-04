@@ -9,6 +9,10 @@ import { cn } from '@/lib/utils'
 import { SearchProvider } from '@/context/search-context'
 import { getCookie } from '@/lib/cookie'
 import { useEffect } from 'react'
+import { Button } from '#components/ui/button'
+import { useTranslation } from 'react-i18next'
+import { router } from '@inertiajs/react'
+
 export default function Main(props: {
   children: React.ReactNode
   user: User
@@ -17,7 +21,10 @@ export default function Main(props: {
   success?: string
   infos?: string
   neutral?: string
+  create?: boolean
+  route?: string
 }) {
+  const { i18n } = useTranslation()
   const defaultOpen =
     getCookie('sidebar_state') === null ? true : getCookie('sidebar_state') === 'true'
   const { errors, success, infos, neutral } = props
@@ -73,7 +80,22 @@ export default function Main(props: {
               'fixed-main flex flex-grow flex-col overflow-hidden'
             )}
             {...props}
-          />
+          >
+            {props.create ?? (
+              <div className="flex justify-end items-center mt-4 mb-4">
+                <Button
+
+                  className=""
+                  onClick={() => {
+                    router.visit(`${props.route ?? props.title.toLowerCase()}/create`)
+                  }}
+                >
+                  {i18n.t('create')}
+                </Button>
+              </div>
+            )}
+            {props.children}
+          </main>
         </SidebarInset>
       </SidebarProvider>
     </SearchProvider>

@@ -136,5 +136,9 @@
   "command_menu": "Tapez pour rechercher...",
   "toggle_theme": "Changer le thème",
   "english": "Anglais",
-  "french": "Français"
+  "french": "Français",
+  "create": "Créer",
+  "new": "Nouveau",
+  "selectTrack": "Sélectionner un circuit",
+  "pickDate": "Choisir une date"
 }

@@ -23,36 +23,6 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
     <Main title={i18n.t('trackdays')} {...props}>
       {trackdays.length ? (
         <>
-          {/* <Flex style={{ marginBottom: 20 }} justify="space-between">
-              <Flex>
-                <Radio.Group defaultValue="a">
-                  <Tooltip title="Grid view">
-                    <Radio.Button value="a">
-                      <MainOutlined />
-                    </Radio.Button>
-                  </Tooltip>
-                  <Tooltip title="List view">
-                    <Radio.Button value="b">
-                      <UnorderedListOutlined />
-                    </Radio.Button>
-                  </Tooltip>
-                </Radio.Group>
-              </Flex>
-              <Input.Search style={{ width: 300 }} placeholder={i18n.t('search')} />
-
-              <Flex gap={'small'}>
-                <Dropdown menu={{ items }} trigger={['click']}>
-                  <Button>
-                    <SortIcon />
-                  </Button>
-                </Dropdown>
-                <Dropdown menu={{ items }} trigger={['click']}>
-                  <Button>
-                    <FilterOutlined style={{ fontSize: 20 }} />
-                  </Button>
-                </Dropdown>
-              </Flex>
-            </Flex> */}
           <div className="grid sm:grid-cols-3 grid-cols-2 gap-4">
             {trackdays.map((td, i) => (
               <div key={i}>

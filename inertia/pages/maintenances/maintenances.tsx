@@ -6,81 +6,24 @@ import dayjs from 'dayjs'
 
 import type { Maintenance } from '#types/maintenance'
 import { useTranslation } from 'react-i18next'
+import { Card, CardHeader, CardTitle } from '#components/ui/card'
 
 export default function Maintenances(props: { user: any; maintenances: Maintenance[] }) {
   const { i18n } = useTranslation()
   const { maintenances } = props
 
-  const deleteMaintenance = (maintenance: Maintenance) => {
-    Modal.confirm({
-      ...modalConfigDelete(i18n, maintenance.name),
-      onOk: () => {
-        router.delete('/maintenances/' + maintenance.id)
-      },
-    })
-  }
-
   return (
-    <Main {...props}>
-      <Title
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        Maintenances
-        <Button
-          type="primary"
-          onClick={() => {
-            router.visit('/maintenances/create')
-          }}
-        >
-          {i18n.t('createMaintenance')} <PlusOutlined />
-        </Button>
-      </Title>
-
+    <Main title={i18n.t('maintenances')} {...props}>
       {maintenances.length ? (
-        <Row gutter={30}>
+        <div className="grid">
           {maintenances.map((maintenance, i) => (
-            <Col
-              span={6}
-              style={{
-                marginBottom: 20,
-              }}
-              key={i}
-            >
-              <Card
-                actions={[
-                  <EyeOutlined
-                    onClick={() => router.visit(`/maintenances/${maintenance.id}`)}
-                    key="show"
-                  />,
-                  <EditOutlined
-                    onClick={() => router.visit(`/maintenances/${maintenance.id}/edit`)}
-                    key="edit"
-                  />,
-                  <DeleteOutlined
-                    style={{ color: 'red' }}
-                    onClick={() => deleteMaintenance(maintenance)}
-                    key="delete"
-                  />,
-                ]}
-                style={{
-                  padding: 10,
-                }}
-              >
-                <Meta title={i18n.t('vehicle') + ' : ' + maintenance.vehicle.name} />
-                <Meta
-                  title={i18n.t('date') + ' : ' + dayjs(maintenance.date).format('DD/MM/YYYY')}
-                />
-                <Meta
-                  title={i18n.t('maintenance') + ' : ' + maintenance.name}
-                />
-              </Card>
-            </Col>
+            <Card>
+              <CardHeader>
+                <CardTitle title={i18n.t('vehicle') + ' : ' + maintenance.vehicle.name} />
+              </CardHeader>
+            </Card>
           ))}
-        </Row>
+        </div>
       ) : (
         <NoDataFound />
       )}
