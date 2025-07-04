@@ -12,8 +12,8 @@ export type Weather = keyof typeof Weathers
 export type Trackday = {
   id: number
   date: string
-  weather: Weather
-  details: string
+  weather: Weather | null
+  details: string | null
   track: Track
   trackId: number
   bestChrono: string

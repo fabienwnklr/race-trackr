@@ -45,6 +45,8 @@ router
     router.get('/trackdays/create', [TrackDaysController, 'createOrEdit'])
     router.get('/trackdays/:id', [TrackDaysController, 'showTrackday'])
     router.get('/trackdays/:id/edit', [TrackDaysController, 'createOrEdit'])
+    router.get('/trackdays/:id/export', [TrackDaysController, 'export'])
+
     router.post('/trackdays/create', [TrackDaysController, 'create'])
     router.post('/trackdays/:id/update', [TrackDaysController, 'update'])
     router.delete('/trackdays/:id', [TrackDaysController, 'delete'])

@@ -117,14 +117,18 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
         setDeleteDialogOpen(true)
       },
     },
-    {
-      key: 'export',
-      label: i18n.t('exportTrackday'),
-      content: <DownloadIcon />,
-      onClick: () => {
-        router.get('/trackdays/' + trackday.id + '/export')
-      },
-    },
+    // {
+    //   key: 'export',
+    //   content: (
+    //     <>
+    //       <DownloadIcon />
+    //       {i18n.t('exportTrackday')}
+    //     </>
+    //   ),
+    //   onClick: () => {
+    //     router.get('/trackdays/' + trackday.id + '/export')
+    //   },
+    // },
   ]
 
   return (

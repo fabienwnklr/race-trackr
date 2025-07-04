@@ -5,6 +5,7 @@ import { createTrackdayValidator } from '#validators/trackday_validator'
 import type { HttpContext } from '@adonisjs/core/http'
 import type { Trackday as TrackdayType } from '#types/trackday'
 import type { Chrono as ChronoType } from '#types/chrono'
+import { exportToCSV } from '#services/export'
 
 export default class TrackDaysController {
   async index({ inertia, auth, params }: HttpContext) {
@@ -197,6 +198,43 @@ export default class TrackDaysController {
       return response.redirect('/trackdays')
     } catch (error) {
       session.flash('error', i18n.t('error.deleteTrackday'))
+      console.error(error)
+      return response.redirect('/trackdays/' + id)
+    }
+  }
+
+  async export({ params, session, response, i18n }: HttpContext) {
+    const { id } = params
+
+    try {
+      const trackday = await Trackday.findByOrFail('id', id)
+      if (!trackday) {
+        session.flash('error', i18n.t('error.trackdayNotFound'))
+        return response.redirect('/trackdays')
+      }
+
+      const trackdayPlain: TrackdayType = trackday.serialize() as TrackdayType
+
+      const csv = await exportToCSV<TrackdayType>(
+        `trackday_${trackday.id}`,
+        ['id', 'date', 'trackId', 'weather', 'details'],
+        [trackdayPlain]
+      )
+
+      if (!csv.success || !csv.filename) {
+        session.flash('error', i18n.t('error.exportTrackday'))
+        return response.redirect('/trackdays/' + id)
+      }
+
+      try {
+        session.flash('success', i18n.t('success.trackdayExported'))
+        return response.download(csv.filename, true)
+      } catch (error) {
+        session.flash('error', i18n.t('error.exportTrackday'))
+      }
+      // return response.redirect('/trackdays/')
+    } catch (error) {
+      session.flash('error', i18n.t('error.exportTrackday'))
       console.error(error)
       return response.redirect('/trackdays/' + id)
     }
