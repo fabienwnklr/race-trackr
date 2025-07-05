@@ -49,21 +49,29 @@ const formSchema = z.object({
   regulChrono: z.string(),
 })
 
-export default function CreateTrackDay(props: {
+export default function CreateTrackDay({
+  trackday,
+  tracks,
+  ...props
+}: {
   user: User
   trackday?: Trackday
   tracks: Track[]
 }) {
   const [trackPopoverOpen, setTrackPopoverOpen] = React.useState(false)
-  const [trackValue, setTrackValue] = React.useState<string | null>(null)
+  const [trackValue, setTrackValue] = React.useState<string | null>(trackday?.track?.name || null)
   const { i18n } = useTranslation()
-  const { trackday, tracks } = props
   const [date, setDate] = React.useState<Date>()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       trackId: trackday?.id ?? 0,
       date: trackday?.date ?? '',
+      weather: trackday?.weather ?? '',
+      details: trackday?.details ?? '',
+      chronos: trackday?.chronos?.map((chrono) => chrono.toString()) || [],
+      bestChrono: trackday?.bestChrono || '',
+      regulChrono: trackday?.regulChrono || '',
     },
   })
 
@@ -92,7 +100,11 @@ export default function CreateTrackDay(props: {
   }
 
   return (
-    <Main title={trackday ? i18n.t('editTrackday') : i18n.t('createTrackday')} {...props}>
+    <Main
+      create={false}
+      title={trackday ? i18n.t('trackdayEdit') : i18n.t('trackdayCreation')}
+      {...props}
+    >
       <Form {...form}>
         <form name="createTrackday" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid">
@@ -128,7 +140,8 @@ export default function CreateTrackDay(props: {
                                 value={track.name}
                                 onSelect={(currentValue) => {
                                   setTrackValue(
-                                    tracks.find((track) => track.name === currentValue)?.name || null
+                                    tracks.find((track) => track.name === currentValue)?.name ||
+                                      null
                                   )
                                   setTrackPopoverOpen(false)
                                 }}
@@ -199,7 +212,7 @@ export default function CreateTrackDay(props: {
                     </FormControl>
                     <SelectContent>
                       {weatherOptions.map((weather, index) => (
-                        <SelectItem key={index} value={weather.value?.toString()}>
+                        <SelectItem key={index} value={weather.value}>
                           {weather.label}
                         </SelectItem>
                       ))}

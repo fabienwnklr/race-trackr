@@ -132,7 +132,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
   ]
 
   return (
-    <Main title={i18n.t('trackday')} {...props}>
+    <Main create={false} title={i18n.t('trackday')} {...props}>
       {/* Delete trackday alert dialog */}
       <AlertDialog open={deleteDialogOpen}>
         <AlertDialogContent>
@@ -152,7 +152,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
       </AlertDialog>
 
       <div className="flex justify-between items-center mb-4">
-        <h1>{i18n.t('trackday_of', { date: format(trackday.date, 'dd/MM/yyyy') })}</h1>
+        <h1 className='text-2xl'>{i18n.t('trackday_of', { date: format(trackday.date, 'dd/MM/yyyy') })}</h1>
 
         <div className="flex">
           <Button

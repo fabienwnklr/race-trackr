@@ -8,28 +8,48 @@ import type { User } from '#types/user'
 import type { Maintenance } from '#types/maintenance'
 import type { Vehicle } from '#types/vehicle'
 import { useTranslation } from 'react-i18next'
+import { useForm } from 'react-hook-form'
+import { Input } from '#components/ui/input'
+import trackday from '#models/trackday'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Select } from '@radix-ui/react-select'
+import { fr } from 'date-fns/locale'
+import { Space } from 'lucide-react'
+import { Row, Button } from 'react-day-picker'
+import { Tooltip } from 'recharts'
+import { z } from 'zod'
+import { Form } from '#components/ui/form'
 
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 3 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 20 },
-  },
-}
+const formSchema = z.object({
+  maintenanceId: z.number(),
+  date: z.string(),
+  vehicleId: z.number().optional(),
+  name: z.string().min(1, { message: 'Name is required' }),
+  details: z.string().optional(),
+})
 
 /**
  * Show unique trackday
  */
-export default function Maintenance(props: {
+export default function Maintenance({
+  maintenance,
+  userVehicles,
+  ...props
+}: {
   maintenance?: Maintenance
   user: User
   userVehicles: Vehicle[]
 }) {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      maintenanceId: maintenance?.id ?? 0,
+      date: maintenance?.date ?? '',
+      vehicleId: maintenance?.vehicleId ?? undefined,
+      name: maintenance?.name || '',
+    },
+  })
   const { i18n } = useTranslation()
-  const { maintenance, userVehicles } = props
   const [modalCreateVehicleOpen, setModalCreateVehicleOpen] = useState(false)
   const [details, setDetails] = useState(maintenance?.details || '')
 
@@ -37,10 +57,29 @@ export default function Maintenance(props: {
     setDetails(content)
   }
 
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    if (maintenance) {
+      router.put(`/maintenances/${maintenance.id}`, data)
+    } else {
+      router.post('/maintenances', data)
+    }
+  }
+
+  const onCancel = () => {
+    if (maintenance) {
+      router.visit('/maintenances/' + maintenance.id)
+    } else {
+      router.visit('/maintenances')
+    }
+  }
+
   return (
-    <Main {...props}
+    <Main
+      create={false}
+      title={maintenance ? i18n.t('maintenanceEdit') : i18n.t('maintenanceCreation')}
+      {...props}
     >
-      <Modal
+      {/* <Modal
         title={i18n.t('createVehicle')}
         maskClosable={false}
         footer={null}
@@ -68,112 +107,21 @@ export default function Maintenance(props: {
             <Input />
           </Form.Item>
         </FormLayout>
-      </Modal>
-
-      <FormLayout
-        name="maintenance"
-        onFinish={(data) => {
-          data.details = details
-          router.post(
-            maintenance ? `/maintenances/${maintenance.id}/update` : '/maintenances/create',
-            data
-          )
-        }}
-        onCancel={() => {
-          router.visit('/maintenances')
-        }}
-        initialValues={{
-          vehicleId: maintenance ? maintenance.vehicleId : '',
-          name: maintenance ? maintenance.name : '',
-          details: maintenance ? maintenance.details : '',
-          date: maintenance
-            ? dayjs(maintenance.date).valueOf()
-            : dayjs(new Date().toISOString()).valueOf(),
-        }}
-      >
-        <Row gutter={18}>
-          <Col span={12}>
-            <Form.Item<Maintenance>
-              {...formItemLayout}
-              style={{ width: '100%' }}
-              label={i18n.t('vehicle')}
-            >
-              <Flex>
-                <Space.Compact style={{ flex: 'auto' }}>
-                  <Form.Item<Maintenance>
-                    name="vehicleId"
-                    noStyle
-                    rules={[{ required: true, message: i18n.t('validation:vehicleRequired') }]}
-                  >
-                    <Select
-                      allowClear
-                      options={userVehicles.map((vehicle) => ({
-                        label: vehicle.name,
-                        value: vehicle.id,
-                      }))}
-                    />
-                  </Form.Item>
-                  {/* <Form.Item noStyle>
-                    <Tooltip title={i18n.t('editVehicle')}>
-                      <Button
-                        type="primary"
-                        icon={<EditOutlined />}
-                        onClick={() => {
-                          // Open modal for create vehicle
-                          setModalCreateVehicleOpen(true)
-                        }}
-                      ></Button>
-                    </Tooltip>
-                  </Form.Item> */}
-                  <Form.Item noStyle>
-                    <Tooltip title={i18n.t('createVehicle')}>
-                      <Button
-                        type="primary"
-                        icon={<PlusOutlined />}
-                        onClick={() => {
-                          // Open modal for create vehicle
-                          setModalCreateVehicleOpen(true)
-                        }}
-                      ></Button>
-                    </Tooltip>
-                  </Form.Item>
-                </Space.Compact>
-              </Flex>
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item<Maintenance> {...formItemLayout} name="name" label={i18n.t('name')}>
-              <Input />
-            </Form.Item>
-          </Col>
-
-          <Col span={12}>
-            <Form.Item<Maintenance>
-              {...formItemLayout}
-              name="date"
-              label={i18n.t('date')}
-              getValueProps={(value) => ({ value: value && dayjs(Number(value)) })}
-            >
-              <DatePicker format={fr.DatePicker?.lang.dateFormat} locale={fr.DatePicker} />
-            </Form.Item>
-          </Col>
-
-          <Col span={24}>
-            <Form.Item<Maintenance>
-              labelCol={{
-                span: 2,
-              }}
-              wrapperCol={{
-                span: 20,
-              }}
-              name="details"
-              label={i18n.t('details')}
-            >
-              <Editor content={details} onUpdate={onChangeContent} />
-            </Form.Item>
-          </Col>
-        </Row>
-      </FormLayout>
+      </Modal> */}
+      <Form {...form}>
+        <form
+          name="maintenance"
+          onSubmit={form.handleSubmit((data) => {
+            if (maintenance) {
+              router.put(`/maintenances/${maintenance.id}`, data)
+            } else {
+              router.post('/maintenances', data)
+            }
+          })}
+        >
+          <div className="grid"></div>
+        </form>
+      </Form>
     </Main>
   )
 }
