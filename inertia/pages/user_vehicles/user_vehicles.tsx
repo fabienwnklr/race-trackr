@@ -1,5 +1,6 @@
 import Main from '#components/layout/main'
 import NoDataFound from '#components/no_data_found'
+import { Card, CardContent } from '#components/ui/card'
 import type { UserVehicle } from '#types/user_vehicle'
 import { router } from '@inertiajs/react'
 import { Delete, Edit, Eye, Plus } from 'lucide-react'
@@ -9,70 +10,27 @@ export default function UserVehicles(props: { user: any; userVehicles: UserVehic
   const { i18n } = useTranslation()
   const { userVehicles } = props
 
-  const deleteUserVehicle = (userVehicle: UserVehicle) => {
-    Modal.confirm({
-      ...modalConfigDelete(i18n, userVehicle.name),
-      onOk: () => {
-        router.delete('/user-vehicles/' + userVehicle.id)
-      },
-    })
-  }
+  // const deleteUserVehicle = (userVehicle: UserVehicle) => {
+  //   Modal.confirm({
+  //     ...modalConfigDelete(i18n, userVehicle.name),
+  //     onOk: () => {
+  //       router.delete('/user-vehicles/' + userVehicle.id)
+  //     },
+  //   })
+  // }
 
   return (
-    <Main {...props}>
-      <Typography.Title
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        {i18n.t('userVehicles')}
-        <Button
-          type="primary"
-          onClick={() => {
-            router.visit('/user-vehicles/create')
-          }}
-        >
-          {i18n.t('createVehicle')} <Plus />
-        </Button>
-      </Typography.Title>
-
+    <Main create title={i18n.t('userVehicles')} {...props}>
       {userVehicles.length ? (
-        <Row gutter={30}>
+        <div className="grid">
           {userVehicles.map((userVehicle, i) => (
-            <Col
-              span={6}
-              style={{
-                marginBottom: 20,
-              }}
-              key={i}
-            >
-              <Card
-                actions={[
-                  <Eye
-                    onClick={() => router.visit(`/user-vehicles/${userVehicle.id}`)}
-                    key="show"
-                  />,
-                  <Edit
-                    onClick={() => router.visit(`/user-vehicles/${userVehicle.id}/edit`)}
-                    key="edit"
-                  />,
-                  <Delete
-                    style={{ color: 'red' }}
-                    onClick={() => deleteUserVehicle(userVehicle)}
-                    key="delete"
-                  />,
-                ]}
-                style={{
-                  padding: 10,
-                }}
-              >
-                <Card.Meta title={userVehicle.name} />
-              </Card>
-            </Col>
+            <Card>
+              <CardContent>
+                {userVehicle.name}
+              </CardContent>
+            </Card>
           ))}
-        </Row>
+        </div>
       ) : (
         <NoDataFound />
       )}

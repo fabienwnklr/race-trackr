@@ -76,6 +76,7 @@
   "delete_confirm_trackday_chrono": "Etes-vous sûr de vouloir supprimer ce chronomètre?",
   "myAccount": "Mon compte",
   "appSettings": "Paramètres de l'application",
+  "settings": "Paramètres",
   "profile": "Profil",
   "profile_edit": "Modifier le profil",
   "password_edit": "Modifier le mot de passe",

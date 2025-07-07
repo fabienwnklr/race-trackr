@@ -102,7 +102,7 @@ export default function AdminTracks(
   })
 
   return (
-    <Main {...props}>
+    <Main create title={i18n.t('tracks')} {...props}>
       <Table>
         <TableHeader>
           <TableTitle>

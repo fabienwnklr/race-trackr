@@ -132,7 +132,7 @@ export default function Trackday(props: { user: User; trackday: Trackday }) {
   ]
 
   return (
-    <Main create={false} title={i18n.t('trackday')} {...props}>
+    <Main title={i18n.t('trackday')} {...props}>
       {/* Delete trackday alert dialog */}
       <AlertDialog open={deleteDialogOpen}>
         <AlertDialogContent>

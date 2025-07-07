@@ -101,7 +101,6 @@ export default function CreateTrackDay({
 
   return (
     <Main
-      create={false}
       title={trackday ? i18n.t('trackdayEdit') : i18n.t('trackdayCreation')}
       {...props}
     >

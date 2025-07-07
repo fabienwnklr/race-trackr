@@ -59,12 +59,12 @@ export function AppSidebar(
       icon: Car,
       active: currentRoute === '/user-vehicles',
     },
-    {
-      title: i18n.t('chronos'),
-      url: '/chronos',
-      icon: Clock,
-      active: currentRoute === '/chronos',
-    },
+    // {
+    //   title: i18n.t('chronos'),
+    //   url: '/chronos',
+    //   icon: Clock,
+    //   active: currentRoute === '/chronos',
+    // },
   ]
 
   const adminMenuItems = [

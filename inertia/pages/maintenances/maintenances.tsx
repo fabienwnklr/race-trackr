@@ -10,7 +10,7 @@ export default function Maintenances(props: { user: any; maintenances: Maintenan
   const { maintenances } = props
 
   return (
-    <Main title={i18n.t('maintenances')} {...props}>
+    <Main create title={i18n.t('maintenances')} {...props}>
       {maintenances.length ? (
         <div className="grid">
           {maintenances.map((maintenance, i) => (

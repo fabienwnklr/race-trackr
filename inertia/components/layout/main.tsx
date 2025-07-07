@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next'
 import { router } from '@inertiajs/react'
 
 export default function Main({
-  create,
+  create = false,
   ...props
 }: {
   children: React.ReactNode
@@ -84,7 +84,7 @@ export default function Main({
             )}
             {...props}
           >
-            {create ?? (
+            {create && (
               <div className="flex justify-end items-center mt-4 mb-4">
                 <Button
                   className=""

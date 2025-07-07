@@ -11,8 +11,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import type { User } from '#types/user'
+import { useTranslation } from 'react-i18next'
 
 export function ProfileDropdown({ user }: { user: User }) {
+  const { i18n } = useTranslation()
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger>
@@ -34,23 +36,16 @@ export function ProfileDropdown({ user }: { user: User }) {
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
             <Link href="/settings">
-              Profile
+              {i18n.t('profile')}
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Link href="/settings">
-              Billing
-              <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link href="/settings">
-              Settings
+              {i18n.t('settings')}
               <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -58,7 +53,7 @@ export function ProfileDropdown({ user }: { user: User }) {
             router.post('/auth/logout')
           }}
         >
-          Log out
+          {i18n.t('logout')}
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>

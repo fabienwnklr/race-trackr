@@ -75,7 +75,6 @@ export default function Maintenance({
 
   return (
     <Main
-      create={false}
       title={maintenance ? i18n.t('maintenanceEdit') : i18n.t('maintenanceCreation')}
       {...props}
     >

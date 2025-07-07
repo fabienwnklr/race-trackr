@@ -20,7 +20,7 @@ export default function Trackdays(props: { trackdays: Trackday[]; user: any }) {
   const { i18n } = useTranslation()
   const { trackdays } = props
   return (
-    <Main title={i18n.t('trackdays')} {...props}>
+    <Main create={true} title={i18n.t('trackdays')} {...props}>
       {trackdays.length ? (
         <>
           <div className="grid sm:grid-cols-3 grid-cols-2 gap-4">
