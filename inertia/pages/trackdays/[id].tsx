@@ -49,7 +49,7 @@ const formSchema = z.object({
   regulChrono: z.string(),
 })
 
-export default function CreateTrackDay({
+export default function TrackdayForm({
   trackday,
   tracks,
   ...props
@@ -59,7 +59,7 @@ export default function CreateTrackDay({
   tracks: Track[]
 }) {
   const [trackPopoverOpen, setTrackPopoverOpen] = React.useState(false)
-  const [trackValue, setTrackValue] = React.useState<string | null>(trackday?.track?.name || null)
+  const [trackValue, setTrackValue] = React.useState<number>(trackday?.track?.id || 0)
   const { i18n } = useTranslation()
   const [date, setDate] = React.useState<Date>()
   const form = useForm<z.infer<typeof formSchema>>({
@@ -92,6 +92,7 @@ export default function CreateTrackDay({
   }
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
+    data.trackId = trackValue
     if (trackday) {
       router.post(`/trackdays/${trackday.id}/update`, data)
     } else {
@@ -100,10 +101,7 @@ export default function CreateTrackDay({
   }
 
   return (
-    <Main
-      title={trackday ? i18n.t('trackdayEdit') : i18n.t('trackdayCreation')}
-      {...props}
-    >
+    <Main title={trackday ? i18n.t('trackdayEdit') : i18n.t('trackdayCreation')} {...props}>
       <Form {...form}>
         <form name="createTrackday" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid">
@@ -122,7 +120,7 @@ export default function CreateTrackDay({
                         className="w-[300px] justify-between"
                       >
                         {trackValue
-                          ? tracks.find((track) => track.name === trackValue)?.name
+                          ? tracks.find((track) => track.id === trackValue)?.name
                           : i18n.t('selectTrack')}
                         <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
@@ -139,8 +137,8 @@ export default function CreateTrackDay({
                                 value={track.name}
                                 onSelect={(currentValue) => {
                                   setTrackValue(
-                                    tracks.find((track) => track.name === currentValue)?.name ||
-                                      null
+                                    tracks.find((track) => track.id === Number(currentValue))?.id ||
+                                      0
                                   )
                                   setTrackPopoverOpen(false)
                                 }}
@@ -148,7 +146,7 @@ export default function CreateTrackDay({
                                 <CheckIcon
                                   className={cn(
                                     'mr-2 h-4 w-4',
-                                    trackValue === track.name ? 'opacity-100' : 'opacity-0'
+                                    trackValue === track.id ? 'opacity-100' : 'opacity-0'
                                   )}
                                 />
                                 {track.name}
@@ -203,7 +201,7 @@ export default function CreateTrackDay({
               render={({ field }) => (
                 <FormItem className="">
                   <FormLabel>{i18n.t('weather')}</FormLabel>
-                  <Select required defaultValue={field.value?.toString()}>
+                  <Select required onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder={i18n.t('weather')} />

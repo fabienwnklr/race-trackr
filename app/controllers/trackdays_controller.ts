@@ -142,8 +142,11 @@ export default class TrackDaysController {
     return response.json(paginationJSON)
   }
 
-  async update({ request, response, params, session, i18n }: HttpContext) {
+  async update({ request, response, params, session, i18n, auth }: HttpContext) {
     try {
+      if (!auth.user) {
+        return response.unauthorized({ message: 'User not authenticated' })
+      }
       const trackDayData = request.all() as TrackdayType
       const trackDay = await Trackday.findByOrFail('id', params.id)
 
@@ -152,6 +155,7 @@ export default class TrackDaysController {
       await createTrackdayValidator.validate({
         date: formatedDate,
         trackId: trackDayData.trackId,
+        userId: auth.user.id,
       })
 
       // they are required so always updated
@@ -165,6 +169,8 @@ export default class TrackDaysController {
       if (trackDayData.details) {
         trackDay.details = trackDayData.details
       }
+
+      trackDay.userId = auth.user.id
 
       await trackDay.save()
 
